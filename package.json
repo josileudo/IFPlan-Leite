@@ -19,6 +19,7 @@
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-gesture-handler": "^1.6.1",
+    "react-native-keyboard-aware-scroll-view": "^0.9.1",
     "react-native-masked-text": "^1.13.0",
     "react-native-modalize": "^2.0.4",
     "react-native-normalize": "^1.0.1",

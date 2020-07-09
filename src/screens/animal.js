@@ -1,9 +1,12 @@
 import React, {Component} from 'react'
-import {Alert, AsyncStorage} from 'react-native'
-import {Background,CardLogo, CardInfo, TextLogo, TextInfo, 
-TextAnu, CardInput, TextInput,ScrollView, CardCheck} from '../styles/styleInfor'
+import {View,Alert,AsyncStorage} from 'react-native'
+import {Background,CardLogo, KeyboardAvoidingView, CardInfo, TextLogo, TextInfo,
+TextAnu, CardInput, TextInput, ScrollView, CardCheck} from '../styles/styleInfor'
 import Icon from 'react-native-vector-icons/AntDesign'
-import LottieView from 'lottie-react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { TextInputMask } from 'react-native-masked-text'
+import styles from '../styles/stylesheet'
+import normalize from 'react-native-normalize'
 Icon.loadFont();
 
 export default class Animal extends Component{
@@ -90,215 +93,218 @@ export default class Animal extends Component{
 
   render(){
     const {dataAnimal} = this.state
-    const color = '#29BB9D'
+    const color = '#30D0AF'
     return (
+      <KeyboardAvoidingView
+      behavior={Platform.OS == "ios" ? "padding" : null}
+      keyboardVerticalOffset ={100} 
+      enabled={true}
+      > 
       <Background>
         <CardLogo>
-          <TextLogo>
-            Animal
-          </TextLogo>
           <TextInfo >
             Inserir informações
           </TextInfo>
         </CardLogo>
-        <ScrollView>
+        <ScrollView 
+          alwaysBounceVertical = {false}
+        >
         <CardInfo>
           <CardInput>
             <TextAnu>
               Peso corporal (kg)
             </TextAnu>
-            <TextInput keyboardType = 'numeric' 
-              placeholder = '0'
-              placeholderTextColor= '#29BB9D'
+            <TextInputMask 
+              type={'money'}
+              options={{
+                precision: 2,
+                separator: ',',
+                delimiter: '.',
+                unit: '',
+                suffixUnit: ''
+              }}
+              style= {styles.input}
+              placeholder = '0,00'
+              value = {this.state.pesoCorp}
+              placeholderTextColor= 'rgba(34, 159, 134, 0.32)'
               onChangeText = {(pesoCorporal) => {
                 this.changePesoCorp(pesoCorporal)}}
               returnKeyType = {'next'}
               onSubmitEditing = {() => {this.field1.focus()}}
               blurOnSubmit = {false}
-              style = {{
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 2,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-              elevation: 2
-            }}>
-              {dataAnimal.pesoCorp}
-            </TextInput>
+            >
+            </TextInputMask >
           </CardInput>
           <CardInput>
             <TextAnu>
               Produção de leite (L/vaca/dia)
             </TextAnu>
-            <TextInput keyboardType = 'numeric' 
-            placeholder = '0'
-            placeholderTextColor= '#29BB9D'
-            onChangeText = {(prodLeite) => {
-              this.changeProdLei(prodLeite)}}
-            ref = {(input) => {this.field1 = input}}
-            returnKeyType = {'next'}
-            onSubmitEditing = {() => {this.field2.focus()}}
-            blurOnSubmit = {false}
-            style = {{
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 2,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-            elevation: 2
-            }}>
-              {dataAnimal.prodLei}
-            </TextInput>
+            <TextInputMask  
+              type={'money'}
+              options={{
+                precision: 2,
+                separator: ',',
+                delimiter: '.',
+                unit: '',
+                suffixUnit: ''
+              }}
+              style= {styles.input}
+              placeholder = '0,00'
+              value = {this.state.prodLei}
+              placeholderTextColor= 'rgba(34, 159, 134, 0.32)'
+              onChangeText = {(prodLeite) => {
+                this.changeProdLei(prodLeite)}}
+              refInput = {(input) => {this.field1 = input}}
+              returnKeyType = {'next'}
+              onSubmitEditing = {() => {this.field2.focus()}}
+              blurOnSubmit = {false}
+            >
+            </TextInputMask >
           </CardInput>
           <CardInput>
             <TextAnu>
               Teor de gordura no leite (%)            </TextAnu>
-            <TextInput keyboardType = 'numeric' 
-            placeholder = '0'
-            placeholderTextColor= '#29BB9D'
-            onChangeText= {(teorGordura) => {
-              this.changeTeorGord(teorGordura)}}
-            ref = {(input) => {this.field2 = input}}
-            returnKeyType= {'next'}
-            onSubmitEditing= {() => {this.field3.focus()}}
-            blurOnSubmit= {false}
-            style= {{
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 2,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-              elevation: 2
-            }}>
-              {dataAnimal.teorGord }
-            </TextInput>
+            <TextInputMask  
+              type={'money'}
+              options={{
+                precision: 2,
+                separator: ',',
+                delimiter: '.',
+                unit: '',
+                suffixUnit: ''
+              }}
+              style= {styles.input}
+              placeholder = '0,00'
+              value = {this.state.teorGord}
+              placeholderTextColor= 'rgba(34, 159, 134, 0.32)'
+              onChangeText= {(teorGordura) => {
+                this.changeTeorGord(teorGordura)}}
+              refInput = {(input) => {this.field2 = input}}
+              returnKeyType= {'next'}
+              onSubmitEditing= {() => {this.field3.focus()}}
+              blurOnSubmit= {false}
+            >
+            </TextInputMask >
           </CardInput>
           <CardInput>
             <TextAnu>
               Teor de PB no leite (%)
             </TextAnu>
-            <TextInput keyboardType = 'numeric' 
-            placeholder = '0'
-            placeholderTextColor= '#29BB9D'
-            onChangeText = {(teorPB) => {
-              this.changeTeorPB(teorPB)}}
-            ref = {(input) => {this.field3 = input}}
-            returnKeyType = {'next'}
-            onSubmitEditing = {() => {this.field4.focus()}}
-            blurOnSubmit = {false}
-            style = {{
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 2,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-            elevation: 2
-            }}>
-              {dataAnimal.teorPB}
-            </TextInput>
+            <TextInputMask 
+              type={'money'}
+              options={{
+                precision: 2,
+                separator: ',',
+                delimiter: '.',
+                unit: '',
+                suffixUnit: ''
+              }}
+              style= {styles.input}
+              placeholder = '0,00'
+              value = {this.state.teorPB}
+              placeholderTextColor= 'rgba(34, 159, 134, 0.32)'
+              onChangeText = {(teorPB) => {
+                this.changeTeorPB(teorPB)}}
+              refInput = {(input) => {this.field3 = input}}
+              returnKeyType = {'next'}
+              onSubmitEditing = {() => {this.field4.focus()}}
+              blurOnSubmit = {false}
+            >
+            </TextInputMask >
           </CardInput>
           <CardInput>
             <TextAnu>
               Deslocamento horizontal (m)
             </TextAnu>
-            <TextInput keyboardType = 'numeric' 
-            placeholder = '0'
-            placeholderTextColor= '#29BB9D'
-            onChangeText = {(deslHorizontal) => {
-              this.changeDeslHor(deslHorizontal)}}
-            ref = {(input) => {this.field4 = input}}
-            returnKeyType = {'next'}
-            onSubmitEditing = {() => {this.field5.focus()}}
-            blurOnSubmit = {false}
-            style = {{
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 2,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-            elevation: 2
-            }}>
-              {dataAnimal.deslHor}
-            </TextInput>
+            <TextInputMask  
+              type={'money'}
+              options={{
+                precision: 2,
+                separator: ',',
+                delimiter: '.',
+                unit: '',
+                suffixUnit: ''
+              }}
+              style= {styles.input}
+              placeholder = '0,00'
+              value = {this.state.deslHor}
+              placeholderTextColor= 'rgba(34, 159, 134, 0.32)'
+              onChangeText = {(deslHorizontal) => {
+                this.changeDeslHor(deslHorizontal)}}
+              refInput = {(input) => {this.field4 = input}}
+              returnKeyType = {'next'}
+              onSubmitEditing = {() => {this.field5.focus()}}
+              blurOnSubmit = {false}
+            >
+            </TextInputMask >
           </CardInput>
           <CardInput>
             <TextAnu>
               Deslocamento vertical (m)
             </TextAnu>
-            <TextInput keyboardType = 'numeric' 
-            placeholder = '0'
-            placeholderTextColor= '#29BB9D'
-            onChangeText = {(deslVertical) => {
-              this.changeDeslVer(deslVertical)}}
-            ref = {(input) => {this.field5 = input}}
-            returnKeyType = {'next'}
-            onSubmitEditing = {() => {this.field6.focus()}}
-            blurOnSubmit = {false}
-            style = {{
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 2,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-            elevation: 2
-            }}> 
-              {dataAnimal.deslVer}
-            </TextInput>
+            <TextInputMask  
+              type={'money'}
+              options={{
+                precision: 2,
+                separator: ',',
+                delimiter: '.',
+                unit: '',
+                suffixUnit: ''
+              }}
+              style= {styles.input}
+              placeholder = '0,00'
+              value = {this.state.deslVer}
+              placeholderTextColor= 'rgba(34, 159, 134, 0.32)'
+              onChangeText = {(deslVertical) => {
+                this.changeDeslVer(deslVertical)}}
+              refInput = {(input) => {this.field5 = input}}
+              returnKeyType = {'next'}
+              onSubmitEditing = {() => {this.field6.focus()}}
+              blurOnSubmit = {false}
+            > 
+            </TextInputMask >
           </CardInput>
           <CardInput>
             <TextAnu>
               Vacas em lactação (%)
             </TextAnu>
-            <TextInput 
-            keyboardType = 'numeric' 
-            placeholder = '0'
-            placeholderTextColor= '#29BB9D'
-            onChangeText = {(vacaLacta) => {
-              this.changeVacLact(vacaLacta)}}
-            ref = {(input) => {this.field6 = input}}
-            style = {{
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 2,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-            elevation: 2
-            }}>
-              {dataAnimal.vacLact}
-            </TextInput>
+            <TextInputMask  
+              type={'money'}
+              options={{
+                precision: 2,
+                separator: ',',
+                delimiter: '.',
+                unit: '',
+                suffixUnit: ''
+              }}
+              style= {styles.input}
+              placeholder = '0,00'
+              value = {this.state.vacLact}
+              placeholderTextColor= 'rgba(34, 159, 134, 0.32)'
+              placeholderTextColor= '#29BB9D'
+              onChangeText = {(vacaLacta) => {
+                this.changeVacLact(vacaLacta)}}
+              refInput = {(input) => {this.field6 = input}}
+            >
+            </TextInputMask >
           </CardInput>
         </CardInfo>
+        <View style = {{height: 60}}/>
         </ScrollView>
-        <CardCheck onPress = {() => {
+        <CardCheck 
+          onPress = {() => {
             this.buttonCheck()
-          }}>
-          <Icon name="checkcircle" size={50} color='#29BB9D' 
-          style = {{
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 2,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-          elevation: 5
-          }}/>
+          }}
+        >
+        <Icon 
+          name="checkcircle"
+          size={normalize(50)}
+          color='#30D0AF'
+          style = {styles.icon}
+        />
         </CardCheck>
       </Background>
+      </KeyboardAvoidingView>
     )
   }
 }

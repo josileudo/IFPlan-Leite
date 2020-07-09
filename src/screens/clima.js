@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
-import {Alert, AsyncStorage, TouchableOpacity} from 'react-native'
+import {View, AsyncStorage, KeyboardAvoidingView, TouchableOpacity} from 'react-native'
 import {Background,CardLogo, CardInfo, TextLogo, TextInfo, 
-TextAnu, CardInput, TextInput,ScrollView, CardCheck, CardEsp} from '../styles/styleInfor'
-
+TextAnu, CardInput, TextInput ,ScrollView, CardCheck, CardEsp} from '../styles/styleInfor'
+import styles from '../styles/stylesheet'
+import normalize from 'react-native-normalize'
+import { TextInputMask } from 'react-native-masked-text'
 import Icon from 'react-native-vector-icons/AntDesign'
 Icon.loadFont();
 
@@ -94,207 +96,209 @@ export default class Clima extends Component{
   render(){
     const {dataClima} = this.state
     return (
-      <Background>
-        <CardLogo>
-          <TextLogo>
-            {name}
-          </TextLogo>
-          <TextInfo >
-            Inserir informações
-          </TextInfo>
-        </CardLogo>
-        <ScrollView>
-        <CardInfo>
-          <CardInput>
-            <TextAnu>
-              Precipitação (mm)
-            </TextAnu>
-            <TextInput keyboardType = 'numeric' 
-              placeholder= '0'
-              placeholderTextColor= '#29BB9D'
-              onChangeText = {(precipitacao) => {this.changePrec(precipitacao)} }
-              returnKeyType = {'next'}
-              onSubmitEditing = {() => {this.field1.focus()}}
-              blurOnSubmit = {false}
-              style = {{
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 2,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-              elevation: 2
-              }}>
-                {dataClima.prec}
-              </TextInput>
-          </CardInput>
-          <CardInput>
-            <TextAnu>
-              Temperatura máxima (ºC)
-            </TextAnu>
-            <TextInput keyboardType = 'numeric' 
-              placeholder= '0'
-              placeholderTextColor= '#29BB9D'
-              onChangeText = {(tempMaxima) => {this.changeTempMax(tempMaxima)}}
-              ref = {(input) => {this.field1= input}} 
-              returnKeyType = 'next'
-              onSubmitEditing = {() => {this.field2.focus()}}
-              blurOnSubmit = {false}
-              style = {{
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 2,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-              elevation: 2
-              }}>
-                {dataClima.tempMax}
-              </TextInput>
-          </CardInput>
-          <CardInput>
-            <TextAnu>
-              Temperatura mínima (ºC)
-            </TextAnu>
-            <TextInput keyboardType = 'numeric' 
-              placeholder= '0'
-              placeholderTextColor= '#29BB9D'
-              onChangeText = {(tempMinima) => {this.changeTempMin(tempMinima)}}
-              returnKeyType = 'next'
-              ref = {(input) => {this.field2 = input}}
-              onSubmitEditing = {() => {this.field3.focus()}}
-              blurOnSubmit= {false}
-              style = {{
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 2,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 2
-            }}>
-              {dataClima.tempMin}
-            </TextInput>
-          </CardInput>
-          <CardInput>
-            <TextAnu>
-              Umidade Relativa (%)
-            </TextAnu>
-            <TextInput keyboardType = 'numeric' 
-            placeholder='0'
-            placeholderTextColor= '#29BB9D'
-            onChangeText = {(umidRelativa) => {this.changeUmidRel(umidRelativa)}}
-            returnKeyType = 'next'
-            ref = {(input) => {this.field3 = input}}
-            onSubmitEditing = {() => {this.field4.focus()}}
-            blurOnSubmit= {false}
-            style = {{
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 2,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-            elevation: 2
-            }}>
-              {dataClima.umidRel}
-            </TextInput>
-          </CardInput>
-          <CardInput>
-            <TextAnu>
-              Velocidade do vento (m/s)
-            </TextAnu>
-            <TextInput keyboardType = 'numeric' 
-              placeholder= '0'
-              placeholderTextColor= '#29BB9D'
-              onChangeText = {(velVento) => {this.changeVelVen(velVento)}}
-              returnKeyType = 'next'
-              ref = {(input) => {this.field4 = input}}
-              onSubmitEditing = {() => {this.field5.focus()}}
-              blurOnSubmit= {false}
-              style = {{
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 2,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 2
-              }}>
-                {dataClima.velVen}
-            </TextInput>
-          </CardInput>
-          <CardInput>
-            <TextAnu>
-              Dose de N (dose)
-            </TextAnu>
-            <TextInput keyboardType = 'numeric' 
-            placeholder='0'
-            placeholderTextColor= '#29BB9D'
-            onChangeText = {(doseN) => {this.changeDoseN(doseN)}}
-            returnKeyType = 'next'
-            ref = {(input) => {this.field5 = input}}
-            onSubmitEditing = {() => {this.field6.focus()}}
-            blurOnSubmit= {false}
-            style = {{
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 2,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-            elevation: 2
-            }}>
-              {dataClima.doseN}
-            </TextInput>
-          </CardInput>
-          <CardInput>
-            <TextAnu>
-              Água de outros usos (L/mês)=
-            </TextAnu>
-            <TextInput keyboardType = 'numeric' 
-            placeholder='0'
-            placeholderTextColor= '#29BB9D'
-            onChangeText = {(agua) => {this.changeAguaUso(agua)}}
-            ref = {(input) => {this.field6 = input}}
-            style = {{
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 2,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-            elevation: 2
-            }}>
-              {dataClima.aguaUso}
-            </TextInput>
-          </CardInput>
-          <CardEsp/>
-        </CardInfo>
-      </ScrollView>
-      <CardCheck onPress = {() => {
-          this.buttonCheck()
-        }}>
-        <Icon name="checkcircle" size={50} color='#29BB9D' 
-        style = {{
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 2,
-            height: 2,
-          },
-          shadowOpacity: 0.25,
-          shadowRadius: 3.84,
-        elevation: 7
-        }}/>
-      </CardCheck>
-      </Background>
+      <KeyboardAvoidingView
+      behavior={Platform.OS == "ios" ? "padding" : null}
+      keyboardVerticalOffset ={100} 
+      enabled={true}
+      > 
+        <Background>
+          <CardLogo>
+            <TextInfo >
+              Inserir informações
+            </TextInfo>
+          </CardLogo>
+          <ScrollView
+            alwaysBounceVertical = {false}
+          >
+          <CardInfo>
+            <CardInput>
+              <TextAnu>
+                Precipitação (mm)
+              </TextAnu>
+              <TextInputMask  
+                type={'money'}
+                value = {this.state.prec}
+                options={{
+                  precision: 2,
+                  separator: ',',
+                  delimiter: '.',
+                  unit: '',
+                  suffixUnit: ''
+                }}
+                style= {styles.input}
+                placeholder = '0,00'
+                placeholderTextColor= 'rgba(34, 159, 134, 0.32)'
+                onChangeText = {(precipitacao) => {this.changePrec(precipitacao)} }
+                returnKeyType = {'next'}
+                onSubmitEditing = {() => {this.field1.focus()}}
+                blurOnSubmit = {false}
+              >
+              </TextInputMask >
+            </CardInput>
+            <CardInput>
+              <TextAnu>
+                Temperatura máxima (ºC)
+              </TextAnu>
+              <TextInputMask  
+                type={'money'}
+                options={{
+                  precision: 2,
+                  separator: ',',
+                  delimiter: '.',
+                  unit: '',
+                  suffixUnit: ''
+                }}
+                style= {styles.input}
+                value = {this.state.tempMax}
+                placeholder = '0,00'
+                placeholderTextColor= 'rgba(34, 159, 134, 0.32)'
+                onChangeText = {(tempMaxima) => {this.changeTempMax(tempMaxima)}}
+                refInput = {(input) => {this.field1= input}} 
+                returnKeyType = 'next'
+                onSubmitEditing = {() => {this.field2.focus()}}
+                blurOnSubmit = {false}
+              >
+              </TextInputMask >
+            </CardInput>
+            <CardInput>
+              <TextAnu>
+                Temperatura mínima (ºC)
+              </TextAnu>
+              <TextInputMask    
+                type={'money'}
+                options={{
+                  precision: 2,
+                  separator: ',',
+                  delimiter: '.',
+                  unit: '',
+                  suffixUnit: ''
+                }}
+                style= {styles.input}
+                placeholder = '0,00'
+                value = {this.state.tempMin}
+                placeholderTextColor= 'rgba(34, 159, 134, 0.32)'
+                onChangeText = {(tempMinima) => {this.changeTempMin(tempMinima)}}
+                returnKeyType = 'next'
+                refInput = {(input) => {this.field2 = input}}
+                onSubmitEditing = {() => {this.field3.focus()}}
+                blurOnSubmit= {false}
+              >
+              </TextInputMask >
+            </CardInput>
+            <CardInput>
+              <TextAnu>
+                Umidade Relativa (%)
+              </TextAnu>
+              <TextInputMask  
+                type={'money'}
+                options={{
+                  precision: 2,
+                  separator: ',',
+                  delimiter: '.',
+                  unit: '',
+                  suffixUnit: ''
+                }}
+                style= {styles.input}
+                placeholder = '0,00'
+                value = {this.state.umidRel}
+                placeholderTextColor= 'rgba(34, 159, 134, 0.32)'
+                onChangeText = {(umidRelativa) => {this.changeUmidRel(umidRelativa)}}
+                returnKeyType = 'next'
+                refInput = {(input) => {this.field3 = input}}
+                onSubmitEditing = {() => {this.field4.focus()}}
+                blurOnSubmit= {false}
+              >
+              </TextInputMask >
+            </CardInput>
+            <CardInput>
+              <TextAnu>
+                Velocidade do vento (m/s)
+              </TextAnu>
+              <TextInputMask  
+                type={'money'}
+                options={{
+                  precision: 2,
+                  separator: ',',
+                  delimiter: '.',
+                  unit: '',
+                  suffixUnit: ''
+                }}
+                style= {styles.input}
+                placeholder = '0,00'
+                value = {this.state.velVen}
+                placeholderTextColor= 'rgba(34, 159, 134, 0.32)'
+                onChangeText = {(velVento) => {this.changeVelVen(velVento)}}
+                returnKeyType = 'next'
+                refInput = {(input) => {this.field4 = input}}
+                onSubmitEditing = {() => {this.field5.focus()}}
+                blurOnSubmit= {false}
+              >
+              </TextInputMask >
+            </CardInput>
+            <CardInput>
+              <TextAnu>
+                Dose de N (dose)
+              </TextAnu>
+              <TextInputMask  
+                type={'money'}
+                options={{
+                  precision: 2,
+                  separator: ',',
+                  delimiter: '.',
+                  unit: '',
+                  suffixUnit: ''
+                }}
+                style= {styles.input}
+                placeholder = '0,00'
+                value = {this.state.doseN}
+                placeholderTextColor= 'rgba(34, 159, 134, 0.32)'
+                onChangeText = {(doseN) => {this.changeDoseN(doseN)}}
+                returnKeyType = 'next'
+                refInput = {(input) => {this.field5 = input}}
+                onSubmitEditing = {() => {this.field6.focus()}}
+                blurOnSubmit= {false}
+              >
+              </TextInputMask >
+            </CardInput>
+            <CardInput>
+              <TextAnu>
+                Água de outros usos (L/mês)=
+              </TextAnu>
+              <TextInputMask  
+                type={'money'}
+                options={{
+                  precision: 2,
+                  separator: ',',
+                  delimiter: '.',
+                  unit: '',
+                  suffixUnit: ''
+                }}
+                style= {styles.input}
+                placeholder = '0,00'
+                value={this.state.aguaUso}
+                placeholderTextColor= 'rgba(34, 159, 134, 0.32)'
+                onChangeText = {(agua) => {this.changeAguaUso(agua)}}
+                refInput = {(input) => {this.field6 = input}}
+                >
+                </TextInputMask >
+              </CardInput>
+            </CardInfo>
+            <View style = {{height: 60}}/>
+          </ScrollView>
+          <CardCheck 
+          onPress = {() => {
+            this.buttonCheck()
+          }}
+           >
+        <Icon 
+          name="checkcircle"
+          size={normalize(50)}
+          color='#30D0AF'
+          style = {styles.icon}
+        />
+          </CardCheck>
+        </Background>
+      </KeyboardAvoidingView>
     )
   }
 }

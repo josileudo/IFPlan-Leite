@@ -10,17 +10,19 @@ width:100%;
 align-items:center;
 `
 export const KeyboardAvoidingView= styled.KeyboardAvoidingView `
-display:flex;
+flex:1;
 height:100%;
 width:100%;
 align-items:center;
+position:absolute;
+background-color: #29BB9D;
 `
 
 //card que vai assegura o nome clima e a outra informação
 export const CardLogo = styled.View `
 width:100%;
 justify-content:center;
-height:${normalize(100)};
+height:${normalize(70)};
 `
 //Texto que ficará na logomarca
 export const TextLogo = styled.Text`
@@ -84,7 +86,7 @@ export const CardCheck = styled.TouchableOpacity.attrs({
 }) `
 bottom:${normalize(90)};
 right:${normalize(35)};
-position:absolute
+position:absolute;
 ` 
 
 export const CardEsp = styled.View`

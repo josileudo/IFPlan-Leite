@@ -69,9 +69,9 @@ export default class Area extends Component{
     const {dataArea} = this.state
     return (
     <KeyboardAvoidingView
-      behavior={Platform.OS == "ios" || 'android' ? "padding" : null}
-      number={50}
-      style={{flex:1}}>
+    behavior={Platform.OS == "ios" ? "padding" : null}
+    keyboardVerticalOffset ={100} 
+    enabled={true}>
       <Background>
         <CardLogo>
           <TextInfo >
@@ -95,13 +95,14 @@ export default class Area extends Component{
                     unit: '',
                     suffixUnit: ''
                   }}
+                  autofocus = {true}
                   style= {styles.input}
                   placeholder = '0,00'
                   value = {this.state.area}
+                  onSubmitEditing = {() => this.field1.focus()}
                   placeholderTextColor= 'rgba(34, 159, 134, 0.32)'
                   onChangeText = {(area) => {this.changeArea(area)}}
                   returnKeyType = {'next'}
-                  onSubmitEditing = {() => {this.field1.focus()}}
                   blurOnSubmit = {false}>
                 </TextInputMask>
               </CardInput>
@@ -123,7 +124,7 @@ export default class Area extends Component{
                   value = {this.state.numPiq}
                   placeholderTextColor= 'rgba(34, 159, 134, 0.32)'
                   onChangeText = {(numPiquetes) => {this.changeNumPiq(numPiquetes)}}
-                  ref = {(input) => {this.field1= input}}
+                  refInput = {(input) => {this.field1 = input}}
                 >
                 </TextInputMask>
               </CardInput>
@@ -133,7 +134,11 @@ export default class Area extends Component{
           onPress = {() => {
             this.buttonCheck()
           }}>
-          <Icon name="checkcircle" size={normalize(50)} color='#30D0AF'/>
+          <Icon
+            name="checkcircle"
+            size={normalize(50)}
+            color='#30D0AF'
+            style = {styles.icon}/>
         </CardCheck>
       </Background>
       </KeyboardAvoidingView>

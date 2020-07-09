@@ -79,9 +79,6 @@ export default class Economia extends Component{
       style={{flex:1}}>
       <Background>
         <CardLogo>
-          <TextLogo>
-            Economia
-          </TextLogo>
           <TextInfo >
             Inserir informações
           </TextInfo>
@@ -133,7 +130,7 @@ export default class Economia extends Component{
               placeholderTextColor= 'rgba(34, 159, 134, 0.32)'
               onChangeText = {(renFamiliar) => {
                 this.changeRenFam(renFamiliar)}}
-              ref = {(input) => {this.field1 = input}}
+              refInput = {(input) => {this.field1 = input}}
               returnKeyType = {'next'}
               onSubmitEditing = {() => {this.field2.focus()}}
               blurOnSubmit = {false}
@@ -159,7 +156,7 @@ export default class Economia extends Component{
               placeholderTextColor= 'rgba(34, 159, 134, 0.32)'
               onChangeText = {(taxaDep) => {
                 this.changeTaxDep(taxaDep)}}
-              ref = {(input) => {this.field2 = input}}
+              refInput = {(input) => {this.field2 = input}}
             >
             </TextInputMask>
           </CardInput>

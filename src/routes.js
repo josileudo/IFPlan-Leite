@@ -42,10 +42,13 @@ function Routes() {
           component={Menu}/>
         <Stack.Screen name="Clima" component={Clima}
           options = {{
-            headerTitle: "",
+            headerTitle: "Clima e Solo",
+            headerTitleStyle: {
+              fontSize: normalize(30),
+            },
+            headerBackTitleVisible:false,
             headerStyle: {
               backgroundColor: '#29BB9D',
-              height:30
             },
             headerTintColor: "#ffffff",
             headerTitleAlign: 'center',
@@ -67,10 +70,13 @@ function Routes() {
             }}/>
         <Stack.Screen name="Animal" component={Animal}
           options = {{
-            headerTitle: "",
+            headerTitle: "Animal",
+            headerTitleStyle: {
+              fontSize: normalize(30),
+            },
+            headerBackTitleVisible:false,
             headerStyle: {
               backgroundColor: '#29BB9D',
-              height:30
             },
             headerTintColor: "#ffffff",
             headerTitleAlign: 'center',
@@ -78,10 +84,13 @@ function Routes() {
             }}/>
         <Stack.Screen name="Economia" component={Economia} 
           options = {{
-            headerTitle: "",
+            headerTitle: 'Economia',
+            headerTitleStyle: {
+              fontSize: normalize(30),
+            },
+            headerBackTitleVisible:false,
             headerStyle: {
               backgroundColor: '#29BB9D',
-              height:30
             },
             headerTintColor: "#ffffff",
             headerTitleAlign: 'center',

@@ -27,24 +27,24 @@ export default class Menu extends Component{
                 <CardTextValues>
                   <CardTextVar>
                     <TextVar>
-                      Área
+                      Área (ha)
                     </TextVar>
                   </CardTextVar>
                   <CardValuesVar>
                     <ValuesVar>
-                      50
+                      10
                     </ValuesVar>
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
                   <CardTextVar>
                     <TextVar>
-                      Área
+                      Número de Piquetes (unid)
                     </TextVar>
                   </CardTextVar>
                   <CardValuesVar>
                     <ValuesVar>
-                      50
+                      1
                     </ValuesVar>
                   </CardValuesVar>
                 </CardTextValues>
@@ -66,7 +66,7 @@ export default class Menu extends Component{
                 <CardTextValues>
                   <CardTextVar>
                     <TextVar>
-                      Investimento
+                      Investimento por L (R$/L)
                     </TextVar>
                   </CardTextVar>
                   <CardValuesVar>
@@ -78,7 +78,7 @@ export default class Menu extends Component{
                 <CardTextValues>
                   <CardTextVar>
                     <TextVar>
-                      Área
+                      Renda familiar (R$/mês)
                     </TextVar>
                   </CardTextVar>
                   <CardValuesVar>
@@ -90,7 +90,7 @@ export default class Menu extends Component{
                 <CardTextValues>
                   <CardTextVar>
                     <TextVar>
-                      Área
+                      Taxa de depreciação (%a.a.)
                     </TextVar>
                   </CardTextVar>
                   <CardValuesVar>
@@ -117,7 +117,7 @@ export default class Menu extends Component{
                 <CardTextValues>
                   <CardTextVar>
                     <TextVar>
-                      Área
+                      Precipitação (mm)
                     </TextVar>
                   </CardTextVar>
                   <CardValuesVar>
@@ -129,7 +129,7 @@ export default class Menu extends Component{
                 <CardTextValues>
                   <CardTextVar>
                     <TextVar>
-                      Área
+                      Temperatura máxima (ºC)
                     </TextVar>
                   </CardTextVar>
                   <CardValuesVar>
@@ -141,7 +141,7 @@ export default class Menu extends Component{
                 <CardTextValues>
                   <CardTextVar>
                     <TextVar>
-                      Área
+                      Temperatura mínima (ºC)
                     </TextVar>
                   </CardTextVar>
                   <CardValuesVar>
@@ -153,7 +153,7 @@ export default class Menu extends Component{
                 <CardTextValues>
                   <CardTextVar>
                     <TextVar>
-                      Área
+                      Umidade Relativa (%)
                     </TextVar>
                   </CardTextVar>
                   <CardValuesVar>
@@ -165,7 +165,7 @@ export default class Menu extends Component{
                 <CardTextValues>
                   <CardTextVar>
                     <TextVar>
-                      Área
+                      Velocidade do Vento (m/s)
                     </TextVar>
                   </CardTextVar>
                   <CardValuesVar>
@@ -177,7 +177,7 @@ export default class Menu extends Component{
                 <CardTextValues>
                   <CardTextVar>
                     <TextVar>
-                      Área
+                      Dose de N (dose)
                     </TextVar>
                   </CardTextVar>
                   <CardValuesVar>
@@ -189,7 +189,7 @@ export default class Menu extends Component{
                 <CardTextValues>
                   <CardTextVar>
                     <TextVar>
-                      Área
+                      Água e outros usos (L/mês)
                     </TextVar>
                   </CardTextVar>
                   <CardValuesVar>
@@ -216,7 +216,7 @@ export default class Menu extends Component{
                 <CardTextValues>
                   <CardTextVar>
                     <TextVar>
-                      Área
+                      Peso corporal (Kg)
                     </TextVar>
                   </CardTextVar>
                   <CardValuesVar>
@@ -228,7 +228,7 @@ export default class Menu extends Component{
                 <CardTextValues>
                   <CardTextVar>
                     <TextVar>
-                      Área
+                      Produção de leite (L/vaca/dia)
                     </TextVar>
                   </CardTextVar>
                   <CardValuesVar>
@@ -240,7 +240,7 @@ export default class Menu extends Component{
                 <CardTextValues>
                   <CardTextVar>
                     <TextVar>
-                      Área
+                      Teor de gordura no leite (%)
                     </TextVar>
                   </CardTextVar>
                   <CardValuesVar>
@@ -252,7 +252,7 @@ export default class Menu extends Component{
                 <CardTextValues>
                   <CardTextVar>
                     <TextVar>
-                      Área
+                      Teor de PB no leite (%)
                     </TextVar>
                   </CardTextVar>
                   <CardValuesVar>
@@ -264,7 +264,7 @@ export default class Menu extends Component{
                 <CardTextValues>
                   <CardTextVar>
                     <TextVar>
-                      Área
+                      Deslocamento horizontal (m)
                     </TextVar>
                   </CardTextVar>
                   <CardValuesVar>
@@ -276,7 +276,7 @@ export default class Menu extends Component{
                 <CardTextValues>
                   <CardTextVar>
                     <TextVar>
-                      Área
+                      Deslocamento vertical (m)
                     </TextVar>
                   </CardTextVar>
                   <CardValuesVar>
@@ -288,7 +288,7 @@ export default class Menu extends Component{
                 <CardTextValues>
                   <CardTextVar>
                     <TextVar>
-                      Área
+                      Vacas em lactação (%)
                     </TextVar>
                   </CardTextVar>
                   <CardValuesVar>
@@ -300,7 +300,7 @@ export default class Menu extends Component{
               </CardValues>
               <CardBtnEditar>
                 <BtnEditar onPress = {() =>{
-                  navigate('Economia')}}>
+                  navigate('Animal')}}>
                   <TextBtnEditar>
                     Editar Campos
                   </TextBtnEditar>
