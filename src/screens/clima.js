@@ -1,7 +1,23 @@
 import React, {Component} from 'react'
-import {View, AsyncStorage, KeyboardAvoidingView, TouchableOpacity} from 'react-native'
-import {Background,CardLogo, CardInfo, TextLogo, TextInfo, 
-TextAnu, CardInput, TextInput ,ScrollView, CardCheck, CardEsp} from '../styles/styleInfor'
+import {StackActions} from '@react-navigation/native'
+import {
+  View,
+  AsyncStorage, 
+  KeyboardAvoidingView, 
+  ActivityIndicator,
+  TouchableOpacity} from 'react-native'
+import {
+  Background,
+  CardLogo, 
+  CardInfo, 
+  TextLogo, 
+  TextInfo, 
+  TextAnu, 
+  CardInput, 
+  TextInput, 
+  ScrollView, 
+  CardCheck, 
+  CardEsp} from '../styles/styleInfor'
 import styles from '../styles/stylesheet'
 import normalize from 'react-native-normalize'
 import { TextInputMask } from 'react-native-masked-text'
@@ -22,40 +38,37 @@ export default class Clima extends Component{
       velVen: '0',
       doseN: '0',
       aguaUso: '0',
-      dataClima: {},
-    },
-    this.refreshing={
       refreshing: false
     }
   }
 
   changePrec(prec){
-    this.setState({prec})
+    this.setState({...this.state, prec})
   }
   changeTempMax(tempMax){
-    this.setState({tempMax})
+    this.setState({...this.state, tempMax})
   }
   changeTempMin(tempMin){
-    this.setState({tempMin})
+    this.setState({...this.state, tempMin})
   }
   changeUmidRel(umidRel){
-    this.setState({umidRel})
+    this.setState({...this.state, umidRel})
   }
   changeVelVen(velVen){
-    this.setState({velVen})
+    this.setState({...this.state, velVen})
   }
   changeDoseN(doseN){
-    this.setState({doseN})
+    this.setState({...this.state, doseN})
   }
   changeAguaUso(aguaUso){
-    this.setState({aguaUso})
+    this.setState({...this.state, aguaUso})
   }
 
   async dados(){
     const Clima= await AsyncStorage.getItem('Clima')
     if (Clima){
-      let value= JSON.parse(Clima)
-      this.setState({dataClima: value})
+      const value= JSON.parse(Clima)
+      this.setState({value})
       this.setState({prec:value.prec})
       this.setState({tempMax:value.tempMax})
       this.setState({tempMin:value.tempMin})
@@ -63,11 +76,18 @@ export default class Clima extends Component{
       this.setState({velVen:value.velVen})
       this.setState({doseN:value.doseN})
       this.setState({aguaUso:value.aguaUso})
-      console.log ( 'dataClima', value )
     }
   }
   componentDidMount(){
     this.dados()
+  }
+
+  handleNavigateMenu(){
+    const {dispatch} = this.props.navigation
+
+    dispatch({
+      ...StackActions.replace('Menu')
+    })
   }
 
   _onRefresh = () => {
@@ -81,12 +101,19 @@ export default class Clima extends Component{
 
   if (this.state.prec && this.state.tempMax && this.state.tempMin 
     && this.state.umidRel && this.state.velVen && this.state.doseN 
-    && this.state.aguaUso != ""){
-    await AsyncStorage.setItem('Clima', JSON.stringify(this.state))
-    const res = await AsyncStorage.getItem('Clima')
-    console.log ('Clima:',res)
+    && this.state.aguaUso !== ""){
+    await AsyncStorage.setItem(
+      'Clima',
+       JSON.stringify({
+         prec: this.state.prec,
+         tempMax: this.state.tempMax,
+         tempMin: this.state.tempMin,
+         umidRel: this.state.umidRel,
+         velVen:  this.state.velVen,
+         doseN: this.state.doseN,
+         aguaUso: this.state.aguaUso
+        })).then(this.handleNavigateMenu())
     this._onRefresh()
-
     } else {
       alert("Preencha todos os campos")
       console.log("Preencher campos")      
@@ -97,10 +124,12 @@ export default class Clima extends Component{
     const {dataClima} = this.state
     return (
       <KeyboardAvoidingView
-      behavior={Platform.OS == "ios" ? "padding" : null}
-      keyboardVerticalOffset ={100} 
-      enabled={true}
-      > 
+        behavior={Platform.OS == "ios" ? "padding" : null}
+        keyboardVerticalOffset ={100} 
+        enabled={true}> 
+      {this.state.refreshing ? (
+        <ActivityIndicator color = '#ffff' size= {25}/>
+      ) : (
         <Background>
           <CardLogo>
             <TextInfo >
@@ -119,7 +148,7 @@ export default class Clima extends Component{
                 type={'money'}
                 value = {this.state.prec}
                 options={{
-                  precision: 2,
+                  precision: 3,
                   separator: ',',
                   delimiter: '.',
                   unit: '',
@@ -142,7 +171,7 @@ export default class Clima extends Component{
               <TextInputMask  
                 type={'money'}
                 options={{
-                  precision: 2,
+                  precision: 3,
                   separator: ',',
                   delimiter: '.',
                   unit: '',
@@ -167,7 +196,7 @@ export default class Clima extends Component{
               <TextInputMask    
                 type={'money'}
                 options={{
-                  precision: 2,
+                  precision: 3,
                   separator: ',',
                   delimiter: '.',
                   unit: '',
@@ -192,7 +221,7 @@ export default class Clima extends Component{
               <TextInputMask  
                 type={'money'}
                 options={{
-                  precision: 2,
+                  precision: 3,
                   separator: ',',
                   delimiter: '.',
                   unit: '',
@@ -217,7 +246,7 @@ export default class Clima extends Component{
               <TextInputMask  
                 type={'money'}
                 options={{
-                  precision: 2,
+                  precision: 3,
                   separator: ',',
                   delimiter: '.',
                   unit: '',
@@ -242,7 +271,7 @@ export default class Clima extends Component{
               <TextInputMask  
                 type={'money'}
                 options={{
-                  precision: 2,
+                  precision: 3,
                   separator: ',',
                   delimiter: '.',
                   unit: '',
@@ -267,7 +296,7 @@ export default class Clima extends Component{
               <TextInputMask  
                 type={'money'}
                 options={{
-                  precision: 2,
+                  precision: 3,
                   separator: ',',
                   delimiter: '.',
                   unit: '',
@@ -298,6 +327,7 @@ export default class Clima extends Component{
         />
           </CardCheck>
         </Background>
+        )}
       </KeyboardAvoidingView>
     )
   }

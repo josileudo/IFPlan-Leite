@@ -56,40 +56,24 @@ export default class Menu extends Component {
       this.setState({refreshing: false});
     }
 
-    const economiaData = await AsyncStorage.getItem('Economia');
-    if (economiaData) {
-      const value = JSON.parse(economiaData);
-      this.setState({
-        ...this.state,
-        dataEconomia: value,
-        refreshing: false
-      });
-    } else {
-      this.setState({refreshing: false})
+    const Economia = await AsyncStorage.getItem('Economia');
+    if (Economia) {
+      let value = JSON.parse(Economia);
+      this.setState({...this.state, dataEconomia: value});
+      console.log('Economia', value);
     }
 
-    const climaData = await AsyncStorage.getItem('Clima');
-    if (climaData) {
-      const value = JSON.parse(climaData);
-      this.setState({
-        ...this.state,
-        dataClima: value,
-        refreshing: false
-      });
-    } else{
-      this.setState({refreshing: false})
+    const Clima = await AsyncStorage.getItem('Clima');
+    if (Clima) {
+      let value = JSON.parse(Clima);
+      this.setState({...this.state, dataClima: value});
+      console.log('Clima', value);
     }
-
-    const animalData = await AsyncStorage.getItem('Animal');
-    if (animalData) {
-      const value = JSON.parse(animalData);
-      this.setState({
-        ...this.state,
-        dataAnimal: value,
-        refreshing: false
-      });
-    } else{
-      this.setState({refreshing: false})
+    const Animal = await AsyncStorage.getItem('Animal');
+    if (Animal) {
+      let value = JSON.parse(Animal);
+      this.setState({...this.state, dataAnimal: value});
+      console.log('Animal', value);
     }
   }
 
@@ -138,7 +122,7 @@ export default class Menu extends Component {
                       <TextVar>Número de Piquetes (unid)</TextVar>
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataArea.numPiq || '0'}</ValuesVar>
+                      <ValuesVar>{dataArea.numPiq}</ValuesVar>
                     </CardValuesVar>
                   </CardTextValues>
                 </CardValues>
@@ -159,7 +143,7 @@ export default class Menu extends Component {
                       <TextVar>Investimento por L (R$/L)</TextVar>
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataEconomia.invest || '0'}</ValuesVar>
+                      <ValuesVar>50</ValuesVar>
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
@@ -167,7 +151,7 @@ export default class Menu extends Component {
                       <TextVar>Renda familiar (R$/mês)</TextVar>
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataEconomia.renFam || '0'}</ValuesVar>
+                      <ValuesVar>50</ValuesVar>
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
@@ -175,7 +159,7 @@ export default class Menu extends Component {
                       <TextVar>Taxa de depreciação (%a.a.)</TextVar>
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataEconomia.taxDep || '0'}</ValuesVar>
+                      <ValuesVar>50</ValuesVar>
                     </CardValuesVar>
                   </CardTextValues>
                 </CardValues>
@@ -196,7 +180,7 @@ export default class Menu extends Component {
                       <TextVar>Precipitação (mm)</TextVar>
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataClima.prec || '0'}</ValuesVar>
+                      <ValuesVar>50</ValuesVar>
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
@@ -204,7 +188,7 @@ export default class Menu extends Component {
                       <TextVar>Temperatura máxima (ºC)</TextVar>
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataClima.tempMax || '0'}</ValuesVar>
+                      <ValuesVar>50</ValuesVar>
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
@@ -212,15 +196,15 @@ export default class Menu extends Component {
                       <TextVar>Temperatura mínima (ºC)</TextVar>
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataClima.tempMin || '0'}</ValuesVar>
+                      <ValuesVar>50</ValuesVar>
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
                     <CardTextVar>
-                      <TextVar>Umidade relativa (%)</TextVar>
+                      <TextVar>Umidade Relativa (%)</TextVar>
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataClima.umidRel || '0'}</ValuesVar>
+                      <ValuesVar>50</ValuesVar>
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
@@ -228,7 +212,7 @@ export default class Menu extends Component {
                       <TextVar>Velocidade do Vento (m/s)</TextVar>
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataClima.velVen || '0'}</ValuesVar>
+                      <ValuesVar>50</ValuesVar>
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
@@ -236,7 +220,7 @@ export default class Menu extends Component {
                       <TextVar>Dose de N (dose)</TextVar>
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataClima.doseN || '0'}</ValuesVar>
+                      <ValuesVar>50</ValuesVar>
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
@@ -244,7 +228,7 @@ export default class Menu extends Component {
                       <TextVar>Água e outros usos (L/mês)</TextVar>
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataClima.aguaUso || '0'}</ValuesVar>
+                      <ValuesVar>50</ValuesVar>
                     </CardValuesVar>
                   </CardTextValues>
                 </CardValues>
@@ -265,7 +249,7 @@ export default class Menu extends Component {
                       <TextVar>Peso corporal (Kg)</TextVar>
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataAnimal.pesoCorp || '0'}</ValuesVar>
+                      <ValuesVar>50</ValuesVar>
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
@@ -273,7 +257,7 @@ export default class Menu extends Component {
                       <TextVar>Produção de leite (L/vaca/dia)</TextVar>
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataAnimal.prodLei || '0'}</ValuesVar>
+                      <ValuesVar>50</ValuesVar>
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
@@ -281,7 +265,7 @@ export default class Menu extends Component {
                       <TextVar>Teor de gordura no leite (%)</TextVar>
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataAnimal.teorGord || '0'}</ValuesVar>
+                      <ValuesVar>50</ValuesVar>
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
@@ -289,7 +273,7 @@ export default class Menu extends Component {
                       <TextVar>Teor de PB no leite (%)</TextVar>
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataAnimal.teorPB || '0'}</ValuesVar>
+                      <ValuesVar>50</ValuesVar>
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
@@ -297,7 +281,7 @@ export default class Menu extends Component {
                       <TextVar>Deslocamento horizontal (m)</TextVar>
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataAnimal.deslHor || '0'}</ValuesVar>
+                      <ValuesVar>50</ValuesVar>
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
@@ -305,7 +289,7 @@ export default class Menu extends Component {
                       <TextVar>Deslocamento vertical (m)</TextVar>
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataAnimal.deslVer || '0'}</ValuesVar>
+                      <ValuesVar>50</ValuesVar>
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
@@ -313,7 +297,7 @@ export default class Menu extends Component {
                       <TextVar>Vacas em lactação (%)</TextVar>
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataAnimal.vacLact || '0'}</ValuesVar>
+                      <ValuesVar>50</ValuesVar>
                     </CardValuesVar>
                   </CardTextValues>
                 </CardValues>

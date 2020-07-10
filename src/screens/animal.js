@@ -1,7 +1,23 @@
 import React, {Component} from 'react'
-import {View,Alert,AsyncStorage} from 'react-native'
-import {Background,CardLogo, KeyboardAvoidingView, CardInfo, TextLogo, TextInfo,
-TextAnu, CardInput, TextInput, ScrollView, CardCheck} from '../styles/styleInfor'
+import {StackActions} from '@react-navigation/native';
+import {
+  View,
+  ActivityIndicator,
+  Alert,
+  AsyncStorage,
+  Stack} from 'react-native'
+import {
+  Background,
+  CardLogo,
+  KeyboardAvoidingView,
+  CardInfo, 
+  TextLogo, 
+  TextInfo,
+  TextAnu, 
+  CardInput, 
+  TextInput, 
+  ScrollView, 
+  CardCheck} from '../styles/styleInfor'
 import Icon from 'react-native-vector-icons/AntDesign'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { TextInputMask } from 'react-native-masked-text'
@@ -21,48 +37,44 @@ export default class Animal extends Component{
       deslVer: '0',
       vacLact: '0',
       teorGord: '0',
-      dataAnimal:{},
-    },
-    this.refreshing={
       refreshing: false
     }
   }
 
   changePesoCorp(pesoCorp){
-    this.setState({pesoCorp})
+    this.setState({...this.state, pesoCorp})
   }
   changeProdLei(prodLei){
-    this.setState({prodLei})
+    this.setState({...this.state, prodLei})
   }
   changeTeorGord(teorGord){
-    this.setState({teorGord})
+    this.setState({...this.state, teorGord})
   }
   changeTeorPB(teorPB){
-    this.setState({teorPB})
+    this.setState({...this.state, teorPB})
   }
   changeDeslHor(deslHor){
-    this.setState({deslHor})
+    this.setState({...this.state, deslHor})
   }
   changeDeslVer(deslVer){
-    this.setState({deslVer})
+    this.setState({...this.state, deslVer})
   }
   changeVacLact(vacLact){
-    this.setState({vacLact})
+    this.setState({...this.state, vacLact})
   }
 
   async dados(){
     const Animal= await AsyncStorage.getItem('Animal')
     if (Animal){
-      let value= JSON.parse(Animal)
-      this.setState({dataAnimal: value})
+      const value= JSON.parse(Animal)
+      this.setState({value})
       this.setState({teorPB:value.teorPB})
       this.setState({pesoCorp:value.pesoCorp})
       this.setState({prodLei:value.prodLei})
       this.setState({deslHor:value.deslHor})
-      this.setState({deslVer:value.deslVert})
+      this.setState({deslVer:value.deslVer})
       this.setState({vacLact:value.vacLact})
       this.setState({teorGord:value.teorGord})
-      console.log ( 'dataAnimal', value )
     }
   }
 
@@ -72,17 +84,35 @@ export default class Animal extends Component{
 
   _onRefresh = () => {
     this.setState({refreshing: true})
-      this.dados().then(() => {
+    this.dados().then(() => {
       this.setState({refreshing: false})
     })
   }
 
+  handleNavigateMenu(){
+    const {dispatch} = this.props.navigation
+    
+    dispatch({
+      ...StackActions.replace('Menu')
+    })
+  }
+
+
   async buttonCheck(){
     if (this.state.pesoCorp && this.state.prodLei && this.state.teorGord && 
       this.state.teorPB && this.state.deslHor && this.state.deslVer && 
-      this.state.vacLact != ""){
-      await AsyncStorage.setItem('Animal', JSON.stringify(this.state))
-      const res = await AsyncStorage.getItem('Animal')
+      this.state.vacLact !== ""){
+      await AsyncStorage.setItem(
+        'Animal', 
+        JSON.stringify({
+          teorPB: this.state.teorPB, 
+          pesoCorp: this.state.pesoCorp,
+          prodLei: this.state.prodLei,
+          deslHor: this.state.deslHor,
+          deslVer: this.state.deslVer,
+          vacLact: this.state.vacLact,
+          teorGord: this.state.teorGord
+        })).then(() => this.handleNavigateMenu())
       this._onRefresh()
 
     } else {
@@ -92,14 +122,15 @@ export default class Animal extends Component{
   }
 
   render(){
-    const {dataAnimal} = this.state
     const color = '#30D0AF'
     return (
       <KeyboardAvoidingView
       behavior={Platform.OS == "ios" ? "padding" : null}
       keyboardVerticalOffset ={100} 
-      enabled={true}
-      > 
+      enabled={true}>
+      {this.state.refreshing ? (
+        <ActivityIndicator color = '#ffff' size= {25}/>
+      ) : (
       <Background>
         <CardLogo>
           <TextInfo >
@@ -117,7 +148,7 @@ export default class Animal extends Component{
             <TextInputMask 
               type={'money'}
               options={{
-                precision: 2,
+                precision: 3,
                 separator: ',',
                 delimiter: '.',
                 unit: '',
@@ -142,7 +173,7 @@ export default class Animal extends Component{
             <TextInputMask  
               type={'money'}
               options={{
-                precision: 2,
+                precision: 3,
                 separator: ',',
                 delimiter: '.',
                 unit: '',
@@ -167,7 +198,7 @@ export default class Animal extends Component{
             <TextInputMask  
               type={'money'}
               options={{
-                precision: 2,
+                precision: 3,
                 separator: ',',
                 delimiter: '.',
                 unit: '',
@@ -193,7 +224,7 @@ export default class Animal extends Component{
             <TextInputMask 
               type={'money'}
               options={{
-                precision: 2,
+                precision: 3,
                 separator: ',',
                 delimiter: '.',
                 unit: '',
@@ -219,7 +250,7 @@ export default class Animal extends Component{
             <TextInputMask  
               type={'money'}
               options={{
-                precision: 2,
+                precision: 3,
                 separator: ',',
                 delimiter: '.',
                 unit: '',
@@ -243,17 +274,18 @@ export default class Animal extends Component{
               Deslocamento vertical (m)
             </TextAnu>
             <TextInputMask  
-              type={'money'}
-              options={{
-                precision: 2,
-                separator: ',',
-                delimiter: '.',
-                unit: '',
-                suffixUnit: ''
-              }}
-              style= {styles.input}
-              placeholder = '0,00'
-              value = {this.state.deslVer}
+               type={'money'}
+               options={{
+                 precision: 3,
+                 separator: ',',
+                 delimiter: '.',
+                 unit: '',
+                 suffixUnit: ''
+               }}
+               style= {styles.input}
+               placeholder = '0,00'
+               value = {this.state.deslVer}
+               placeholderTextColor= 'rgba(34, 159, 134, 0.32)'
               placeholderTextColor= 'rgba(34, 159, 134, 0.32)'
               onChangeText = {(deslVertical) => {
                 this.changeDeslVer(deslVertical)}}
@@ -271,7 +303,7 @@ export default class Animal extends Component{
             <TextInputMask  
               type={'money'}
               options={{
-                precision: 2,
+                precision: 3,
                 separator: ',',
                 delimiter: '.',
                 unit: '',
@@ -304,7 +336,8 @@ export default class Animal extends Component{
         />
         </CardCheck>
       </Background>
-      </KeyboardAvoidingView>
+    )}
+    </KeyboardAvoidingView>
     )
   }
 }

@@ -1,5 +1,9 @@
 import React, {Component} from 'react'
-import {Alert, AsyncStorage} from 'react-native'
+import {StackActions} from '@react-navigation/native';
+import {
+  Alert, 
+  AsyncStorage,
+  ActivityIndicator} from 'react-native'
 import {Background,CardLogo, CardInfo, KeyboardAvoidingView, TextLogo, TextInfo, 
 TextAnu, CardInput, TextInput,ScrollView, CardCheck} from '../styles/styleInfor'
 import Icon from 'react-native-vector-icons/AntDesign'
@@ -16,39 +20,42 @@ export default class Economia extends Component{
       invest: '0',
       renFam: '0',
       taxDep: '0',
-      dataEconomia:{},
-      spinner: false,
-    },
-    this.refreshing={
       refreshing: false
     }
   }
   
   changeInvest(invest){
-    this.setState({invest})
+    this.setState({...this.state, invest})
   }
   changeRenFam(renFam){
-    this.setState({renFam})
+    this.setState({...this.state, renFam})
   }
   changeTaxDep(taxDep){
-    this.setState({taxDep})
+    this.setState({...this.state, taxDep})
   }
 
 
   async dados(){
     const Economia= await AsyncStorage.getItem('Economia')
     if (Economia){
-      let value= JSON.parse(Economia)
-      this.setState({dataEconomia: value})
+      const value= JSON.parse(Economia)
+      this.setState({value})
       this.setState({invest:value.invest})
       this.setState({renFam:value.renFam})
       this.setState({taxDep:value.taxDep})
-      console.log ( 'dataEconomia', value )
     }
   }
 
   componentDidMount(){
     this.dados()
+  }
+
+  handleNavigateMenu(){
+    const {dispatch} = this.props.navigation
+
+    dispatch ({
+      ...StackActions.replace('Menu')
+    })
   }
 
   _onRefresh = () => {
@@ -60,10 +67,15 @@ export default class Economia extends Component{
 
   async buttonCheck(){
     if (this.state.invest && this.state.renFam && this.state.taxDep != ""){
-      await AsyncStorage.setItem('Economia', JSON.stringify(this.state))
-      const res = await AsyncStorage.getItem('Economia')
-      console.log (res)
+      await AsyncStorage.setItem(
+        'Economia', 
+        JSON.stringify({
+          invest: this.state.invest,
+          renFam: this.state.renFam,
+          taxDep: this.state.taxDep
+          })).then(this.handleNavigateMenu())
       this._onRefresh()
+
     } else {
       alert("Preencha todos os campos")
       console.log("Preencher campos")      
@@ -77,6 +89,9 @@ export default class Economia extends Component{
       behavior={Platform.OS == "ios" || 'android' ? "padding" : null}
       number={50}
       style={{flex:1}}>
+        {this.state.refreshing ? (
+          <ActivityIndicator color = '#FFFF' size = {25} />
+        ) : (
       <Background>
         <CardLogo>
           <TextInfo >
@@ -144,7 +159,7 @@ export default class Economia extends Component{
             <TextInputMask 
               type={'money'}
               options={{
-                precision: 2,
+                precision: 3,
                 separator: ',',
                 delimiter: '.',
                 unit: '',
@@ -173,8 +188,8 @@ export default class Economia extends Component{
             style = {styles.icon}/>
         </CardCheck>
       </Background>
+    )}
     </KeyboardAvoidingView>
-
     )
   }
 }
