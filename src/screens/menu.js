@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, AsyncStorage, BackHandler } from 'react-native';
 import {Background,TextTouchable, AreaValues, EconomiaValues,
   ClimaValues, AnimalValues, BtnSimular, ValueTitle, CardValues,
   CardTextValues,ScrollView, BtnEditar, TextBtnEditar, CardTextVar, TextVar, ValuesVar,
@@ -8,10 +8,72 @@ import {Background,TextTouchable, AreaValues, EconomiaValues,
 export default class Menu extends Component{
   constructor(props){
     super(props)
+    this.state = {
+      dataClima: {},
+      dataArea: {},
+      dataAnimal: {},
+      dataEconomia: {}
+    }
+    this.refresh = {
+      refreshing: true
+    }
+  }
+
+  async parametros(){
+    const Area= await AsyncStorage.getItem('Agua')
+    if (Area){
+      let value= JSON.parse(Area)
+      this.setState({dataArea: value})
+      console.log ( 'Area', value )
+    }
+
+    const Economia = await AsyncStorage.getItem('Economia')
+    if(Economia){
+      let value = JSON.parse(Economia)
+      this.setState({dataEconomia:value})
+      console.log( 'Economia', value )
+    }
+    
+    const Clima = await AsyncStorage.getItem('Clima')
+    if(Clima){
+      let value = JSON.parse(Clima)
+      this.setState({dataClima: value})
+      console.log( 'Clima', value )
+    }
+    const Animal = await AsyncStorage.getItem('Animal')
+    if(Animal){
+      let value =JSON.parse(Animal)
+      this.setState({dataAnimal: value})
+      console.log('Animal', value)
+    }
+  }
+
+  _onRefresh = () => {
+    this.setState({refreshing: true})
+    this.parametros().then(() => {
+      this.setState({refreshing: false})
+    })
+  }
+
+  componentDidMount() {
+    this.parametros()
+    this._onRefresh()
+  }
+
+  componentWillMount(){
+    BackHandler.addEventListener('Hardware back full', function (){
+      return true
+    })
   }
 
   render(){
     const {navigate} = this.props.navigation
+    const {dataArea} = this.state
+    const {dataEconomia} = this.state
+    const {dataClima} = this.state
+    const {dataAnimal} = this.state
+    const btnEditar = 'Editar Dados'
+
     return (
       <Background>
         <BackgroundValues >
@@ -32,7 +94,7 @@ export default class Menu extends Component{
                   </CardTextVar>
                   <CardValuesVar>
                     <ValuesVar>
-                      10
+                      {dataArea.area || '0'}
                     </ValuesVar>
                   </CardValuesVar>
                 </CardTextValues>
@@ -309,7 +371,11 @@ export default class Menu extends Component{
             </AnimalValues>
           </ScrollView>
         </BackgroundValues>
-        <BtnSimular style = {styles.btnSimular}>
+        <BtnSimular 
+          style = {styles.btnSimular}
+          onPress= {() =>
+            navigate('Modelo')}
+          >
           <TextTouchable>
             Simular
           </TextTouchable>

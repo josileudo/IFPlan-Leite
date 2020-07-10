@@ -98,10 +98,13 @@ function Routes() {
             }}/>
         <Stack.Screen name="Modelo" component={Modelo}
           options = {{
-            headerTitle: "Para-y-paba",
+            headerTitle: 'Economia',
+            headerTitleStyle: {
+              fontSize: normalize(30),
+            },
+            headerBackTitleVisible:false,
             headerStyle: {
               backgroundColor: '#29BB9D',
-              height:30
             },
             headerTintColor: "#ffffff",
             headerTitleAlign: 'center',

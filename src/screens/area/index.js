@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Animated, StyleSheet, Platform, Easing, RefreshControl,KeyboardAvoidingView,AsyncStorage} from 'react-native'
+import {StyleSheet, Platform, RefreshControl,KeyboardAvoidingView, AsyncStorage} from 'react-native'
 import {Background,CardLogo, CardInfo, TextLogo, TextInfo,
 TextAnu,CardInput, TextInput,ScrollView, CardCheck} from '../../styles/styleInfor'
 import Icon from 'react-native-vector-icons/AntDesign'
@@ -15,9 +15,10 @@ export default class Area extends Component{
     this.state = {
       area: '0',
       numPiq: '0',
-      dataArea:{},
-      spinner: false,
     },
+    // this.stateData = {
+    //   dataArea:{},
+    // },
     this.refreshing={
       refreshing: false
     }
@@ -37,7 +38,6 @@ export default class Area extends Component{
       this.setState({dataArea: value})
       this.setState({area:value.area})
       this.setState({numPiq:value.numPiq})
-      console.log ( 'dataArea', value )
     }
   }
 
@@ -57,7 +57,9 @@ export default class Area extends Component{
       await AsyncStorage.setItem('Agua', JSON.stringify(this.state))
       const res = await AsyncStorage.getItem('Agua')
       const {navigate} = this.props.navigation
+      console.log('Res: ', res)
       navigate('Menu')
+      this._onRefresh()
     } else {
       alert("Preencha todos os campos")
       console.log("Preencher campos")      
