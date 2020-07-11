@@ -115,10 +115,11 @@ export default class Menu extends Component {
   }
 
   currencyFormat(values) {
-    let fixed = values.toFixed(3)
-    let conString = String (fixed)
-    const result = conString.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-    return result
+    var valorFormatado = values.toLocaleString()
+    var removeVirgula = valorFormatado.replace(',', ' ')
+    var adicionaVirgula = removeVirgula.replace('.', ',')
+    var adicionaPonto = adicionaVirgula.replace(' ', '.')
+    return adicionaPonto
   }
 
   render() {
@@ -215,12 +216,12 @@ export default class Menu extends Component {
 
     // DPL
     const DPL = -1.075 - (1.736 * producaoLeite) + (0.02474 * producaoLeite * ITU)
-    var dpl = Number(DPL.toFixed(3))
+    var dpl = this.currencyFormat(DPL)
 
     //produção de forragem
     const prodForragem = (1.36722 + (-0.284546 * tenAguaSolo) 
      + (-2.13514 * (Math.pow(tenAguaSolo, 2))))*doseN
-    var prodForr = Number(prodForragem.toFixed(3))
+    var prodForr = this.currencyFormat(prodForragem)
 
     //forragem Disponivel
     const forrDispnivel = ((prodForragem * 10000) * (area/numeroPiquetes)) * 0.2
@@ -230,27 +231,27 @@ export default class Menu extends Component {
     
     // Capacida de suporte
     const capaSuporte= (forrDispnivel * 0.95) / (consTotal - suplementacao)
-    var capaSup = Number(capaSuporte.toFixed(3))
+    var capaSup = this.currencyFormat(capaSuporte)
 
     // DPL anual
     const DPLAnual = (DPL * capaSuporte) * 365
     
     //produção diária
     var prodDiaria= ((producaoLeite) * (capaSuporte * (vacasLactação/100)))
-    var prodDia = Number(prodDiaria.toFixed(3))
+    var prodDia = this.currencyFormat(prodDiaria)
 
     // COE
     var COE= 4.52816 + (-0.000142 * prodDiaria) + (0.00000000767199) * (Math.pow(prodDiaria, 2)) 
       + (-0.24042 * producaoLeite) + (0.004937 * (Math.pow(producaoLeite, 2))) 
-    var coe = Number(COE.toFixed(3))
+    var coe = this.currencyFormat(COE)
 
     //Produção de leite (L/ha/ano)
     var prodLeiteAno = (prodDiaria * 365) / area
-    var prodLeiAno = Number (prodLeiteAno.toFixed(3))
+    var prodLeiAno = this.currencyFormat(prodLeiteAno)
 
     //produção de leite (L/ha/dia)
     var prodLeiteDia = (prodLeiteAno/365)
-    var prodLeiDia = Number(prodLeiteDia.toFixed(3))
+    var prodLeiDia = this.currencyFormat(prodLeiteDia)
     
     //MDO familiar 
     const mdoFamiliar = rendaFamiliar / (prodDiaria * 30.4)
@@ -259,7 +260,7 @@ export default class Menu extends Component {
     //pegada hídrica
     const pegadaHidrica = (((aguaAplicada * 10000) * area)
     +(aguaUsos/30.4))/prodDiaria
-    var pegadaHid = Number(pegadaHidrica.toFixed(3))
+    var pegadaHid = this.currencyFormat(pegadaHidrica)
 
     //Receita total (R$/ano)
     const receitaTotalAno = receitaTotalMes * 12
@@ -269,7 +270,7 @@ export default class Menu extends Component {
     
     //COT
     var COT = COE + mdoFamiliar + depreciacao
-    var cot = Number(COT.toFixed(2) )
+    var cot = this.currencyFormat(COT)
 
     //ML por área
     const MLArea = MLAnual/area   
@@ -286,14 +287,14 @@ export default class Menu extends Component {
   
     //ML
     var ML = precoLeite - COT
-    var ml = Number(ML.toFixed(2))
+    var ml = this.currencyFormat(ML)
     console.log('preco do leite', precoLeite)
     //ML Anual
     const MLAnual = ML * prodDiaria * 365
 
     //Payback (Anos)
     var payback = investimentoTotal/MLAnual
-    var payb= Number(payback.toFixed(3))
+    var payb= this.currencyFormat(payback)
 
     // Perda de receita com estresse
     var perdaReceitaEstresse = DPLAnual * precoLeite
@@ -301,15 +302,15 @@ export default class Menu extends Component {
 
     // Taxa de lotação 
     const taxaLotacao = capaSuporte/area
-    var taxaLot = Number(taxaLotacao.toFixed(3))
+    var taxaLot = this.currencyFormat(taxaLotacao)
 
     // TRCI
     var TRCI = (ML * 365) / investimento * 100
-    var trci = Number(TRCI.toFixed(3))
+    var trci = this.currencyFormat(TRCI)
 
     //Receita por área
     var recArea = (receitaTotalMes * 12)/area
-    var receitaArea = Number(recArea.toFixed(2))
+    var receitaArea = this.currencyFormat(recArea)
 
     return (
       <Background>
