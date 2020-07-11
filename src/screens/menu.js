@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {StackActions} from '@react-navigation/native';
 import {
   Text,
   View,
@@ -6,6 +7,7 @@ import {
   AsyncStorage,
   BackHandler,
   ActivityIndicator,
+
 } from 'react-native';
 import {
   Background,
@@ -97,6 +99,13 @@ export default class Menu extends Component {
     this.parametros();
   }
 
+  handleNavigateModelo() {
+    const {dispatch} = this.props.navigation;
+    dispatch({
+      ...StackActions.replace('Modelo'),
+    });
+  }
+
   onRefresh = () => {
     this.setState({...this.state, refreshing: true});
     this.parametros().then(() => {
@@ -104,11 +113,16 @@ export default class Menu extends Component {
     });
   };
 
+  btnSimular(){
+    this.handleNavigateModelo()
+  }
+
   render() {
     const {navigate} = this.props.navigation;
     const {dataArea} = this.state;
     const {dataEconomia} = this.state;
     const {dataClima} = this.state;
+    console.log(dataArea)
     const {dataAnimal} = this.state;
     const btnEditar = 'Editar Dados';
 

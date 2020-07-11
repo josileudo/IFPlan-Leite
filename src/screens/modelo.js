@@ -1,93 +1,161 @@
 import React, {Component} from 'react';
-import {StyleSheet, View } from 'react-native';
-import {Background,  ClimaValues, AnimalValues, ValueTitle, CardValues,
-  CardTextValues,ScrollView, CardTextVar, TextVar, ValuesVar,
-  BackgroundValues, CardValuesVar} from '../styles/styleModelo'
+import {StackActions} from '@react-navigation/native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  AsyncStorage,
+  BackHandler,
+  ActivityIndicator,
 
-export default class Modelo extends Component{
-  constructor(props){
-    super(props)
+} from 'react-native';
+import {
+  Background,
+  TextTouchable,
+  AreaValues,
+  EconomiaValues,
+  ClimaValues,
+  AnimalValues,
+  BtnSimular,
+  ValueTitle,
+  CardValues,
+  CardTextValues,
+  ScrollView,
+  BtnEditar,
+  TextBtnEditar,
+  CardTextVar,
+  TextVar,
+  ValuesVar,
+  BackgroundValues,
+  CardValuesVar,
+  CardBtnEditar,
+} from '../styles/styleModelo';
+
+export default class Menu extends Component {
+  constructor(props) {
+    super(props);
     this.state = {
       dataClima: {},
       dataArea: {},
       dataAnimal: {},
-      dataEconomia: {}
-    }
-    this.refresh = {
-      refreshing: true
-    }
-  }
-  
-  async componentDidMount() {
-    const Area= await AsyncStorage.getItem('Agua')
-    if (Area){
-      let value= JSON.parse(Area)
-      this.setState({dataArea: value})
-      console.log ( 'Area', value )
-    }
-
-    const Economia = await AsyncStorage.getItem('Economia')
-    if(Economia){
-      let value = JSON.parse(Economia)
-      this.setState({dataEconomia:value})
-      console.log( 'Economia', value )
-    }
-    
-    const Clima = await AsyncStorage.getItem('Clima')
-    if(Clima){
-      let value = JSON.parse(Clima)
-      this.setState({dataClima: value})
-      console.log( 'Clima', value )
-    }
-
-    const Animal = await AsyncStorage.getItem('Animal')
-    if(Animal){
-      let value =JSON.parse(Animal)
-      this.setState({dataAnimal: value})
-      console.log('Animal', value)
-    }
+      dataEconomia: {},
+      refreshing: true,
+    };
   }
 
-  _onRefresh = () => {
-    this.setState({refreshing: true})
-    this.componentDidMount().then(() => {
+  async parametros() {
+    const areaData = await AsyncStorage.getItem('Agua');
+    this.setState({refreshing: true});
+
+    if (areaData) {
+      const value = JSON.parse(areaData);
+      this.setState({
+        ...this.state,
+        dataArea: value,
+        refreshing: false,
+      });
+    } else {
+      this.setState({refreshing: false});
+    }
+
+    const economiaData = await AsyncStorage.getItem('Economia');
+    if (economiaData) {
+      const value = JSON.parse(economiaData);
+      this.setState({
+        ...this.state,
+        dataEconomia: value,
+        refreshing: false
+      });
+    } else {
       this.setState({refreshing: false})
-    })
+    }
+
+    const climaData = await AsyncStorage.getItem('Clima');
+    if (climaData) {
+      const value = JSON.parse(climaData);
+      this.setState({
+        ...this.state,
+        dataClima: value,
+        refreshing: false
+      });
+    } else{
+      this.setState({refreshing: false})
+    }
+
+    const animalData = await AsyncStorage.getItem('Animal');
+    if (animalData) {
+      const value = JSON.parse(animalData);
+      this.setState({
+        ...this.state,
+        dataAnimal: value,
+        refreshing: false
+      });
+    } else{
+      this.setState({refreshing: false})
+    }
   }
 
-  render(){
-    const {dataClima} = this.state;
-    const {dataArea} = this.state;
-    const {dataAnimal} = this.state;
-    const {dataEconomia} = this.state;
+  async componentDidMount() {
+    this.parametros();
+  }
 
+  onRefresh = () => {
+    this.setState({...this.state, refreshing: true});
+    this.parametros().then(() => {
+      this.setState({refreshing: false});
+    });
+  };
+
+  convertValues(Values){
+    let convString = String(Values)
+    let convPont = (convString.replace('.',''))
+    let convVirg= convPont.replace(',', '.')
+    const resultado = Number(convVirg)
+    return resultado
+  }
+
+  currencyFormat(values) {
+    let fixed = values.toFixed(3)
+    let conString = String (fixed)
+    const result = conString.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    return result
+  }
+
+  render() {
+    const {navigate} = this.props.navigation;
+    const {dataArea} = this.state;
+    const {dataEconomia} = this.state;
+    const {dataClima} = this.state;
+    const {dataAnimal} = this.state;
+    const btnEditar = 'Editar Dados';
+    
     //VARIÁVEIS
     // Clima
-    const precipitacao= Number (dataClima.prec)
-    const temperaturaMaxima= Number (dataClima.tempMax)
-    const temperaturaMinima= Number (dataClima.tempMin)
-    const umidadeRelativa= Number (dataClima.umidRel)
-    const velocidadeVento= Number (dataClima.velVen)
-    const doseN= Number (dataClima.doseN)
-    const aguaUsos= Number (dataClima.aguaUso)
+    const precipitacao= this.convertValues(dataClima.prec)
+    const temperaturaMaxima= this.convertValues(dataClima.tempMax)
+    const temperaturaMinima= this.convertValues(dataClima.tempMin)
+    const umidadeRelativa= this.convertValues(dataClima.umidRel)
+    const velocidadeVento= this.convertValues(dataClima.velVen)
+    const doseN= this.convertValues(dataClima.doseN)
+    const aguaUsos= this.convertValues(dataClima.aguaUso)
 
     // Água
-    const area= Number (dataArea.area)
-    const numeroPiquetes= Number (dataArea.numPiq)
+    const area= this.convertValues(dataArea.area)
+    const numeroPiquetes= this.convertValues(dataArea.numPiq)
 
     // Animal
-    const pesoCorporal= Number (dataAnimal.pesoCorp)
-    const producaoLeite= Number (dataAnimal.prodLei)
-    const teorGordura= Number (dataAnimal.teorGord)
-    const teorPB= Number (dataAnimal.teorPB)
-    const desloHorizontal= Number (dataAnimal.deslHor)
-    const desloVertical= Number (dataAnimal.deslVer)
-    const vacasLactação= Number (dataAnimal.vacLact)
+    const pesoCorporal= this.convertValues(dataAnimal.pesoCorp)
+    const producaoLeite= this.convertValues(dataAnimal.prodLei)
+    const teorGordura= this.convertValues(dataAnimal.teorGord)
+    const teorPB= this.convertValues(dataAnimal.teorPB)
+    const desloHorizontal= this.convertValues(dataAnimal.deslHor)
+    const desloVertical= this.convertValues(dataAnimal.deslVer)
+    const vacasLactação= this.convertValues(dataAnimal.vacLact)
 
     // Economia
-    const investimento= Number (dataEconomia.invest)
-    const rendaFamiliar= Number (dataEconomia.renFam)
-    const taxaDepreciacao= Number (dataEconomia.taxDep)    
+    const investimento= this.convertValues(dataEconomia.invest)
+    const rendaFamiliar= this.convertValues(dataEconomia.renFam)
+    const taxaDepreciacao= this.convertValues(dataEconomia.taxDep)    
     
     //CÁLCULOS
     //ETo
@@ -133,7 +201,8 @@ export default class Modelo extends Component{
 
     // Tensão da água no solo
     const tenAguaSolo = 0.0368068 + (-1.06252 / aguaAplicada)
-    const tenAguaSol = Number (tenAguaSolo.toFixed(3))
+    const tenAguaSol = this.currencyFormat(tenAguaSolo)
+    console.log('Tensão na água e no solo: ', tenAguaSol)
 
     // Depreciação
     const depreciacao = (investimento * (taxaDepreciacao / 365))
@@ -142,7 +211,7 @@ export default class Modelo extends Component{
     const ITU = (0.8*(temperaturaMaxima + temperaturaMinima)/2 
      + (umidadeRelativa/100)*((temperaturaMaxima + temperaturaMinima)/2 - 14.4)
      + 46.4)
-     var itu= Number(ITU.toFixed(3))
+     var itu= this.currencyFormat(ITU)
 
     // DPL
     const DPL = -1.075 - (1.736 * producaoLeite) + (0.02474 * producaoLeite * ITU)
@@ -228,7 +297,7 @@ export default class Modelo extends Component{
 
     // Perda de receita com estresse
     var perdaReceitaEstresse = DPLAnual * precoLeite
-    var perdaRecEstresse= Number(perdaReceitaEstresse.toFixed(2))
+    var perdaRecEstresse= this.currencyFormat(perdaReceitaEstresse)
 
     // Taxa de lotação 
     const taxaLotacao = capaSuporte/area
@@ -241,7 +310,7 @@ export default class Modelo extends Component{
     //Receita por área
     var recArea = (receitaTotalMes * 12)/area
     var receitaArea = Number(recArea.toFixed(2))
-    console.log(prodDia)
+
     return (
       <Background>
         <BackgroundValues >
@@ -255,86 +324,58 @@ export default class Modelo extends Component{
               <CardValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>
-                      Tensão da água no solo (bar)
-                    </TextVar>
+                    <TextVar>Tensão da água no solo (bar)</TextVar>
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>
-                      50
-                    </ValuesVar>
+                    <ValuesVar>{tenAguaSol || '0'}</ValuesVar>
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>
-                      Produção de forragem (kg MV/m2)
-                    </TextVar>
+                    <TextVar>Produção de forragem (kg MV/m2)</TextVar>
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>
-                      50
-                    </ValuesVar>
+                    <ValuesVar>{prodForr || '0'}</ValuesVar>
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>
-                      Capacidade de suporte (animais)
-                    </TextVar>
+                    <TextVar>Capacidade de suporte (animais)</TextVar>
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>
-                      50
-                    </ValuesVar>
+                    <ValuesVar>{capaSup || '0'}</ValuesVar>
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>
-                      Taxa de lotação (vacas/ha)
-                    </TextVar>
+                    <TextVar>Taxa de lotação (vacas/ha)</TextVar>
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>
-                      50
-                    </ValuesVar>
+                    <ValuesVar>{taxaLot || '0'}</ValuesVar>
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>
-                      ITU
-                    </TextVar>
+                    <TextVar>ITU</TextVar>
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>
-                      50
-                    </ValuesVar>
+                    <ValuesVar>{itu || '0'}</ValuesVar>
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>
-                      DPL (L/vaca/dia)
-                    </TextVar>
+                    <TextVar>DPL (L/vaca/dia)</TextVar>
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>
-                      50
-                    </ValuesVar>
+                    <ValuesVar>{dpl || '0'}</ValuesVar>
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>
-                      Pegada hídrica (L H2O/L leite)
-                    </TextVar>
+                    <TextVar>Pegada hídrica (L H2O/L leite)</TextVar>
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>
-                      50
-                    </ValuesVar>
+                    <ValuesVar>{pegadaHid || '0'}</ValuesVar>
                   </CardValuesVar>
                 </CardTextValues>
               </CardValues>
@@ -352,7 +393,7 @@ export default class Modelo extends Component{
                   </CardTextVar>
                   <CardValuesVar>
                     <ValuesVar>
-                      50
+                      {prodDia || '0'}
                     </ValuesVar>
                   </CardValuesVar>
                 </CardTextValues>
@@ -364,7 +405,7 @@ export default class Modelo extends Component{
                   </CardTextVar>
                   <CardValuesVar>
                     <ValuesVar>
-                      50
+                      {prodLeiDia || '0'}
                     </ValuesVar>
                   </CardValuesVar>
                 </CardTextValues>
@@ -376,7 +417,7 @@ export default class Modelo extends Component{
                   </CardTextVar>
                   <CardValuesVar>
                     <ValuesVar>
-                      50
+                      {prodLeiAno || '0'}
                     </ValuesVar>
                   </CardValuesVar>
                 </CardTextValues>
@@ -388,7 +429,7 @@ export default class Modelo extends Component{
                   </CardTextVar>
                   <CardValuesVar>
                     <ValuesVar>
-                      50
+                      {perdaRecEstresse || '0'}
                     </ValuesVar>
                   </CardValuesVar>
                 </CardTextValues>
@@ -400,7 +441,7 @@ export default class Modelo extends Component{
                   </CardTextVar>
                   <CardValuesVar>
                     <ValuesVar>
-                      50
+                      {coe || '0'}
                     </ValuesVar>
                   </CardValuesVar>
                 </CardTextValues>
@@ -412,7 +453,7 @@ export default class Modelo extends Component{
                   </CardTextVar>
                   <CardValuesVar>
                     <ValuesVar>
-                      50
+                      {cot || '0'}
                     </ValuesVar>
                   </CardValuesVar>
                 </CardTextValues>
@@ -424,7 +465,7 @@ export default class Modelo extends Component{
                   </CardTextVar>
                   <CardValuesVar>
                     <ValuesVar>
-                      50
+                      {ml || '0'}
                     </ValuesVar>
                   </CardValuesVar>
                 </CardTextValues>
@@ -436,7 +477,7 @@ export default class Modelo extends Component{
                   </CardTextVar>
                   <CardValuesVar>
                     <ValuesVar>
-                      50
+                      {receitaArea || '0'}
                     </ValuesVar>
                   </CardValuesVar>
                 </CardTextValues>
@@ -448,7 +489,7 @@ export default class Modelo extends Component{
                   </CardTextVar>
                   <CardValuesVar>
                     <ValuesVar>
-                      50
+                      {trci || '0'}
                     </ValuesVar>
                   </CardValuesVar>
                 </CardTextValues>
@@ -460,7 +501,7 @@ export default class Modelo extends Component{
                   </CardTextVar>
                   <CardValuesVar>
                     <ValuesVar>
-                      50
+                      {payb || '0'}
                     </ValuesVar>
                   </CardValuesVar>
                 </CardTextValues>
