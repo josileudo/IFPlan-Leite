@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+import normalize from 'react-native-normalize'
 import {StackActions} from '@react-navigation/native';
+import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
 import {
   Text,
   View,
@@ -7,7 +9,6 @@ import {
   AsyncStorage,
   BackHandler,
   ActivityIndicator,
-
 } from 'react-native';
 import {
   Background,
@@ -64,10 +65,10 @@ export default class Menu extends Component {
       this.setState({
         ...this.state,
         dataEconomia: value,
-        refreshing: false
+        refreshing: false,
       });
     } else {
-      this.setState({refreshing: false})
+      this.setState({refreshing: false});
     }
 
     const climaData = await AsyncStorage.getItem('Clima');
@@ -76,10 +77,10 @@ export default class Menu extends Component {
       this.setState({
         ...this.state,
         dataClima: value,
-        refreshing: false
+        refreshing: false,
       });
-    } else{
-      this.setState({refreshing: false})
+    } else {
+      this.setState({refreshing: false});
     }
 
     const animalData = await AsyncStorage.getItem('Animal');
@@ -88,10 +89,10 @@ export default class Menu extends Component {
       this.setState({
         ...this.state,
         dataAnimal: value,
-        refreshing: false
+        refreshing: false,
       });
-    } else{
-      this.setState({refreshing: false})
+    } else {
+      this.setState({refreshing: false});
     }
   }
 
@@ -106,20 +107,21 @@ export default class Menu extends Component {
     });
   };
 
-  convertValues(Values){
-    let convString = String(Values)
-    let convPont = (convString.replace('.',''))
-    let convVirg= convPont.replace(',', '.')
-    const resultado = Number(convVirg)
-    return resultado
+  convertValues(Values) {
+    let convString = String(Values);
+    let convPont = convString.replace('.', '');
+    let convVirg = convPont.replace(',', '.');
+    const resultado = Number(convVirg);
+    return resultado;
   }
 
   currencyFormat(values) {
-    var valorFormatado = values.toLocaleString()
-    var removeVirgula = valorFormatado.replace(',', ' ')
-    var adicionaVirgula = removeVirgula.replace('.', ',')
-    var adicionaPonto = adicionaVirgula.replace(' ', '.')
-    return adicionaPonto
+    const v = ((values.replace(/\D/g, '') / 100).toFixed(3) + '').split('.')
+    const m = v[0].split('').reverse().join('').match(/.{1,3}/g);
+    for (let i = 0; i < m.length; i++)
+        m[i] = m[i].split('').reverse().join('') + '.'
+    const r = m.reverse().join('');
+    return r.substring(0, r.lastIndexOf('.')) + ',' + v[1]
   }
 
   render() {
@@ -129,402 +131,633 @@ export default class Menu extends Component {
     const {dataClima} = this.state;
     const {dataAnimal} = this.state;
     const btnEditar = 'Editar Dados';
-    
+
     //VARIÁVEIS
     // Clima
-    const precipitacao= this.convertValues(dataClima.prec)
-    const temperaturaMaxima= this.convertValues(dataClima.tempMax)
-    const temperaturaMinima= this.convertValues(dataClima.tempMin)
-    const umidadeRelativa= this.convertValues(dataClima.umidRel)
-    const velocidadeVento= this.convertValues(dataClima.velVen)
-    const doseN= this.convertValues(dataClima.doseN)
-    const aguaUsos= this.convertValues(dataClima.aguaUso)
+    const precipitacao = this.convertValues(dataClima.prec);
+    const temperaturaMaxima = this.convertValues(dataClima.tempMax);
+    const temperaturaMinima = this.convertValues(dataClima.tempMin);
+    const umidadeRelativa = this.convertValues(dataClima.umidRel);
+    const velocidadeVento = this.convertValues(dataClima.velVen);
+    const doseN = this.convertValues(dataClima.doseN);
+    const aguaUsos = this.convertValues(dataClima.aguaUso);
 
     // Água
-    const area= this.convertValues(dataArea.area)
-    const numeroPiquetes= this.convertValues(dataArea.numPiq)
+    const area = this.convertValues(dataArea.area);
+    const numeroPiquetes = this.convertValues(dataArea.numPiq);
 
     // Animal
-    const pesoCorporal= this.convertValues(dataAnimal.pesoCorp)
-    const producaoLeite= this.convertValues(dataAnimal.prodLei)
-    const teorGordura= this.convertValues(dataAnimal.teorGord)
-    const teorPB= this.convertValues(dataAnimal.teorPB)
-    const desloHorizontal= this.convertValues(dataAnimal.deslHor)
-    const desloVertical= this.convertValues(dataAnimal.deslVer)
-    const vacasLactação= this.convertValues(dataAnimal.vacLact)
+    const pesoCorporal = this.convertValues(dataAnimal.pesoCorp);
+    const producaoLeite = this.convertValues(dataAnimal.prodLei);
+    const teorGordura = this.convertValues(dataAnimal.teorGord);
+    const teorPB = this.convertValues(dataAnimal.teorPB);
+    const desloHorizontal = this.convertValues(dataAnimal.deslHor);
+    const desloVertical = this.convertValues(dataAnimal.deslVer);
+    const vacasLactação = this.convertValues(dataAnimal.vacLact);
 
     // Economia
-    const investimento= this.convertValues(dataEconomia.invest)
-    const rendaFamiliar= this.convertValues(dataEconomia.renFam)
-    const taxaDepreciacao= this.convertValues(dataEconomia.taxDep)    
-    
+    const investimento = this.convertValues(dataEconomia.invest);
+    const rendaFamiliar = this.convertValues(dataEconomia.renFam);
+    const taxaDepreciacao = this.convertValues(dataEconomia.taxDep);
+
     //CÁLCULOS
     //ETo
-    const ETo = ((((24.211 * temperaturaMaxima )- 635.46)/30.4)
-    + ((53.984 * velocidadeVento + 10.898)/30.4))/2
+    const ETo =
+      ((24.211 * temperaturaMaxima - 635.46) / 30.4 +
+        (53.984 * velocidadeVento + 10.898) / 30.4) /
+      2;
 
     //irrigação
-    const irrigacao= ETo - precipitacao
-    
+    const irrigacao = ETo - precipitacao;
+
     // Água aplicada
-    const aguaAplicada= precipitacao + ((irrigacao )*1.2) 
+    const aguaAplicada = precipitacao + irrigacao * 1.2;
 
     // COE Total
-    const COETotal = (COE * prodDiaria) * 365
+    const COETotal = COE * prodDiaria * 365;
 
     // Consumo (Kg MS/dia)
-    const consumo = -4.69 + (0.0142 * pesoCorporal) + (0.356 * producaoLeite) 
-     + (1.72 * teorGordura)
+    const consumo =
+      -4.69 +
+      0.0142 * pesoCorporal +
+      0.356 * producaoLeite +
+      1.72 * teorGordura;
 
     // Consumo de NDT
-    const consumoNDT = ((((48.6-(0.0183 * pesoCorporal)) + (0.435 * producaoLeite) 
-     + (0.728 * teorGordura) + (3.46 * teorPB)) * 1.04) / 100) * consumo
+    const consumoNDT =
+      (((48.6 -
+        0.0183 * pesoCorporal +
+        0.435 * producaoLeite +
+        0.728 * teorGordura +
+        3.46 * teorPB) *
+        1.04) /
+        100) *
+      consumo;
 
-     //NDT DV
-    const NDTdv = () =>{
-    if (desloVertical > 0){
-      let res = 0.03 * pesoCorporal * (desloVertical/1000)*0.43
-      return res
-    } else {
-      let res = 0
-      return res
-      } 
-    }
-    
+    //NDT DV
+    const NDTdv = () => {
+      if (desloVertical > 0) {
+        let res = 0.03 * pesoCorporal * (desloVertical / 1000) * 0.43;
+        return res;
+      } else {
+        let res = 0;
+        return res;
+      }
+    };
+
     //NDT DH=
-    const NDTdh = (0.00045 * pesoCorporal * (desloHorizontal /1000))*0.43
-    
-     //NDT deslocamento
-    const NDTdeslocamento = NDTdh + NDTdv()
+    const NDTdh = 0.00045 * pesoCorporal * (desloHorizontal / 1000) * 0.43;
+
+    //NDT deslocamento
+    const NDTdeslocamento = NDTdh + NDTdv();
 
     // Consumo total (Kg MS/dia)
-    const consTotal = consumo + ((NDTdeslocamento / consumoNDT) * consumo)
+    const consTotal = consumo + (NDTdeslocamento / consumoNDT) * consumo;
 
     // Tensão da água no solo
-    const tenAguaSolo = 0.0368068 + (-1.06252 / aguaAplicada)
-    const tenAguaSol = this.currencyFormat(tenAguaSolo)
-    console.log('Tensão na água e no solo: ', tenAguaSol)
+    const tenAguaSolo = 0.0368068 + -1.06252 / aguaAplicada;
+    const tenAguaSol = this.currencyFormat(tenAguaSolo.toFixed(3))
+    console.log('Tensão na água e no solo: ', tenAguaSol);
 
     // Depreciação
-    const depreciacao = (investimento * (taxaDepreciacao / 365))
+    const depreciacao = investimento * (taxaDepreciacao / 365);
 
     //ITU
-    const ITU = (0.8*(temperaturaMaxima + temperaturaMinima)/2 
-     + (umidadeRelativa/100)*((temperaturaMaxima + temperaturaMinima)/2 - 14.4)
-     + 46.4)
-     var itu= this.currencyFormat(ITU)
+    const ITU =
+      (0.8 * (temperaturaMaxima + temperaturaMinima)) / 2 +
+      (umidadeRelativa / 100) *
+        ((temperaturaMaxima + temperaturaMinima) / 2 - 14.4) +
+      46.4;
+    var itu = this.currencyFormat(ITU.toFixed(3));
 
     // DPL
-    const DPL = -1.075 - (1.736 * producaoLeite) + (0.02474 * producaoLeite * ITU)
-    var dpl = this.currencyFormat(DPL)
+    const DPL = -1.075 - 1.736 * producaoLeite + 0.02474 * producaoLeite * ITU;
+    var dpl = this.currencyFormat(DPL.toFixed(3));
 
     //produção de forragem
-    const prodForragem = (1.36722 + (-0.284546 * tenAguaSolo) 
-     + (-2.13514 * (Math.pow(tenAguaSolo, 2))))*doseN
-    var prodForr = this.currencyFormat(prodForragem)
+    const prodForragem =
+      (1.36722 +
+        -0.284546 * tenAguaSolo +
+        -2.13514 * Math.pow(tenAguaSolo, 2)) *
+      doseN;
+    var prodForr = this.currencyFormat(prodForragem.toFixed(3));
 
     //forragem Disponivel
-    const forrDispnivel = ((prodForragem * 10000) * (area/numeroPiquetes)) * 0.2
-    
+    const forrDispnivel = prodForragem * 10000 * (area / numeroPiquetes) * 0.2;
+
     //Suplementação (kg MS/dia)
-    const suplementacao = producaoLeite/2.5
-    
+    const suplementacao = producaoLeite / 2.5;
+
     // Capacida de suporte
-    const capaSuporte= (forrDispnivel * 0.95) / (consTotal - suplementacao)
-    var capaSup = this.currencyFormat(capaSuporte)
+    const capaSuporte = (forrDispnivel * 0.95) / (consTotal - suplementacao);
+    var capaSup = this.currencyFormat(capaSuporte.toFixed(3));
 
     // DPL anual
-    const DPLAnual = (DPL * capaSuporte) * 365
-    
+    const DPLAnual = DPL * capaSuporte * 365;
+
     //produção diária
-    var prodDiaria= ((producaoLeite) * (capaSuporte * (vacasLactação/100)))
-    var prodDia = this.currencyFormat(prodDiaria)
+    var prodDiaria = producaoLeite * (capaSuporte * (vacasLactação / 100));
+    var prodDia = this.currencyFormat(prodDiaria.toFixed(3));
 
     // COE
-    var COE= 4.52816 + (-0.000142 * prodDiaria) + (0.00000000767199) * (Math.pow(prodDiaria, 2)) 
-      + (-0.24042 * producaoLeite) + (0.004937 * (Math.pow(producaoLeite, 2))) 
-    var coe = this.currencyFormat(COE)
+    var COE =
+      4.52816 +
+      -0.000142 * prodDiaria +
+      0.00000000767199 * Math.pow(prodDiaria, 2) +
+      -0.24042 * producaoLeite +
+      0.004937 * Math.pow(producaoLeite, 2);
+    var coe = this.currencyFormat(COE.toFixed(3));
 
     //Produção de leite (L/ha/ano)
-    var prodLeiteAno = (prodDiaria * 365) / area
-    var prodLeiAno = this.currencyFormat(prodLeiteAno)
+    var prodLeiteAno = (prodDiaria * 365) / area;
+    var prodLeiAno = this.currencyFormat(prodLeiteAno.toFixed(3));
 
     //produção de leite (L/ha/dia)
-    var prodLeiteDia = (prodLeiteAno/365)
-    var prodLeiDia = this.currencyFormat(prodLeiteDia)
-    
-    //MDO familiar 
-    const mdoFamiliar = rendaFamiliar / (prodDiaria * 30.4)
+    var prodLeiteDia = prodLeiteAno / 365;
+    var prodLeiDia = this.currencyFormat(prodLeiteDia.toFixed(3));
 
-    
+    //MDO familiar
+    const mdoFamiliar = rendaFamiliar / (prodDiaria * 30.4);
+
     //pegada hídrica
-    const pegadaHidrica = (((aguaAplicada * 10000) * area)
-    +(aguaUsos/30.4))/prodDiaria
-    var pegadaHid = this.currencyFormat(pegadaHidrica)
+    const pegadaHidrica =
+      (aguaAplicada * 10000 * area + aguaUsos / 30.4) / prodDiaria;
+    var pegadaHid = this.currencyFormat(pegadaHidrica.toFixed(3));
 
     //Receita total (R$/ano)
-    const receitaTotalAno = receitaTotalMes * 12
-    
+    const receitaTotalAno = receitaTotalMes * 12;
+
     // Investimento total
-    const investimentoTotal = investimento * prodDiaria
-    
+    const investimentoTotal = investimento * prodDiaria;
+
     //COT
-    var COT = COE + mdoFamiliar + depreciacao
-    var cot = this.currencyFormat(COT)
+    var COT = COE + mdoFamiliar + depreciacao;
+    var cot = this.currencyFormat(COT.toFixed(3));
 
     //ML por área
-    const MLArea = MLAnual/area   
-   
+    const MLArea = MLAnual / area;
+
     // Participação da irrigação na água
-    const partIrrAgua = (irrigacao / aguaAplicada) * 100
-    
+    const partIrrAgua = (irrigacao / aguaAplicada) * 100;
+
     //preço do leite
-    const precoLeite = (0.631922 * (Math.pow(prodDiaria, 0.102383)) 
-    + (-0.0132 * (Math.pow(teorGordura,2)) + (0.1384 * teorGordura) - 0.3089))
+    const precoLeite =
+      0.631922 * Math.pow(prodDiaria, 0.102383) +
+      (-0.0132 * Math.pow(teorGordura, 2) + 0.1384 * teorGordura - 0.3089);
 
     //Receita total (R$/mês)
-    const receitaTotalMes = (prodDiaria * precoLeite) * 30.4
-  
+    const receitaTotalMes = prodDiaria * precoLeite * 30.4;
+
     //ML
-    var ML = precoLeite - COT
-    var ml = this.currencyFormat(ML)
-    console.log('preco do leite', precoLeite)
+    var ML = precoLeite - COT;
+    var ml = this.currencyFormat(ML.toFixed(3));
+    console.log('preco do leite', precoLeite);
     //ML Anual
-    const MLAnual = ML * prodDiaria * 365
+    const MLAnual = ML * prodDiaria * 365;
 
     //Payback (Anos)
-    var payback = investimentoTotal/MLAnual
-    var payb= this.currencyFormat(payback)
+    var payback = investimentoTotal / MLAnual;
+    var payb = this.currencyFormat(payback.toFixed(3));
 
     // Perda de receita com estresse
-    var perdaReceitaEstresse = DPLAnual * precoLeite
-    var perdaRecEstresse= this.currencyFormat(perdaReceitaEstresse)
+    var perdaReceitaEstresse = DPLAnual * precoLeite;
+    var perdaRecEstresse = this.currencyFormat(perdaReceitaEstresse.toFixed(3));
 
-    // Taxa de lotação 
-    const taxaLotacao = capaSuporte/area
-    var taxaLot = this.currencyFormat(taxaLotacao)
+    // Taxa de lotação
+    const taxaLotacao = capaSuporte / area;
+    var taxaLot = this.currencyFormat(taxaLotacao.toFixed(3));
 
     // TRCI
-    var TRCI = (ML * 365) / investimento * 100
-    var trci = this.currencyFormat(TRCI)
+    var TRCI = ((ML * 365) / investimento) * 100;
+    var trci = this.currencyFormat(TRCI.toFixed(3));
 
     //Receita por área
-    var recArea = (receitaTotalMes * 12)/area
-    var receitaArea = this.currencyFormat(recArea)
+    var recArea = (receitaTotalMes * 12) / area;
+    var receitaArea = this.currencyFormat(recArea.toFixed(3));
+
+    console.log(typeof tenAguaSol);
 
     return (
       <Background>
-        <BackgroundValues >
-          <ScrollView
-           alwaysBounceVertical = {false}
-          >
+        <BackgroundValues>
+          <ScrollView alwaysBounceVertical={false}>
             <ClimaValues>
-              <ValueTitle>
-                Solo-Água-Planta-Animal
-              </ValueTitle>
+              {this.state.refreshing ? (
+                <ShimmerPlaceHolder style={styles.txtTitle} autoRun={true} />
+              ) : (
+                <ValueTitle>Solo-Água-Planta-Animal</ValueTitle>
+              )}
               <CardValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>Tensão da água no solo (bar)</TextVar>
+                  {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                    <TextVar>Tensão da água no solo (bar)</TextVar>)}
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>{tenAguaSol || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <ValuesVar>{!Number.isNaN(tenAguaSol) ? tenAguaSol : '0'}</ValuesVar>
+                    )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>Produção de forragem (kg MV/m2)</TextVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <TextVar>Produção de forragem (kg MV/m2)</TextVar>
+                    )}
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>{prodForr || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <ValuesVar>{prodForr || '0'}</ValuesVar>
+                    )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>Capacidade de suporte (animais)</TextVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <TextVar>Capacidade de suporte (animais)</TextVar>
+                    )}
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>{capaSup || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <ValuesVar>{capaSup|| '0'}</ValuesVar>
+                    )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>Taxa de lotação (vacas/ha)</TextVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <TextVar>Taxa de lotação (vacas/ha)</TextVar>
+                    )}
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>{taxaLot || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <ValuesVar>{taxaLot || '0'}</ValuesVar>
+                    )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>ITU</TextVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <TextVar>ITU</TextVar>
+                    )}
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>{itu || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <ValuesVar>{itu || '0'}</ValuesVar>
+                    )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>DPL (L/vaca/dia)</TextVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <TextVar>DPL (L/vaca/dia)</TextVar>
+                    )}
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>{dpl || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <ValuesVar>{dpl || '0'}</ValuesVar>
+                    )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>Pegada hídrica (L H2O/L leite)</TextVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <TextVar>Pegada hídrica (L H2O/L leite)</TextVar>
+                    )}
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>{pegadaHid || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <ValuesVar>{pegadaHid || '0'}</ValuesVar>
+                    )}
                   </CardValuesVar>
                 </CardTextValues>
               </CardValues>
             </ClimaValues>
             <AnimalValues>
-              <ValueTitle>
-                Sistema-Custos-Resultado econômico
-              </ValueTitle>
+              {this.state.refreshing ? (
+                <ShimmerPlaceHolder style={styles.txtTitle} autoRun={true} />
+              ) : (
+                <ValueTitle>Sistema-Custos-Resultado econômico</ValueTitle>
+              )}
               <CardValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>
-                      Produção diária (L/dia)
-                    </TextVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <TextVar>Produção diária (L/dia)</TextVar>
+                    )}
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>
-                      {prodDia || '0'}
-                    </ValuesVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <ValuesVar>{prodDia || '0'}</ValuesVar>
+                    )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>
-                      Produção de leite (L/ha/dia)  
-                    </TextVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <TextVar>Produção de leite (L/ha/dia)</TextVar>
+                    )}
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>
-                      {prodLeiDia || '0'}
-                    </ValuesVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <ValuesVar>{prodLeiDia || '0'}</ValuesVar>
+                    )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>
-                      Produção de leite (L/ha/ano)  
-                    </TextVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <TextVar>Produção de leite (L/ha/ano) </TextVar>
+                    )}
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>
-                      {prodLeiAno || '0'}
-                    </ValuesVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <ValuesVar> {prodLeiAno || '0'}</ValuesVar>
+                    )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>
-                      Perda receita estresse (R$/ano)
-                    </TextVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <TextVar>Perda receita estresse (R$/ano)</TextVar>
+                    )}
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>
-                      {perdaRecEstresse || '0'}
-                    </ValuesVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <ValuesVar>{perdaRecEstresse || '0'}</ValuesVar>
+                    )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>
-                      COE (R$/L)
-                    </TextVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <TextVar>COE (R$/L)</TextVar>
+                    )}
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>
-                      {coe || '0'}
-                    </ValuesVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <ValuesVar>{coe || '0'}</ValuesVar>
+                    )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>
-                      COT (R$/L)
-                    </TextVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <TextVar>COT (R$/L)</TextVar>
+                    )}
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>
-                      {cot || '0'}
-                    </ValuesVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <ValuesVar>{cot || '0'}</ValuesVar>
+                    )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>
-                      ML (R$/L)
-                    </TextVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <TextVar>ML (R$/L)</TextVar>
+                    )}
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>
-                      {ml || '0'}
-                    </ValuesVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <ValuesVar>{ml || '0'}</ValuesVar>
+                    )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>
-                      Receita por área (R$/ha/ano)
-                    </TextVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <TextVar>Receita por área (R$/ha/ano)</TextVar>
+                    )}
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>
-                      {receitaArea || '0'}
-                    </ValuesVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <ValuesVar>{receitaArea || '0'}</ValuesVar>
+                    )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>
-                      TRCI (%a.a.)  
-                    </TextVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <TextVar>TRCI (%a.a.) </TextVar>
+                    )}
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>
-                      {trci || '0'}
-                    </ValuesVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <ValuesVar>{trci || '0'}</ValuesVar>
+                    )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
                   <CardTextVar>
-                    <TextVar>
-                      Payback (anos)
-                    </TextVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <TextVar>Payback (anos)</TextVar>
+                    )}
                   </CardTextVar>
                   <CardValuesVar>
-                    <ValuesVar>
-                      {payb || '0'}
-                    </ValuesVar>
+                    {this.state.refreshing ? (
+                      <ShimmerPlaceHolder
+                        style={styles.txtValues}
+                        autoRun={true}
+                      />
+                    ) : (
+                      <ValuesVar>{payb || '0'}</ValuesVar>
+                    )}
                   </CardValuesVar>
                 </CardTextValues>
-                <View style = {{height:30}}/>
+                <View style={{height: 30}} />
               </CardValues>
             </AnimalValues>
           </ScrollView>
         </BackgroundValues>
       </Background>
-    )
+    );
   }
 }
 
 const styles = StyleSheet.create({
-  btnSimular:{
-    shadowColor: "#000",
+  btnSimular: {
+    shadowColor: '#000',
     shadowOffset: {
-    width: 2,
-    height: 2,
+      width: 2,
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5
-  }
-})
+    elevation: 5,
+  },
+  txtTitle: {
+    borderRadius: normalize(8),
+    height: normalize(20),
+    top:normalize (10),
+  },
+  txtValues: {
+    borderRadius: normalize(8),
+    height: normalize(15),
+  },
+});

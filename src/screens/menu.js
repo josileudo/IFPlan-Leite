@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+import normalize from 'react-native-normalize'
 import {StackActions} from '@react-navigation/native';
+import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
 import {
   Text,
   View,
@@ -7,7 +9,6 @@ import {
   AsyncStorage,
   BackHandler,
   ActivityIndicator,
-
 } from 'react-native';
 import {
   Background,
@@ -40,6 +41,9 @@ export default class Menu extends Component {
       dataAnimal: {},
       dataEconomia: {},
       refreshing: true,
+      visible: false,
+      userImageVisible: false,
+      postImageVisible: false
     };
   }
 
@@ -116,43 +120,59 @@ export default class Menu extends Component {
   btnSimular(){
     this.handleNavigateModelo()
   }
-
+  
   render() {
     const {navigate} = this.props.navigation;
     const {dataArea} = this.state;
     const {dataEconomia} = this.state;
     const {dataClima} = this.state;
-    console.log(dataArea)
+    console.log(typeof dataArea.area)
     const {dataAnimal} = this.state;
     const btnEditar = 'Editar Dados';
 
+
     return (
       <Background>
-        {this.state.refreshing ? (
-          <ActivityIndicator color="#fff" size={25} />
-        ) : (
           <BackgroundValues>
             <ScrollView
               decelerationRate={1.2}
               nestedScrollEnabled={true}
               removeClippedSubviews={true}>
+
               <AreaValues style={{elevation: 5}}>
-                <ValueTitle>Área</ValueTitle>
+              {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtTitle} autoRun= {true} />
+        ) : (
+                <ValueTitle>Área</ValueTitle>)}
                 <CardValues>
+
+                    <CardTextValues>
+                      <CardTextVar>
+                      {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                        <TextVar>Área (ha)</TextVar>)}
+                      </CardTextVar>
+                      <CardValuesVar>
+                      {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                        <ValuesVar>{dataArea.area || '0'}</ValuesVar>)}
+                      </CardValuesVar>
+                    </CardTextValues>
                   <CardTextValues>
+                    
                     <CardTextVar>
-                      <TextVar>Área (ha)</TextVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <TextVar>Número de Piquetes (unid)</TextVar>)}
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataArea.area || '0'}</ValuesVar>
-                    </CardValuesVar>
-                  </CardTextValues>
-                  <CardTextValues>
-                    <CardTextVar>
-                      <TextVar>Número de Piquetes (unid)</TextVar>
-                    </CardTextVar>
-                    <CardValuesVar>
-                      <ValuesVar>{dataArea.numPiq || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <ValuesVar>{dataArea.numPiq || '0'}</ValuesVar>)}
                     </CardValuesVar>
                   </CardTextValues>
                 </CardValues>
@@ -166,30 +186,51 @@ export default class Menu extends Component {
                 </CardBtnEditar>
               </AreaValues>
               <EconomiaValues>
-                <ValueTitle>Economia</ValueTitle>
+              {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtTitle} autoRun= {true} />
+        ) : (
+                <ValueTitle>Economia</ValueTitle>)}
                 <CardValues>
                   <CardTextValues>
                     <CardTextVar>
-                      <TextVar>Investimento por L (R$/L)</TextVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <TextVar>Investimento por L (R$/L)</TextVar>)}
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataEconomia.invest || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <ValuesVar>{dataEconomia.invest || '0'}</ValuesVar>)}
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
                     <CardTextVar>
-                      <TextVar>Renda familiar (R$/mês)</TextVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <TextVar>Renda familiar (R$/mês)</TextVar>)}
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataEconomia.renFam || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <ValuesVar>{dataEconomia.renFam || '0'}</ValuesVar>)}
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
                     <CardTextVar>
-                      <TextVar>Taxa de depreciação (%a.a.)</TextVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <TextVar>Taxa de depreciação (%a.a.)</TextVar>)}
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataEconomia.taxDep || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <ValuesVar>{dataEconomia.taxDep || '0'}</ValuesVar>)}
                     </CardValuesVar>
                   </CardTextValues>
                 </CardValues>
@@ -203,62 +244,106 @@ export default class Menu extends Component {
                 </CardBtnEditar>
               </EconomiaValues>
               <ClimaValues>
-                <ValueTitle>Clima e Solo</ValueTitle>
+              {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtTitle} autoRun= {true} />
+        ) : (
+                <ValueTitle>Clima e Solo</ValueTitle>)}
                 <CardValues>
                   <CardTextValues>
                     <CardTextVar>
-                      <TextVar>Precipitação (mm)</TextVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <TextVar>Precipitação (mm)</TextVar>)}
                     </CardTextVar>
-                    <CardValuesVar>
-                      <ValuesVar>{dataClima.prec || '0'}</ValuesVar>
+                    <CardValuesVar>{this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <ValuesVar>{dataClima.prec || '0'}</ValuesVar>)}
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
                     <CardTextVar>
-                      <TextVar>Temperatura máxima (ºC)</TextVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <TextVar>Temperatura máxima (ºC)</TextVar>)}
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataClima.tempMax || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <ValuesVar>{dataClima.tempMax || '0'}</ValuesVar>)}
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
                     <CardTextVar>
-                      <TextVar>Temperatura mínima (ºC)</TextVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <TextVar>Temperatura mínima (ºC)</TextVar>)}
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataClima.tempMin || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <ValuesVar>{dataClima.tempMin || '0'}</ValuesVar>)}
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
                     <CardTextVar>
-                      <TextVar>Umidade relativa (%)</TextVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <TextVar>Umidade relativa (%)</TextVar>)}
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataClima.umidRel || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <ValuesVar>{dataClima.umidRel || '0'}</ValuesVar>)}
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
                     <CardTextVar>
-                      <TextVar>Velocidade do Vento (m/s)</TextVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <TextVar>Velocidade do Vento (m/s)</TextVar>)}
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataClima.velVen || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <ValuesVar>{dataClima.velVen || '0'}</ValuesVar>)}
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
                     <CardTextVar>
-                      <TextVar>Dose de N (dose)</TextVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <TextVar>Dose de N (dose)</TextVar>)}
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataClima.doseN || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <ValuesVar>{dataClima.doseN || '0'}</ValuesVar>)}
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
                     <CardTextVar>
-                      <TextVar>Água e outros usos (L/mês)</TextVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <TextVar>Água e outros usos (L/mês)</TextVar>)}
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataClima.aguaUso || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <ValuesVar>{dataClima.aguaUso || '0'}</ValuesVar>)}
                     </CardValuesVar>
                   </CardTextValues>
                 </CardValues>
@@ -272,62 +357,107 @@ export default class Menu extends Component {
                 </CardBtnEditar>
               </ClimaValues>
               <AnimalValues>
-                <ValueTitle>Animal</ValueTitle>
+              {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtTitle} autoRun= {true} />
+        ) : (
+                <ValueTitle>Animal</ValueTitle>)}
                 <CardValues>
                   <CardTextValues>
                     <CardTextVar>
-                      <TextVar>Peso corporal (Kg)</TextVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <TextVar>Peso corporal (Kg)</TextVar>)}
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataAnimal.pesoCorp || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <ValuesVar>{dataAnimal.pesoCorp || '0'}</ValuesVar>)}
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
                     <CardTextVar>
-                      <TextVar>Produção de leite (L/vaca/dia)</TextVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <TextVar>Produção de leite (L/vaca/dia)</TextVar>)}
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataAnimal.prodLei || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <ValuesVar>{dataAnimal.prodLei || '0'}</ValuesVar>)}
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
                     <CardTextVar>
-                      <TextVar>Teor de gordura no leite (%)</TextVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <TextVar>Teor de gordura no leite (%)</TextVar>)}
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataAnimal.teorGord || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <ValuesVar>{dataAnimal.teorGord || '0'}</ValuesVar>)}
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
                     <CardTextVar>
-                      <TextVar>Teor de PB no leite (%)</TextVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <TextVar>Teor de PB no leite (%)</TextVar>)}
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataAnimal.teorPB || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <ValuesVar>{dataAnimal.teorPB || '0'}</ValuesVar>)}
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
                     <CardTextVar>
-                      <TextVar>Deslocamento horizontal (m)</TextVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <TextVar>Deslocamento horizontal (m)</TextVar>)}
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataAnimal.deslHor || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <ValuesVar>{dataAnimal.deslHor || '0'}</ValuesVar>)}
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
                     <CardTextVar>
-                      <TextVar>Deslocamento vertical (m)</TextVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <TextVar>Deslocamento vertical (m)</TextVar>)}
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataAnimal.deslVer || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <ValuesVar>{dataAnimal.deslVer || '0'}</ValuesVar>)}
                     </CardValuesVar>
                   </CardTextValues>
                   <CardTextValues>
                     <CardTextVar>
-                      <TextVar>Vacas em lactação (%)</TextVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <TextVar>Vacas em lactação (%)</TextVar>)}
                     </CardTextVar>
                     <CardValuesVar>
-                      <ValuesVar>{dataAnimal.vacLact || '0'}</ValuesVar>
+                    {this.state.refreshing ? (
+          <ShimmerPlaceHolder style = {styles.txtValues} autoRun= {true} />
+        ) : (
+                      <ValuesVar>{dataAnimal.vacLact || '0'}</ValuesVar>)}
                     </CardValuesVar>
                   </CardTextValues>
                 </CardValues>
@@ -342,7 +472,6 @@ export default class Menu extends Component {
               </AnimalValues>
             </ScrollView>
           </BackgroundValues>
-        )}
         <BtnSimular
           style={styles.btnSimular}
           onPress={() => navigate('Modelo')}>
@@ -364,4 +493,14 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+  txtTitle: {
+    height: normalize(25),
+    top: normalize(10),
+    borderRadius: normalize(12)
+  },
+  txtValues: {
+    height: normalize(15),
+    top: normalize(5),
+    borderRadius: normalize(10)
+  }
 });
