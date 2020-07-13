@@ -91,9 +91,9 @@ export default class Area extends Component {
   render() {
     return (
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : null}
-        keyboardVerticalOffset={100}
-        enabled={true}>
+        behavior={Platform.OS == "ios" || 'android' ? "padding" : null}
+        number={50}
+        style={{flex:1}}>
         {this.state.refreshing ? (
           <ActivityIndicator color="#fff" size={25} />
         ) : (

@@ -19,7 +19,7 @@ export default function Home ({navigation}){
               loop
             />
           </Animated.View>
-          <Text>
+          <Text style = {{elevation:5}}>
             IFPlan Leite
           </Text>
         </CardLogo>
@@ -45,7 +45,6 @@ export default function Home ({navigation}){
       </Background>
     )
   }
-
 
 const styles = StyleSheet.create({
   container:{

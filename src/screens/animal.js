@@ -125,9 +125,9 @@ export default class Animal extends Component{
     const color = '#30D0AF'
     return (
       <KeyboardAvoidingView
-      behavior={Platform.OS == "ios" ? "padding" : null}
-      keyboardVerticalOffset ={100} 
-      enabled={true}>
+      behavior={Platform.OS == "ios" || 'android' ? "padding" : null}
+      number={50}
+      style={{flex:1}}>
       {this.state.refreshing ? (
         <ActivityIndicator color = '#ffff' size= {25}/>
       ) : (

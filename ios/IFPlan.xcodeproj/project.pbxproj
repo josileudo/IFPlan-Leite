@@ -45,7 +45,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* IFPlanTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFPlanTests.m; sourceTree = "<group>"; };
 		12A4A281599BAB1CEEC51520 /* Pods-IFPlan-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IFPlan-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-IFPlan-tvOSTests/Pods-IFPlan-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* IFPlan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IFPlan.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* IFPlan Leite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IFPlan Leite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = IFPlan/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = IFPlan/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -161,7 +161,6 @@
 				12A4A281599BAB1CEEC51520 /* Pods-IFPlan-tvOSTests.debug.xcconfig */,
 				5A58004AC19BA3D19FFD179A /* Pods-IFPlan-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -190,7 +189,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* IFPlan.app */,
+				13B07F961A680F5B00A75B9A /* IFPlan Leite.app */,
 				00E356EE1AD99517003FC87E /* IFPlanTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* IFPlan-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* IFPlan-tvOSTests.xctest */,
@@ -239,7 +238,7 @@
 			);
 			name = IFPlan;
 			productName = IFPlan;
-			productReference = 13B07F961A680F5B00A75B9A /* IFPlan.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* IFPlan Leite.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2D02E47A1E0B4A5D006451C7 /* IFPlan-tvOS */ = {
@@ -741,7 +740,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = IFPlan;
+				PRODUCT_NAME = "IFPlan Leite";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -763,7 +762,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = IFPlan;
+				PRODUCT_NAME = "IFPlan Leite";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

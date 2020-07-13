@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<layer-list 
+<?xml version='1.0' encoding= 'utf-8'?>
+
+<layer-list
   xmlns:android="http://schemas.android.com/apk/res/android">
   <item android:drawable="@color/primary"/>
-  <icon 
+  <item
     android:width="200dp"
     android:height="200dp"
-    android:drawable="@drawable/icon"
+    android:drawable="@drawable/icon_splash"
     android:gravity="center"
-/>
+  />
 </layer-list>
