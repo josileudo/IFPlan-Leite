@@ -15,7 +15,7 @@ width:100%;
 `
 export const BackgroundValues = styled.View`
 background-color: #29BB9D;
-height:80%;
+height:85%;
 width: 95%;
 justify-content:center;
 align-items:center;
@@ -24,7 +24,7 @@ border-radius:12px;
 /* ===========Tudo para animalValue =============*/
 export const AreaValues = styled.View`
 background-color: #FFFF;
-height:${normalize(140)};
+height:${normalize(160)};
 width: 100%;
 margin-top:10px;
 border-radius:8px;
@@ -38,11 +38,11 @@ align-items:center;
 
 export const CardTextValues = styled.View`
 width:95%;
-height:${normalize(30)};
+height:${normalize(40)};
 margin-top:1%;
 flex-direction:row;
 border-bottom-width: 1px;
-border-bottom-color:#B6B6B6;
+border-bottom-color:#B2B6B2;
 `
 export const CardTextVar = styled.View`
 width:70%;
@@ -65,12 +65,14 @@ export const BtnEditar = styled.TouchableOpacity.attrs({
 })`
 border-radius:12px;
 width:${normalize(130)};
+align-items:center;
 height:95%;
-right: ${normalize(15)};
+right: ${normalize(10)};
 justify-content:center;
 `
 export const TextBtnEditar = styled.Text`
 color: #29BB9D;
+left: ${normalize(20)};
 text-align:center;
 font-weight:bold;
 font-size: ${normalize(18)};
@@ -89,7 +91,7 @@ font-size:${normalize(14)};
 
 export const EconomiaValues = styled.View`
 background-color: #FFFF;
-height:${normalize(175)};
+height:${normalize(205)};
 width: 100%;
 margin-top:10px;
 border-radius:8px;
@@ -107,14 +109,14 @@ border-radius:12px;
 `
 export const ClimaValues = styled.View`
 background-color: #FFFF;
-height:${normalize(310)};
+height:${normalize(380)};
 width: 100%;
 margin-top:10px;
 border-radius:8px;
 `
 export const AnimalValues = styled.View`
 background-color: #FFFF;
-height:${normalize(310)};
+height:${normalize(380)};
 width: 100%;
 border-radius:8px;
 margin-top:10px;
@@ -123,11 +125,11 @@ export const BtnSimular = styled.TouchableOpacity.attrs({
   activeOpacity:0.9,
   pressDelay:0.8,
 })`
-width: ${normalize(200)};
+width: ${normalize(140)};
 border-radius:12px;
 align-items:center;
 justify-content:center;
-height:${normalize(50)};
+height:${normalize(40)};
 top: ${normalize(25)};
 background-color: #30D0AF;
 `
@@ -137,6 +139,6 @@ padding:5px;
 text-align:center;
 color:#FFFF;
 font-weight: bold;
-font-size: ${normalize(35)};
+font-size: ${normalize(25)};
 border-radius: 8px;
 `

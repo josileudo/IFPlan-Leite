@@ -121,19 +121,19 @@ export default class Clima extends Component{
   }
 
   render(){
-    const {dataClima} = this.state
     return (
       <KeyboardAvoidingView
-        behavior={Platform.OS == "ios" ? "padding" : null}
-        keyboardVerticalOffset ={100} 
-        enabled={true}> 
+        behavior={Platform.OS == "ios" || 'android' ? "padding" : null}
+        number={50}
+        style={{flex:1}}
+      >
       {this.state.refreshing ? (
         <ActivityIndicator color = '#ffff' size= {25}/>
       ) : (
         <Background>
           <CardLogo>
             <TextInfo >
-              Inserir informações
+              Inserir dados
             </TextInfo>
           </CardLogo>
           <ScrollView
@@ -312,19 +312,20 @@ export default class Clima extends Component{
                 </TextInputMask >
               </CardInput>
             </CardInfo>
-            <View style = {{height: 60}}/>
           </ScrollView>
           <CardCheck 
           onPress = {() => {
             this.buttonCheck()
           }}
            >
-        <Icon 
-          name="checkcircle"
-          size={normalize(50)}
-          color='#30D0AF'
-          style = {styles.icon}
-        />
+             <CardEsp>
+                <Icon 
+                  name="checkcircle"
+                  size={normalize(50)}
+                  color='#30D0AF'
+                  style = {styles.icon}
+                />
+            </CardEsp>
           </CardCheck>
         </Background>
         )}

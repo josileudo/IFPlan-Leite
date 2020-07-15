@@ -98,9 +98,9 @@ function Routes() {
             }}/>
         <Stack.Screen name="Modelo" component={Modelo}
           options = {{
-            headerTitle: 'Para-Y-Paba',
+            headerTitle: 'Para-y-paba',
             headerTitleStyle: {
-              fontSize: normalize(30),
+              fontSize: normalize(25),
             },
             headerBackTitleVisible:false,
             headerStyle: {

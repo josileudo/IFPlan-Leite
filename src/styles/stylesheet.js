@@ -13,14 +13,15 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   icon: {
-    shadowColor: "#000",
+    shadowColor: "#29BB9D",
     shadowOffset: {
-      width: 2,
-      height: 2,
+      width: 0,
+      height: 0,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5
+    shadowOpacity: 0,
+    shadowRadius: 1.84,
+    elevation: 5,
+    color: '#FFFF',
   }
 })
 

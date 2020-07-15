@@ -84,13 +84,16 @@ width:100%;
 export const CardCheck = styled.TouchableOpacity.attrs({
   activeOpacity:0.6,
 }) `
-bottom:${normalize(90)};
-right:${normalize(35)};
+bottom:${normalize(50)};
+right:${normalize(20)};
+top:${normalize(20)};
 position:absolute;
 ` 
 
 export const CardEsp = styled.View`
-width:100%;
-height:20px;
-background-color:#ECECEC
+bottom:${normalize(50)};
+right:${normalize(20)};
+border-radius: ${normalize(100)};
+position: absolute;
+background-color:#29BB9D;
 `

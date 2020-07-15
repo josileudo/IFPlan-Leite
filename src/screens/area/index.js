@@ -20,6 +20,7 @@ import {
   TextInput,
   ScrollView,
   CardCheck,
+  CardEsp
 } from '../../styles/styleInfor';
 import Icon from 'react-native-vector-icons/AntDesign';
 import normalize from 'react-native-normalize';
@@ -99,7 +100,7 @@ export default class Area extends Component {
         ) : (
           <Background>
             <CardLogo>
-              <TextInfo>Inserir informações</TextInfo>
+              <TextInfo>Inserir dados</TextInfo>
             </CardLogo>
             <ScrollView alwaysBounceVertical={false}>
               <CardInfo>
@@ -156,12 +157,14 @@ export default class Area extends Component {
               onPress={() => {
                 this.buttonCheck();
               }}>
-              <Icon
-                name="checkcircle"
-                size={normalize(50)}
-                color="#30D0AF"
-                style={styles.icon}
-              />
+              <CardEsp>
+                <Icon 
+                  name="checkcircle"
+                  size={normalize(50)}
+                  color='#30D0AF'
+                  style = {styles.icon}
+            />
+            </CardEsp>
             </CardCheck>
           </Background>
         )}

@@ -15,6 +15,8 @@ export const Background = styled.View `
 background-color: #29BB9D; 
 flex:1;
 margin:auto;
+justify-content:center;
+align-items:center;
 height: ${heightPercentageToDP('100%')};
 width: ${widthPercentageToDP('100%')};
 `
@@ -42,7 +44,6 @@ font-weight: bold;
 text-align: center;
 margin-top:${normalize(20)};
 font-size: ${normalize(40)};
-box-shadow: 4px 4px rgba(0, 0, 0, 0.25);
 `
 export const TouchableOpacity = styled.TouchableOpacity.attrs({
   activeOpacity:0.9,
@@ -68,7 +69,14 @@ font-size: ${normalize(35)};
 border-radius: 8px;
 `
 
-
+export const Image = styled.Image`
+border-radius: ${normalize(10)};
+width: ${normalize(280)};
+height: ${normalize(40)};
+bottom: ${normalize(50)};
+align-items:center;
+justify-content:center;
+`
 
 
 

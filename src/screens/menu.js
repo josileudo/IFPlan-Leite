@@ -128,7 +128,7 @@ export default class Menu extends Component {
     const {dataClima} = this.state;
     console.log(typeof dataArea.area)
     const {dataAnimal} = this.state;
-    const btnEditar = 'Editar Dados';
+    const btnEditar = 'Editar';
 
 
     return (
@@ -181,7 +181,7 @@ export default class Menu extends Component {
                     onPress={() => {
                       navigate('Area');
                     }}>
-                    <TextBtnEditar>Editar Campos</TextBtnEditar>
+                    <TextBtnEditar>{btnEditar}</TextBtnEditar>
                   </BtnEditar>
                 </CardBtnEditar>
               </AreaValues>
@@ -239,7 +239,7 @@ export default class Menu extends Component {
                     onPress={() => {
                       navigate('Economia');
                     }}>
-                    <TextBtnEditar>Editar Campos</TextBtnEditar>
+                    <TextBtnEditar>{btnEditar}</TextBtnEditar>
                   </BtnEditar>
                 </CardBtnEditar>
               </EconomiaValues>
@@ -352,7 +352,7 @@ export default class Menu extends Component {
                     onPress={() => {
                       navigate('Clima');
                     }}>
-                    <TextBtnEditar>Editar Campos</TextBtnEditar>
+                    <TextBtnEditar>{btnEditar}</TextBtnEditar>
                   </BtnEditar>
                 </CardBtnEditar>
               </ClimaValues>
@@ -466,7 +466,7 @@ export default class Menu extends Component {
                     onPress={() => {
                       navigate('Animal');
                     }}>
-                    <TextBtnEditar>Editar Campos</TextBtnEditar>
+                    <TextBtnEditar>{btnEditar}</TextBtnEditar>
                   </BtnEditar>
                 </CardBtnEditar>
               </AnimalValues>

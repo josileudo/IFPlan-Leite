@@ -1,21 +1,22 @@
-var test = 'R$ 1.700,90';
-
-function getMoney(str) {
-  return parseInt(str.replace(/[\D]+/g, ''));
+function number_format(number, decimals = 3, dec_point = ',', thousands_sep = '.') {
+  var n = !isFinite(+number) ? 0 : +number, 
+      prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+      sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+      dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+      toFixedFix = function (n, prec) {
+          // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+          var k = Math.pow(10, prec);
+          return Math.round(n * k) / k;
+      },
+      s = (prec ? toFixedFix(n, prec) : Math.round(n)).toString().split('.');
+  if (s[0].length > 3) {
+      s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+  }
+  if ((s[1] || '').length < prec) {
+      s[1] = s[1] || '';
+      s[1] += new Array(prec - s[1].length + 1).join('0');
+  }
+  return s.join(dec);
 }
-
-function formatReal(int) {
-  var tmp = int + '';
-  tmp = tmp.replace(/([0-9]{2})$/g, ',$1');
-  if (tmp.length > 6) tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g, '.$1,$2');
-  return tmp;
-}
-var int = getMoney(test);
-
-console.log(formatReal(1000));
-console.log(formatReal(19990020));
-console.log(formatReal(12006));
-console.log(formatReal(111090));
-console.log(formatReal(1111));
-console.log(formatReal(120090));
-console.log(formatReal(int));
+console.log(number_format(-0.098))
+console.log(number_format(50000))

@@ -5,7 +5,7 @@ import {
   AsyncStorage,
   ActivityIndicator} from 'react-native'
 import {Background,CardLogo, CardInfo, KeyboardAvoidingView, TextLogo, TextInfo, 
-TextAnu, CardInput, TextInput,ScrollView, CardCheck} from '../styles/styleInfor'
+TextAnu, CardInput, TextInput,ScrollView, CardCheck, CardEsp} from '../styles/styleInfor'
 import Icon from 'react-native-vector-icons/AntDesign'
 import styles from '../styles/stylesheet'
 import normalize from 'react-native-normalize'
@@ -83,19 +83,19 @@ export default class Economia extends Component{
   }
 
   render(){
-    const {dataEconomia} = this.state
     return (
       <KeyboardAvoidingView
-      behavior={Platform.OS == "ios" || 'android' ? "padding" : null}
-      number={50}
-      style={{flex:1}}>
+        behavior={Platform.OS == "ios" || 'android' ? "padding" : null}
+        number={50}
+        style={{flex:1}}
+      >
         {this.state.refreshing ? (
           <ActivityIndicator color = '#FFFF' size = {25} />
         ) : (
       <Background>
         <CardLogo>
           <TextInfo >
-            Inserir informações
+            Inserir dados
           </TextInfo>
         </CardLogo>
         <ScrollView
@@ -181,11 +181,14 @@ export default class Economia extends Component{
         onPress = {() => {
             this.buttonCheck()
           }}>
-          <Icon 
-            name="checkcircle" 
-            size={normalize(50)} 
-            color='#30D0AF' 
-            style = {styles.icon}/>
+            <CardEsp>
+              <Icon 
+                name="checkcircle"
+                size={normalize(50)}
+                color='#30D0AF'
+                style = {styles.icon}
+              />
+            </CardEsp>
         </CardCheck>
       </Background>
     )}

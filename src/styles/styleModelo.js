@@ -31,7 +31,7 @@ align-items:center;
 
 export const CardTextValues = styled.View`
 width:95%;
-height:${normalize(30)};
+height:${normalize(40)};
 margin-top:1%;
 flex-direction:row;
 border-bottom-width: 1px;
@@ -45,23 +45,7 @@ export const CardValuesVar = styled.View`
 width:30%;
 justify-content:center;
 `
-export const CardBtnEditar = styled.View`
-width: 100%;
-height: ${normalize(25)}; ;
-align-items:flex-end;
-justify-content:center;
-margin-top: ${normalize(5)};
-`
-export const BtnEditar = styled.TouchableOpacity.attrs({
-  activeOpacity:0.7,
-  pressDelay:0.9,
-})`
-border-radius:12px;
-width:${normalize(130)};
-height:95%;
-right: ${normalize(15)};
-justify-content:center;
-`
+
 export const TextBtnEditar = styled.Text`
 color: #29BB9D;
 text-align:center;
@@ -94,7 +78,7 @@ border-radius:12px;
 `
 export const ClimaValues = styled.View`
 background-color: #FFFF;
-height:${normalize(300)};
+height:${normalize(360)};
 width: 100%;
 margin-top:10px;
 border-radius:8px;
@@ -124,6 +108,6 @@ padding:5px;
 text-align:center;
 color:#FFFF;
 font-weight: bold;
-font-size: ${normalize(35)};
+font-size: ${normalize(25)};
 border-radius: 8px;
 `

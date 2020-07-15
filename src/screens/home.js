@@ -1,6 +1,8 @@
 
 import React, {Component, useRef} from 'react';
-import {Background, TextTouchable, TouchableOpacity, CardButton, Text, CardLogo} from '../styles/styleHome'
+import {Background, 
+  TextTouchable, 
+  TouchableOpacity, Image, CardButton, Text, CardLogo} from '../styles/styleHome'
 import {Animated, View} from 'react-native';
 import LottieView from 'lottie-react-native';
 import normalize from 'react-native-normalize'
@@ -42,6 +44,9 @@ export default function Home ({navigation}){
             </TextTouchable>
           </TouchableOpacity>
         </CardButton>
+        <Image 
+          source={require('../assets/lapis.png')}
+        />
       </Background>
     )
   }

@@ -17,7 +17,8 @@ import {
   CardInput, 
   TextInput, 
   ScrollView, 
-  CardCheck} from '../styles/styleInfor'
+  CardCheck,
+  CardEsp} from '../styles/styleInfor'
 import Icon from 'react-native-vector-icons/AntDesign'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { TextInputMask } from 'react-native-masked-text'
@@ -122,19 +123,18 @@ export default class Animal extends Component{
   }
 
   render(){
-    const color = '#30D0AF'
     return (
       <KeyboardAvoidingView
-      behavior={Platform.OS == "ios" || 'android' ? "padding" : null}
-      number={50}
-      style={{flex:1}}>
+        behavior={Platform.OS == "ios" ? "padding" : null}
+        keyboardVerticalOffset ={100} 
+        enabled={true}> 
       {this.state.refreshing ? (
         <ActivityIndicator color = '#ffff' size= {25}/>
       ) : (
       <Background>
         <CardLogo>
           <TextInfo >
-            Inserir informações
+            Inserir dados
           </TextInfo>
         </CardLogo>
         <ScrollView 
@@ -152,7 +152,7 @@ export default class Animal extends Component{
                 separator: ',',
                 delimiter: '.',
                 unit: '',
-                suffixUnit: ''
+                suffixUnit: '',
               }}
               style= {styles.input}
               placeholder = '0,00'
@@ -328,12 +328,14 @@ export default class Animal extends Component{
             this.buttonCheck()
           }}
         >
-        <Icon 
-          name="checkcircle"
-          size={normalize(50)}
-          color='#30D0AF'
-          style = {styles.icon}
-        />
+        <CardEsp>
+                <Icon 
+                  name="checkcircle"
+                  size={normalize(50)}
+                  color='#30D0AF'
+                  style = {styles.icon}
+            />
+            </CardEsp>
         </CardCheck>
       </Background>
     )}

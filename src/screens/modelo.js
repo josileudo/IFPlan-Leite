@@ -12,12 +12,8 @@ import {
 } from 'react-native';
 import {
   Background,
-  TextTouchable,
-  AreaValues,
-  EconomiaValues,
   ClimaValues,
   AnimalValues,
-  BtnSimular,
   ValueTitle,
   CardValues,
   CardTextValues,
@@ -115,13 +111,25 @@ export default class Menu extends Component {
     return resultado;
   }
 
-  currencyFormat(values) {
-    const v = ((values.replace(/\D/g, '') / 100).toFixed(3) + '').split('.')
-    const m = v[0].split('').reverse().join('').match(/.{1,3}/g);
-    for (let i = 0; i < m.length; i++)
-        m[i] = m[i].split('').reverse().join('') + '.'
-    const r = m.reverse().join('');
-    return r.substring(0, r.lastIndexOf('.')) + ',' + v[1]
+  currencyFormat(number, decimals = 3, dec_point = ',', thousands_sep = '.') {
+    var n = !isFinite(+number) ? 0 : +number, 
+        prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+        sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+        dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+        toFixedFix = function (n, prec) {
+            // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+            var k = Math.pow(10, prec);
+            return Math.round(n * k) / k;
+        },
+        s = (prec ? toFixedFix(n, prec) : Math.round(n)).toString().split('.');
+    if (s[0].length > 3) {
+        s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+    }
+    if ((s[1] || '').length < prec) {
+        s[1] = s[1] || '';
+        s[1] += new Array(prec - s[1].length + 1).join('0');
+    }
+    return s.join(dec);
   }
 
   render() {
