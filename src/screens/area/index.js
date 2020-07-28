@@ -109,7 +109,7 @@ export default class Area extends Component {
                   <TextInputMask
                     type={'money'}
                     options={{
-                      precision: 2,
+                      precision: 1,
                       separator: ',',
                       delimiter: '.',
                       unit: '',
@@ -133,7 +133,7 @@ export default class Area extends Component {
                   <TextInputMask
                     type={'money'}
                     options={{
-                      precision: 2,
+                      precision: 1,
                       separator: ',',
                       delimiter: '.',
                       unit: '',

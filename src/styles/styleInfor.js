@@ -34,7 +34,7 @@ font-weight:bold;
 `
 export const TextInfo = styled.Text`
 text-align:center;
-font-size:${normalize(18)};
+font-size:${normalize(22)};
 color: #ffff;
 width:100%;
 `
@@ -55,7 +55,7 @@ flex-direction:column;
 align-items:center;
 `
 export const TextAnu = styled.Text`
-font-size:${normalize(13)};
+font-size:${normalize(15)};
 color: #f4f4f4;
 font-weight:normal;
 margin-top:${normalize(2)};
@@ -69,7 +69,7 @@ background-color: #ffff;
 width:95%;
 color:#29BB9D;
 font-weight:bold;
-font-size:${normalize(25)};
+font-size:${normalize(28)};
 justify-content:center;
 height:${normalize(45)};
 border-radius:${normalize(8)};

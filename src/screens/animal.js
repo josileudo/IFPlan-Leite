@@ -148,7 +148,7 @@ export default class Animal extends Component{
             <TextInputMask 
               type={'money'}
               options={{
-                precision: 3,
+                precision: 0,
                 separator: ',',
                 delimiter: '.',
                 unit: '',
@@ -173,7 +173,7 @@ export default class Animal extends Component{
             <TextInputMask  
               type={'money'}
               options={{
-                precision: 3,
+                precision: 1,
                 separator: ',',
                 delimiter: '.',
                 unit: '',
@@ -198,7 +198,7 @@ export default class Animal extends Component{
             <TextInputMask  
               type={'money'}
               options={{
-                precision: 3,
+                precision: 1,
                 separator: ',',
                 delimiter: '.',
                 unit: '',
@@ -224,7 +224,7 @@ export default class Animal extends Component{
             <TextInputMask 
               type={'money'}
               options={{
-                precision: 3,
+                precision: 1,
                 separator: ',',
                 delimiter: '.',
                 unit: '',
@@ -250,7 +250,7 @@ export default class Animal extends Component{
             <TextInputMask  
               type={'money'}
               options={{
-                precision: 3,
+                precision: 0,
                 separator: ',',
                 delimiter: '.',
                 unit: '',
@@ -276,7 +276,7 @@ export default class Animal extends Component{
             <TextInputMask  
                type={'money'}
                options={{
-                 precision: 3,
+                 precision: 0,
                  separator: ',',
                  delimiter: '.',
                  unit: '',
@@ -303,7 +303,7 @@ export default class Animal extends Component{
             <TextInputMask  
               type={'money'}
               options={{
-                precision: 3,
+                precision: 1,
                 separator: ',',
                 delimiter: '.',
                 unit: '',

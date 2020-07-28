@@ -236,11 +236,11 @@ export default class Menu extends Component {
       (umidadeRelativa / 100) *
         ((temperaturaMaxima + temperaturaMinima) / 2 - 14.4) +
       46.4;
-    var itu = this.currencyFormat(ITU.toFixed(3));
+    var itu = this.currencyFormat(ITU, 1);
 
     // DPL
     const DPL = -1.075 - 1.736 * producaoLeite + 0.02474 * producaoLeite * ITU;
-    var dpl = this.currencyFormat(DPL.toFixed(3));
+    var dpl = this.currencyFormat(DPL, 1);
 
     //produção de forragem
     const prodForragem =
@@ -258,14 +258,14 @@ export default class Menu extends Component {
 
     // Capacida de suporte
     const capaSuporte = (forrDispnivel * 0.95) / (consTotal - suplementacao);
-    var capaSup = this.currencyFormat(capaSuporte.toFixed(3));
+    var capaSup = this.currencyFormat(capaSuporte, 1);
 
     // DPL anual
     const DPLAnual = DPL * capaSuporte * 365;
 
     //produção diária
     var prodDiaria = producaoLeite * (capaSuporte * (vacasLactação / 100));
-    var prodDia = this.currencyFormat(prodDiaria.toFixed(3));
+    var prodDia = this.currencyFormat(prodDiaria, 0);
 
     // COE
     var COE =
@@ -278,11 +278,11 @@ export default class Menu extends Component {
 
     //Produção de leite (L/ha/ano)
     var prodLeiteAno = (prodDiaria * 365) / area;
-    var prodLeiAno = this.currencyFormat(prodLeiteAno.toFixed(3));
+    var prodLeiAno = this.currencyFormat(prodLeiteAno, 0);
 
     //produção de leite (L/ha/dia)
     var prodLeiteDia = prodLeiteAno / 365;
-    var prodLeiDia = this.currencyFormat(prodLeiteDia.toFixed(3));
+    var prodLeiDia = this.currencyFormat(prodLeiteDia,0);
 
     //MDO familiar
     const mdoFamiliar = rendaFamiliar / (prodDiaria * 30.4);
@@ -290,7 +290,7 @@ export default class Menu extends Component {
     //pegada hídrica
     const pegadaHidrica =
       (aguaAplicada * 10000 * area + aguaUsos / 30.4) / prodDiaria;
-    var pegadaHid = this.currencyFormat(pegadaHidrica.toFixed(3));
+    var pegadaHid = this.currencyFormat(pegadaHidrica, 0);
 
     //Receita total (R$/ano)
     const receitaTotalAno = receitaTotalMes * 12;
@@ -300,7 +300,7 @@ export default class Menu extends Component {
 
     //COT
     var COT = COE + mdoFamiliar + depreciacao;
-    var cot = this.currencyFormat(COT.toFixed(3));
+    var cot = this.currencyFormat(COT, 2);
 
     //ML por área
     const MLArea = MLAnual / area;
@@ -318,14 +318,14 @@ export default class Menu extends Component {
 
     //ML
     var ML = precoLeite - COT;
-    var ml = this.currencyFormat(ML.toFixed(3));
+    var ml = this.currencyFormat(ML, 2);
     console.log('preco do leite', precoLeite);
     //ML Anual
     const MLAnual = ML * prodDiaria * 365;
 
     //Payback (Anos)
     var payback = investimentoTotal / MLAnual;
-    var payb = this.currencyFormat(payback.toFixed(3));
+    var payb = this.currencyFormat(payback, 1);
 
     // Perda de receita com estresse
     var perdaReceitaEstresse = DPLAnual * precoLeite;
@@ -333,15 +333,15 @@ export default class Menu extends Component {
 
     // Taxa de lotação
     const taxaLotacao = capaSuporte / area;
-    var taxaLot = this.currencyFormat(taxaLotacao.toFixed(3));
+    var taxaLot = this.currencyFormat(taxaLotacao, 1);
 
     // TRCI
     var TRCI = ((ML * 365) / investimento) * 100;
-    var trci = this.currencyFormat(TRCI.toFixed(3));
+    var trci = this.currencyFormat(TRCI, 1);
 
     //Receita por área
     var recArea = (receitaTotalMes * 12) / area;
-    var receitaArea = this.currencyFormat(recArea.toFixed(3));
+    var receitaArea = this.currencyFormat(recArea, 2);
 
     console.log(typeof tenAguaSol);
 

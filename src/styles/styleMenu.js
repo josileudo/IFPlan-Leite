@@ -75,18 +75,18 @@ color: #29BB9D;
 left: ${normalize(20)};
 text-align:center;
 font-weight:bold;
-font-size: ${normalize(18)};
+font-size: ${normalize(20)};
 `
 
 export const TextVar = styled.Text`
 align-items:center;
-font-size:${normalize(14)};
+font-size:${normalize(16)};
 `
 export const ValuesVar = styled.Text`
 align-items:center;
 text-align:right;
 right:${normalize(5)};
-font-size:${normalize(14)};
+font-size:${normalize(16)};
 `
 
 export const EconomiaValues = styled.View`

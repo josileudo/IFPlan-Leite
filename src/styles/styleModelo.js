@@ -50,7 +50,7 @@ export const TextBtnEditar = styled.Text`
 color: #29BB9D;
 text-align:center;
 font-weight:bold;
-font-size: ${normalize(18)};
+font-size: ${normalize(22)};
 `
 
 export const TextVar = styled.Text`

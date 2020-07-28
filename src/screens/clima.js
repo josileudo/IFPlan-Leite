@@ -148,7 +148,7 @@ export default class Clima extends Component{
                 type={'money'}
                 value = {this.state.prec}
                 options={{
-                  precision: 3,
+                  precision: 2,
                   separator: ',',
                   delimiter: '.',
                   unit: '',
@@ -171,7 +171,7 @@ export default class Clima extends Component{
               <TextInputMask  
                 type={'money'}
                 options={{
-                  precision: 3,
+                  precision: 1,
                   separator: ',',
                   delimiter: '.',
                   unit: '',
@@ -196,7 +196,7 @@ export default class Clima extends Component{
               <TextInputMask    
                 type={'money'}
                 options={{
-                  precision: 3,
+                  precision: 1,
                   separator: ',',
                   delimiter: '.',
                   unit: '',
@@ -221,7 +221,7 @@ export default class Clima extends Component{
               <TextInputMask  
                 type={'money'}
                 options={{
-                  precision: 3,
+                  precision: 1,
                   separator: ',',
                   delimiter: '.',
                   unit: '',
@@ -246,7 +246,7 @@ export default class Clima extends Component{
               <TextInputMask  
                 type={'money'}
                 options={{
-                  precision: 3,
+                  precision: 1,
                   separator: ',',
                   delimiter: '.',
                   unit: '',
@@ -271,7 +271,7 @@ export default class Clima extends Component{
               <TextInputMask  
                 type={'money'}
                 options={{
-                  precision: 3,
+                  precision: 1,
                   separator: ',',
                   delimiter: '.',
                   unit: '',
@@ -296,7 +296,7 @@ export default class Clima extends Component{
               <TextInputMask  
                 type={'money'}
                 options={{
-                  precision: 3,
+                  precision: 0,
                   separator: ',',
                   delimiter: '.',
                   unit: '',
