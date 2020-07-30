@@ -166,7 +166,7 @@ export default class Menu extends Component {
     // Economia
     const investimento = this.convertValues(dataEconomia.invest);
     const rendaFamiliar = this.convertValues(dataEconomia.renFam);
-    const taxaDepreciacao = this.convertValues(dataEconomia.taxDep);
+    const taxaDepreciacao = this.convertValues(dataEconomia.taxDep) / 100;
 
     //CÁLCULOS
     //ETo

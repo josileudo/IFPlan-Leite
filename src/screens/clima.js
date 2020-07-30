@@ -5,22 +5,17 @@ import {
   AsyncStorage,
   KeyboardAvoidingView,
   ActivityIndicator,
-  TouchableOpacity,
 } from 'react-native';
 import {
   Background,
   CardLogo,
   CardInfo,
-  TextLogo,
   TextInfo,
   TextAnu,
   CardInput,
-  TextInput,
   ScrollView,
-  CardCheck,
-  CardEsp,
   BtnSalvar,
-  TextEnviar
+  TextEnviar,
 } from '../styles/styleInfor';
 import styles from '../styles/stylesheet';
 import normalize from 'react-native-normalize';
@@ -325,13 +320,11 @@ export default class Clima extends Component {
                       this.field6 = input;
                     }}></TextInputMask>
                 </CardInput>
-                <BtnSalvar onPress = {() => this.buttonCheck()}>
-                  <TextEnviar>
-                    Enviar
-                  </TextEnviar>
-                  <Icon name= "arrowright" size= {normalize(25)} color= "#29BB9D"/>
+                <BtnSalvar onPress={() => this.buttonCheck()}>
+                  <TextEnviar>Enviar</TextEnviar>
                 </BtnSalvar>
               </CardInfo>
+              <View style={{height: 60}} />
             </ScrollView>
           </Background>
         )}

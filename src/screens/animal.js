@@ -1,21 +1,14 @@
 import React, {Component} from 'react';
 import {StackActions} from '@react-navigation/native';
-import {
-  View,
-  ActivityIndicator,
-  AsyncStorage,
-  Stack,
-} from 'react-native';
+import {View, ActivityIndicator, AsyncStorage, Stack} from 'react-native';
 import {
   Background,
   CardLogo,
   KeyboardAvoidingView,
   CardInfo,
-  TextLogo,
   TextInfo,
   TextAnu,
   CardInput,
-  TextInput,
   ScrollView,
   BtnSalvar,
   TextEnviar,

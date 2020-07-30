@@ -67,7 +67,7 @@ text-align:left;
 export const TextInput = styled.TextInput`
 background-color: #ffff;
 width:95%;
-color:#29BB9D;
+color:#000;
 font-weight:bold;
 font-size:${normalize(28)};
 justify-content:center;
@@ -81,15 +81,6 @@ flex:1;
 width:100%;
 `
 
-export const CardCheck = styled.TouchableOpacity.attrs({
-  activeOpacity:0.6,
-}) `
-bottom:${normalize(50)};
-right:${normalize(20)};
-top:${normalize(20)};
-position:absolute;
-` 
-
 export const CardEsp = styled.View`
 bottom:${normalize(50)};
 right:${normalize(20)};
@@ -100,14 +91,15 @@ background-color:#29BB9D;
 export const BtnSalvar = styled.TouchableOpacity.attrs({
     activeOpacity:0.6,
 })`
-bottom:${normalize(50)};
+top: ${normalize(20)};
 left:${normalize(100)};
-top:${normalize(20)};
+margin-bottom: ${normalize(20)};
+height: ${normalize(30)};
 background-color:#FFFF;
-border-radius: 10px;
+border-radius: 5px;
 width: ${normalize(100)};
-flex-direction:row;
 justify-content: center;
+box-shadow: 2px 4px rgba(0, 0, 0, 0.25);
 `
 
 export const TextEnviar = styled.Text`

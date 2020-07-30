@@ -13,9 +13,8 @@ import {
   TextInput,
   ScrollView,
   CardCheck,
-  CardEsp,
   BtnSalvar,
-  TextEnviar
+  TextEnviar,
 } from '../styles/styleInfor';
 import Icon from 'react-native-vector-icons/AntDesign';
 import styles from '../styles/stylesheet';
@@ -162,7 +161,7 @@ export default class Economia extends Component {
                   <TextInputMask
                     type={'money'}
                     options={{
-                      precision: 3,
+                      precision: 2,
                       separator: ',',
                       delimiter: '.',
                       unit: '',
@@ -179,19 +178,11 @@ export default class Economia extends Component {
                       this.field2 = input;
                     }}></TextInputMask>
                 </CardInput>
-                <BtnSalvar onPress = {() => this.buttonCheck()}>
-                  <TextEnviar>
-                    Enviar
-                  </TextEnviar>
-                  <Icon name= "arrowright" size= {normalize(25)} color= "#29BB9D"/>
+                <BtnSalvar onPress={() => this.buttonCheck()}>
+                  <TextEnviar>Confirmar</TextEnviar>
                 </BtnSalvar>
               </CardInfo>
             </ScrollView>
-            <CardCheck
-              onPress={() => {
-                this.buttonCheck();
-              }}>
-            </CardCheck>
           </Background>
         )}
       </KeyboardAvoidingView>

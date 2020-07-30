@@ -3,7 +3,6 @@ import {StackActions} from '@react-navigation/native';
 import {
   StyleSheet,
   Platform,
-  RefreshControl,
   KeyboardAvoidingView,
   AsyncStorage,
   BackHandler,
@@ -19,8 +18,6 @@ import {
   CardInput,
   TextInput,
   ScrollView,
-  CardCheck,
-  CardEsp,
   BtnSalvar,
   TextEnviar
 } from '../../styles/styleInfor';
@@ -155,9 +152,8 @@ export default class Area extends Component {
                 </CardInput>
                 <BtnSalvar onPress = {() => this.buttonCheck()}>
                   <TextEnviar>
-                    Enviar
+                    Confirmar
                   </TextEnviar>
-                  <Icon name= "arrowright" size= {normalize(25)} color= "#29BB9D"/>
                 </BtnSalvar>
               </CardInfo>
             </ScrollView>
