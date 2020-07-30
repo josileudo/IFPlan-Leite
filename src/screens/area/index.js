@@ -20,7 +20,9 @@ import {
   TextInput,
   ScrollView,
   CardCheck,
-  CardEsp
+  CardEsp,
+  BtnSalvar,
+  TextEnviar
 } from '../../styles/styleInfor';
 import Icon from 'react-native-vector-icons/AntDesign';
 import normalize from 'react-native-normalize';
@@ -151,21 +153,14 @@ export default class Area extends Component {
                     }}
                   />
                 </CardInput>
+                <BtnSalvar onPress = {() => this.buttonCheck()}>
+                  <TextEnviar>
+                    Enviar
+                  </TextEnviar>
+                  <Icon name= "arrowright" size= {normalize(25)} color= "#29BB9D"/>
+                </BtnSalvar>
               </CardInfo>
             </ScrollView>
-            <CardCheck
-              onPress={() => {
-                this.buttonCheck();
-              }}>
-              <CardEsp>
-                <Icon 
-                  name="checkcircle"
-                  size={normalize(50)}
-                  color='#30D0AF'
-                  style = {styles.icon}
-            />
-            </CardEsp>
-            </CardCheck>
           </Background>
         )}
       </KeyboardAvoidingView>

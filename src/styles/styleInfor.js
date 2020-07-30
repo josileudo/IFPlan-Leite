@@ -97,3 +97,22 @@ border-radius: ${normalize(100)};
 position: absolute;
 background-color:#29BB9D;
 `
+export const BtnSalvar = styled.TouchableOpacity.attrs({
+    activeOpacity:0.6,
+})`
+bottom:${normalize(50)};
+left:${normalize(100)};
+top:${normalize(20)};
+background-color:#FFFF;
+border-radius: 10px;
+width: ${normalize(100)};
+flex-direction:row;
+justify-content: center;
+`
+
+export const TextEnviar = styled.Text`
+font-size: ${normalize(20)};
+text-align: center;
+font-weight: bold;
+color:#29BB9D;
+`
