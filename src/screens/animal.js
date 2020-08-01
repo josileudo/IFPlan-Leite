@@ -319,12 +319,7 @@ export default class Animal extends Component {
                     }}></TextInputMask>
                 </CardInput>
                 <BtnSalvar onPress={() => this.buttonCheck()}>
-                  <TextEnviar>Enviar</TextEnviar>
-                  <Icon
-                    name="arrowright"
-                    size={normalize(25)}
-                    color="#29BB9D"
-                  />
+                  <TextEnviar>Confirmar</TextEnviar>
                 </BtnSalvar>
               </CardInfo>
               <View style={{height: 60}} />

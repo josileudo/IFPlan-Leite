@@ -321,7 +321,7 @@ export default class Clima extends Component {
                     }}></TextInputMask>
                 </CardInput>
                 <BtnSalvar onPress={() => this.buttonCheck()}>
-                  <TextEnviar>Enviar</TextEnviar>
+                  <TextEnviar>Confirmar</TextEnviar>
                 </BtnSalvar>
               </CardInfo>
               <View style={{height: 60}} />
