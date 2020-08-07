@@ -185,39 +185,23 @@ export default class Menu extends Component {
     const COETotal = COE * prodDiaria * 365;
 
     // Consumo (Kg MS/dia)
-    const consumo =
-      -4.69 +
-      0.0142 * pesoCorporal +
-      0.356 * producaoLeite +
-      1.72 * teorGordura;
+    const consumo =  -4.69 + (0.0142 * pesoCorporal) + (0.356 * producaoLeite) 
+    +(1.72 * teorGordura);
 
     // Consumo de NDT
-    const consumoNDT =
-      (((48.6 -
-        0.0183 * pesoCorporal +
-        0.435 * producaoLeite +
-        0.728 * teorGordura +
-        3.46 * teorPB) *
-        1.04) /
-        100) *
-      consumo;
+    const consumoNDT = 
+      ((((48.6-(0.0183* pesoCorporal)) + (0.435 * producaoLeite)
+      +(0.728 * teorGordura) + (3.46 * teorPB)) * 1.04)/100) * consumo;
 
-    //NDT DV
-    const NDTdv = () => {
-      if (desloVertical > 0) {
-        let res = 0.03 * pesoCorporal * (desloVertical / 1000) * 0.43;
-        return res;
-      } else {
-        let res = 0;
-        return res;
-      }
-    };
+    
+    const NDTdv = (0.00669 * pesoCorporal * (desloVertical / 1000)) * 0.43;
+     
 
     //NDT DH=
-    const NDTdh = 0.00045 * pesoCorporal * (desloHorizontal / 1000) * 0.43;
-
+    const NDTdh = (0.00048 * pesoCorporal * (desloHorizontal / 1000)) * 0.43;
+   
     //NDT deslocamento
-    const NDTdeslocamento = NDTdh + NDTdv();
+    const NDTdeslocamento = NDTdh + NDTdv
 
     // Consumo total (Kg MS/dia)
     const consTotal = consumo + (NDTdeslocamento / consumoNDT) * consumo;
@@ -251,7 +235,7 @@ export default class Menu extends Component {
     var prodForr = this.currencyFormat(prodForragem.toFixed(3));
 
     //forragem Disponivel
-    const forrDispnivel = prodForragem * 10000 * (area / numeroPiquetes) * 0.2;
+    const forrDispnivel =((prodForragem * 10000) * (area / numeroPiquetes))* 0.2;
 
     //Suplementação (kg MS/dia)
     const suplementacao = producaoLeite / 2.5;
@@ -259,7 +243,10 @@ export default class Menu extends Component {
     // Capacida de suporte
     const capaSuporte = (forrDispnivel * 0.95) / (consTotal - suplementacao);
     var capaSup = this.currencyFormat(capaSuporte, 1);
-
+    console.log ('Forragem disponivel: ', forrDispnivel)
+    console.log ('Consumo tota: ', consTotal)
+    console.log ('Suplementacao: ', suplementacao)
+    console.log ('Capacidade de suporte = ', capaSuporte)
     // DPL anual
     const DPLAnual = DPL * capaSuporte * 365;
 
@@ -344,6 +331,11 @@ export default class Menu extends Component {
     var receitaArea = this.currencyFormat(recArea, 2);
 
     console.log(typeof tenAguaSol);
+    console.log('NDTdh, ', NDTdh)
+    console.log('NDTv', NDTdv)
+    console.log('NDTdeslocamento ', NDTdeslocamento)
+    console.log('Consumo, ', consumo)
+    console.log('consumo NDT', consumoNDT)
 
     return (
       <Background>
