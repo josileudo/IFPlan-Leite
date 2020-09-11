@@ -320,7 +320,9 @@ export default class Clima extends Component {
                       this.field6 = input;
                     }}></TextInputMask>
                 </CardInput>
-                <BtnSalvar onPress={() => this.buttonCheck()}>
+                <BtnSalvar 
+                  hitSlop = {{top: 20, bottom: 20, left: 50, right: 50 }}
+                  onPress={() => this.buttonCheck()}>
                   <TextEnviar>Confirmar</TextEnviar>
                 </BtnSalvar>
               </CardInfo>

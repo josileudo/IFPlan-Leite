@@ -178,6 +178,7 @@ export default class Menu extends Component {
                 </CardValues>
                 <CardBtnEditar>
                   <BtnEditar
+                    hitSlop = {{top: 20, bottom: 20, left: 50, right: 50 }}
                     onPress={() => {
                       navigate('Area');
                     }}>
@@ -236,6 +237,7 @@ export default class Menu extends Component {
                 </CardValues>
                 <CardBtnEditar>
                   <BtnEditar
+                    hitSlop = {{top: 20, bottom: 20, left: 50, right: 50 }}
                     onPress={() => {
                       navigate('Economia');
                     }}>
@@ -349,6 +351,7 @@ export default class Menu extends Component {
                 </CardValues>
                 <CardBtnEditar>
                   <BtnEditar
+                    hitSlop = {{top: 20, bottom: 20, left: 50, right: 50 }}
                     onPress={() => {
                       navigate('Clima');
                     }}>
@@ -463,6 +466,7 @@ export default class Menu extends Component {
                 </CardValues>
                 <CardBtnEditar>
                   <BtnEditar
+                    hitSlop = {{top: 20, bottom: 20, left: 50, right: 50 }}
                     onPress={() => {
                       navigate('Animal');
                     }}>
@@ -473,6 +477,7 @@ export default class Menu extends Component {
             </ScrollView>
           </BackgroundValues>
         <BtnSimular
+          hitSlop = {{top: 20, bottom: 20, left: 50, right: 50 }}
           style={styles.btnSimular}
           onPress={() => navigate('Modelo')}>
           <TextTouchable>Simular</TextTouchable>

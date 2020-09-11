@@ -28,7 +28,8 @@ export default function Home ({navigation}){
         <CardButton>
           <TouchableOpacity onPress={() => {
               navigation.navigate('Menu')}} 
-              title = "Inciar" 
+              title = "Inciar"
+              hitSlop = {{top: 20, bottom: 20, left: 50, right: 50 }}
               style = {{
                 shadowColor: "#000",
                 shadowOffset: {
