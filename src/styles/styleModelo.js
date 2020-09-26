@@ -1,8 +1,8 @@
 import styled from 'styled-components/native'
-import {Dimensions, PixelRatio} from 'react-native'
+import { Dimensions, PixelRatio } from 'react-native'
 import normalize from 'react-native-normalize'
 
-export const Background = styled.View `
+export const Background = styled.View`
 background-color: #29BB9D; 
 flex:1;
 height: 100%;
@@ -31,7 +31,7 @@ align-items:center;
 
 export const CardTextValues = styled.View`
 width:95%;
-height:${normalize(40)};
+height:${normalize(40)}px;
 margin-top:1%;
 flex-direction:row;
 border-bottom-width: 1px;
@@ -50,35 +50,35 @@ export const TextBtnEditar = styled.Text`
 color: #29BB9D;
 text-align:center;
 font-weight:bold;
-font-size: ${normalize(22)};
+font-size: ${normalize(22)}px;
 `
 
 export const TextVar = styled.Text`
 align-items:center;
-font-size:${normalize(14)};
+font-size:${normalize(14)}px;
 `
 
 export const ValuesVar = styled.Text`
 align-items:center;
 text-align:right;
-right:${normalize(5)};
-font-size:${normalize(14)};
+right:${normalize(5)}px;
+font-size:${normalize(14)}px;
 `
 
 export const ValueTitle = styled.Text`
 color: #000;
 text-align:left;
-left:${normalize(2)};
-font-size: ${normalize(20)};
+left:${normalize(2)}px;
+font-size: ${normalize(20)}px;
 background-color:#FFFF;
-top:${normalize(5)};
+top:${normalize(5)}px;
 padding: 5px;
 font-weight:bold;
 border-radius:12px;
 `
 export const ClimaValues = styled.View`
 background-color: #FFFF;
-height:${normalize(360)};
+height:${normalize(360)}px;
 width: 100%;
 margin-top:10px;
 border-radius:8px;
@@ -91,15 +91,15 @@ border-radius:8px;
 margin-top:10px;
 `
 export const BtnSimular = styled.TouchableOpacity.attrs({
-  activeOpacity:0.9,
-  pressDelay:0.8,
+  activeOpacity: 0.9,
+  pressDelay: 0.8,
 })`
-width: ${normalize(200)};
+width: ${normalize(200)}px;
 border-radius:12px;
 align-items:center;
 justify-content:center;
-height:${normalize(50)};
-top: ${normalize(25)};
+height:${normalize(50)}px;
+top: ${normalize(25)}px;
 background-color: #30D0AF;
 `
 export const TextTouchable = styled.Text`
@@ -108,6 +108,6 @@ padding:5px;
 text-align:center;
 color:#FFFF;
 font-weight: bold;
-font-size: ${normalize(25)};
+font-size: ${normalize(25)}px;
 border-radius: 8px;
 `

@@ -1,15 +1,14 @@
 import styled from 'styled-components/native'
-import {Dimensions, PixelRatio} from 'react-native'
 import normalize from 'react-native-normalize'
 
-export const Background = styled.View `
+export const Background = styled.View`
 background-color:#29BB9D;
 display:flex;
 height:100%;
 width:100%;
 align-items:center;
 `
-export const KeyboardAvoidingView= styled.KeyboardAvoidingView `
+export const KeyboardAvoidingView = styled.KeyboardAvoidingView`
 flex:1;
 height:100%;
 width:100%;
@@ -19,47 +18,47 @@ background-color: #29BB9D;
 `
 
 //card que vai assegura o nome clima e a outra informação
-export const CardLogo = styled.View `
+export const CardLogo = styled.View`
 width:100%;
 justify-content:center;
-height:${normalize(70)};
+height:${normalize(70)}px;
 `
 //Texto que ficará na logomarca
 export const TextLogo = styled.Text`
 text-align:center;
-font-size:${normalize(35)};
+font-size:${normalize(35)}px;
 color: #FFFF;
 width: 100%;
 font-weight:bold;
 `
 export const TextInfo = styled.Text`
 text-align:center;
-font-size:${normalize(22)};
+font-size:${normalize(22)}px;
 color: #ffff;
 width:100%;
 `
 
 // Card de entrada de informações
-export const CardInfo = styled.View `
+export const CardInfo = styled.View`
 width:100%;
 align-items:center;
 display:flex;
-margin-top: ${normalize(10)};
+margin-top: ${normalize(10)}px;
 `
-export const CardInput = styled.View `
+export const CardInput = styled.View`
 
 width:100%;
-height:${normalize(75)};
-margin-top:${normalize(5)};
+height:${normalize(75)}px;
+margin-top:${normalize(5)}px;
 flex-direction:column;
 align-items:center;
 `
 export const TextAnu = styled.Text`
-font-size:${normalize(15)};
+font-size:${normalize(15)}px;
 color: #f4f4f4;
 font-weight:normal;
-margin-top:${normalize(2)};
-margin-bottom:${normalize(5)};
+margin-top:${normalize(2)}px;
+margin-bottom:${normalize(5)}px;
 width:90%;
 text-align:left;
 `
@@ -69,10 +68,10 @@ background-color: #ffff;
 width:95%;
 color:#000;
 font-weight:bold;
-font-size:${normalize(28)};
+font-size:${normalize(28)}px;
 justify-content:center;
-height:${normalize(45)};
-border-radius:${normalize(8)};
+height:${normalize(45)}px;
+border-radius:${normalize(8)}px;
 padding: 5px;
 `
 
@@ -82,28 +81,28 @@ width:100%;
 `
 
 export const CardEsp = styled.View`
-bottom:${normalize(50)};
-right:${normalize(20)};
-border-radius: ${normalize(100)};
+bottom:${normalize(50)}px;
+right:${normalize(20)}px;
+border-radius: ${normalize(100)}px;
 position: absolute;
 background-color:#29BB9D;
 `
 export const BtnSalvar = styled.TouchableOpacity.attrs({
-    activeOpacity:0.6,
+    activeOpacity: 0.6,
 })`
-top: ${normalize(20)};
-left:${normalize(100)};
-margin-bottom: ${normalize(20)};
-height: ${normalize(30)};
+top: ${normalize(20)}px;
+left:${normalize(100)}px;
+margin-bottom: ${normalize(20)}px;
+height: ${normalize(30)}px;
 background-color:#FFFF;
 border-radius: 5px;
-width: ${normalize(100)};
+width: ${normalize(100)}px;
 justify-content: center;
 box-shadow: 2px 4px rgba(0, 0, 0, 0.25);
 `
 
 export const TextEnviar = styled.Text`
-font-size: ${normalize(20)};
+font-size: ${normalize(20)}px;
 text-align: center;
 font-weight: bold;
 color:#29BB9D;

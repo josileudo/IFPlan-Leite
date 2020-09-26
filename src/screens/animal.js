@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {StackActions} from '@react-navigation/native';
-import {View, ActivityIndicator, AsyncStorage, Stack} from 'react-native';
+import React, { Component } from 'react';
+import { StackActions } from '@react-navigation/native';
+import { View, ActivityIndicator } from 'react-native';
 import {
   Background,
   CardLogo,
@@ -13,11 +13,10 @@ import {
   BtnSalvar,
   TextEnviar,
 } from '../styles/styleInfor';
+import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {TextInputMask} from 'react-native-masked-text';
+import { TextInputMask } from 'react-native-masked-text';
 import styles from '../styles/stylesheet';
-import normalize from 'react-native-normalize';
 Icon.loadFont();
 
 export default class Animal extends Component {
@@ -36,39 +35,39 @@ export default class Animal extends Component {
   }
 
   changePesoCorp(pesoCorp) {
-    this.setState({...this.state, pesoCorp});
+    this.setState({ ...this.state, pesoCorp });
   }
   changeProdLei(prodLei) {
-    this.setState({...this.state, prodLei});
+    this.setState({ ...this.state, prodLei });
   }
   changeTeorGord(teorGord) {
-    this.setState({...this.state, teorGord});
+    this.setState({ ...this.state, teorGord });
   }
   changeTeorPB(teorPB) {
-    this.setState({...this.state, teorPB});
+    this.setState({ ...this.state, teorPB });
   }
   changeDeslHor(deslHor) {
-    this.setState({...this.state, deslHor});
+    this.setState({ ...this.state, deslHor });
   }
   changeDeslVer(deslVer) {
-    this.setState({...this.state, deslVer});
+    this.setState({ ...this.state, deslVer });
   }
   changeVacLact(vacLact) {
-    this.setState({...this.state, vacLact});
+    this.setState({ ...this.state, vacLact });
   }
 
   async dados() {
     const Animal = await AsyncStorage.getItem('Animal');
     if (Animal) {
       const value = JSON.parse(Animal);
-      this.setState({value});
-      this.setState({teorPB: value.teorPB});
-      this.setState({pesoCorp: value.pesoCorp});
-      this.setState({prodLei: value.prodLei});
-      this.setState({deslHor: value.deslHor});
-      this.setState({deslVer: value.deslVer});
-      this.setState({vacLact: value.vacLact});
-      this.setState({teorGord: value.teorGord});
+      this.setState({ value });
+      this.setState({ teorPB: value.teorPB });
+      this.setState({ pesoCorp: value.pesoCorp });
+      this.setState({ prodLei: value.prodLei });
+      this.setState({ deslHor: value.deslHor });
+      this.setState({ deslVer: value.deslVer });
+      this.setState({ vacLact: value.vacLact });
+      this.setState({ teorGord: value.teorGord });
     }
   }
 
@@ -77,14 +76,14 @@ export default class Animal extends Component {
   }
 
   _onRefresh = () => {
-    this.setState({refreshing: true});
+    this.setState({ refreshing: true });
     this.dados().then(() => {
-      this.setState({refreshing: false});
+      this.setState({ refreshing: false });
     });
   };
 
   handleNavigateMenu() {
-    const {dispatch} = this.props.navigation;
+    const { dispatch } = this.props.navigation;
 
     dispatch({
       ...StackActions.replace('Menu'),
@@ -129,205 +128,205 @@ export default class Animal extends Component {
         {this.state.refreshing ? (
           <ActivityIndicator color="#ffff" size={25} />
         ) : (
-          <Background>
-            <CardLogo>
-              <TextInfo>Inserir dados</TextInfo>
-            </CardLogo>
-            <ScrollView alwaysBounceVertical={false}>
-              <CardInfo>
-                <CardInput>
-                  <TextAnu>Peso corporal (kg)</TextAnu>
-                  <TextInputMask
-                    type={'money'}
-                    options={{
-                      precision: 0,
-                      separator: ',',
-                      delimiter: '.',
-                      unit: '',
-                      suffixUnit: '',
-                    }}
-                    style={styles.input}
-                    placeholder="0,00"
-                    value={this.state.pesoCorp}
-                    placeholderTextColor="rgba(34, 159, 134, 0.32)"
-                    onChangeText={(pesoCorporal) => {
-                      this.changePesoCorp(pesoCorporal);
-                    }}
-                    returnKeyType={'next'}
-                    onSubmitEditing={() => {
-                      this.field1.focus();
-                    }}
-                    blurOnSubmit={false}></TextInputMask>
-                </CardInput>
-                <CardInput>
-                  <TextAnu>Produção de leite (L/vaca/dia)</TextAnu>
-                  <TextInputMask
-                    type={'money'}
-                    options={{
-                      precision: 1,
-                      separator: ',',
-                      delimiter: '.',
-                      unit: '',
-                      suffixUnit: '',
-                    }}
-                    style={styles.input}
-                    placeholder="0,00"
-                    value={this.state.prodLei}
-                    placeholderTextColor="rgba(34, 159, 134, 0.32)"
-                    onChangeText={(prodLeite) => {
-                      this.changeProdLei(prodLeite);
-                    }}
-                    refInput={(input) => {
-                      this.field1 = input;
-                    }}
-                    returnKeyType={'next'}
-                    onSubmitEditing={() => {
-                      this.field2.focus();
-                    }}
-                    blurOnSubmit={false}></TextInputMask>
-                </CardInput>
-                <CardInput>
-                  <TextAnu>Teor de gordura no leite (%) </TextAnu>
-                  <TextInputMask
-                    type={'money'}
-                    options={{
-                      precision: 1,
-                      separator: ',',
-                      delimiter: '.',
-                      unit: '',
-                      suffixUnit: '',
-                    }}
-                    style={styles.input}
-                    placeholder="0,00"
-                    value={this.state.teorGord}
-                    placeholderTextColor="rgba(34, 159, 134, 0.32)"
-                    onChangeText={(teorGordura) => {
-                      this.changeTeorGord(teorGordura);
-                    }}
-                    refInput={(input) => {
-                      this.field2 = input;
-                    }}
-                    returnKeyType={'next'}
-                    onSubmitEditing={() => {
-                      this.field3.focus();
-                    }}
-                    blurOnSubmit={false}></TextInputMask>
-                </CardInput>
-                <CardInput>
-                  <TextAnu>Teor de PB no leite (%)</TextAnu>
-                  <TextInputMask
-                    type={'money'}
-                    options={{
-                      precision: 1,
-                      separator: ',',
-                      delimiter: '.',
-                      unit: '',
-                      suffixUnit: '',
-                    }}
-                    style={styles.input}
-                    placeholder="0,00"
-                    value={this.state.teorPB}
-                    placeholderTextColor="rgba(34, 159, 134, 0.32)"
-                    onChangeText={(teorPB) => {
-                      this.changeTeorPB(teorPB);
-                    }}
-                    refInput={(input) => {
-                      this.field3 = input;
-                    }}
-                    returnKeyType={'next'}
-                    onSubmitEditing={() => {
-                      this.field4.focus();
-                    }}
-                    blurOnSubmit={false}></TextInputMask>
-                </CardInput>
-                <CardInput>
-                  <TextAnu>Deslocamento horizontal (m)</TextAnu>
-                  <TextInputMask
-                    type={'money'}
-                    options={{
-                      precision: 0,
-                      separator: ',',
-                      delimiter: '.',
-                      unit: '',
-                      suffixUnit: '',
-                    }}
-                    style={styles.input}
-                    placeholder="0,00"
-                    value={this.state.deslHor}
-                    placeholderTextColor="rgba(34, 159, 134, 0.32)"
-                    onChangeText={(deslHorizontal) => {
-                      this.changeDeslHor(deslHorizontal);
-                    }}
-                    refInput={(input) => {
-                      this.field4 = input;
-                    }}
-                    returnKeyType={'next'}
-                    onSubmitEditing={() => {
-                      this.field5.focus();
-                    }}
-                    blurOnSubmit={false}></TextInputMask>
-                </CardInput>
-                <CardInput>
-                  <TextAnu>Deslocamento vertical (m)</TextAnu>
-                  <TextInputMask
-                    type={'money'}
-                    options={{
-                      precision: 0,
-                      separator: ',',
-                      delimiter: '.',
-                      unit: '',
-                      suffixUnit: '',
-                    }}
-                    style={styles.input}
-                    placeholder="0,00"
-                    value={this.state.deslVer}
-                    placeholderTextColor="rgba(34, 159, 134, 0.32)"
-                    placeholderTextColor="rgba(34, 159, 134, 0.32)"
-                    onChangeText={(deslVertical) => {
-                      this.changeDeslVer(deslVertical);
-                    }}
-                    refInput={(input) => {
-                      this.field5 = input;
-                    }}
-                    returnKeyType={'next'}
-                    onSubmitEditing={() => {
-                      this.field6.focus();
-                    }}
-                    blurOnSubmit={false}></TextInputMask>
-                </CardInput>
-                <CardInput>
-                  <TextAnu>Vacas em lactação (%)</TextAnu>
-                  <TextInputMask
-                    type={'money'}
-                    options={{
-                      precision: 1,
-                      separator: ',',
-                      delimiter: '.',
-                      unit: '',
-                      suffixUnit: '',
-                    }}
-                    style={styles.input}
-                    placeholder="0,00"
-                    value={this.state.vacLact}
-                    placeholderTextColor="rgba(34, 159, 134, 0.32)"
-                    placeholderTextColor="#29BB9D"
-                    onChangeText={(vacaLacta) => {
-                      this.changeVacLact(vacaLacta);
-                    }}
-                    refInput={(input) => {
-                      this.field6 = input;
-                    }}></TextInputMask>
-                </CardInput>
-                <BtnSalvar 
-                  hitSlop = {{top: 20, bottom: 20, left: 50, right: 50 }}
-                  onPress={() => this.buttonCheck()}>
-                  <TextEnviar>Confirmar</TextEnviar>
-                </BtnSalvar>
-              </CardInfo>
-              <View style={{height: 60}} />
-            </ScrollView>
-          </Background>
-        )}
+            <Background>
+              <CardLogo>
+                <TextInfo>Inserir dados</TextInfo>
+              </CardLogo>
+              <ScrollView alwaysBounceVertical={false}>
+                <CardInfo>
+                  <CardInput>
+                    <TextAnu>Peso corporal (kg)</TextAnu>
+                    <TextInputMask
+                      type={'money'}
+                      options={{
+                        precision: 0,
+                        separator: ',',
+                        delimiter: '.',
+                        unit: '',
+                        suffixUnit: '',
+                      }}
+                      style={styles.input}
+                      placeholder="0,00"
+                      value={this.state.pesoCorp}
+                      placeholderTextColor="rgba(34, 159, 134, 0.32)"
+                      onChangeText={(pesoCorporal) => {
+                        this.changePesoCorp(pesoCorporal);
+                      }}
+                      returnKeyType={'next'}
+                      onSubmitEditing={() => {
+                        this.field1.focus();
+                      }}
+                      blurOnSubmit={false}></TextInputMask>
+                  </CardInput>
+                  <CardInput>
+                    <TextAnu>Produção de leite (L/vaca/dia)</TextAnu>
+                    <TextInputMask
+                      type={'money'}
+                      options={{
+                        precision: 1,
+                        separator: ',',
+                        delimiter: '.',
+                        unit: '',
+                        suffixUnit: '',
+                      }}
+                      style={styles.input}
+                      placeholder="0,00"
+                      value={this.state.prodLei}
+                      placeholderTextColor="rgba(34, 159, 134, 0.32)"
+                      onChangeText={(prodLeite) => {
+                        this.changeProdLei(prodLeite);
+                      }}
+                      refInput={(input) => {
+                        this.field1 = input;
+                      }}
+                      returnKeyType={'next'}
+                      onSubmitEditing={() => {
+                        this.field2.focus();
+                      }}
+                      blurOnSubmit={false}></TextInputMask>
+                  </CardInput>
+                  <CardInput>
+                    <TextAnu>Teor de gordura no leite (%) </TextAnu>
+                    <TextInputMask
+                      type={'money'}
+                      options={{
+                        precision: 1,
+                        separator: ',',
+                        delimiter: '.',
+                        unit: '',
+                        suffixUnit: '',
+                      }}
+                      style={styles.input}
+                      placeholder="0,00"
+                      value={this.state.teorGord}
+                      placeholderTextColor="rgba(34, 159, 134, 0.32)"
+                      onChangeText={(teorGordura) => {
+                        this.changeTeorGord(teorGordura);
+                      }}
+                      refInput={(input) => {
+                        this.field2 = input;
+                      }}
+                      returnKeyType={'next'}
+                      onSubmitEditing={() => {
+                        this.field3.focus();
+                      }}
+                      blurOnSubmit={false}></TextInputMask>
+                  </CardInput>
+                  <CardInput>
+                    <TextAnu>Teor de PB no leite (%)</TextAnu>
+                    <TextInputMask
+                      type={'money'}
+                      options={{
+                        precision: 1,
+                        separator: ',',
+                        delimiter: '.',
+                        unit: '',
+                        suffixUnit: '',
+                      }}
+                      style={styles.input}
+                      placeholder="0,00"
+                      value={this.state.teorPB}
+                      placeholderTextColor="rgba(34, 159, 134, 0.32)"
+                      onChangeText={(teorPB) => {
+                        this.changeTeorPB(teorPB);
+                      }}
+                      refInput={(input) => {
+                        this.field3 = input;
+                      }}
+                      returnKeyType={'next'}
+                      onSubmitEditing={() => {
+                        this.field4.focus();
+                      }}
+                      blurOnSubmit={false}></TextInputMask>
+                  </CardInput>
+                  <CardInput>
+                    <TextAnu>Deslocamento horizontal (m)</TextAnu>
+                    <TextInputMask
+                      type={'money'}
+                      options={{
+                        precision: 0,
+                        separator: ',',
+                        delimiter: '.',
+                        unit: '',
+                        suffixUnit: '',
+                      }}
+                      style={styles.input}
+                      placeholder="0,00"
+                      value={this.state.deslHor}
+                      placeholderTextColor="rgba(34, 159, 134, 0.32)"
+                      onChangeText={(deslHorizontal) => {
+                        this.changeDeslHor(deslHorizontal);
+                      }}
+                      refInput={(input) => {
+                        this.field4 = input;
+                      }}
+                      returnKeyType={'next'}
+                      onSubmitEditing={() => {
+                        this.field5.focus();
+                      }}
+                      blurOnSubmit={false}></TextInputMask>
+                  </CardInput>
+                  <CardInput>
+                    <TextAnu>Deslocamento vertical (m)</TextAnu>
+                    <TextInputMask
+                      type={'money'}
+                      options={{
+                        precision: 0,
+                        separator: ',',
+                        delimiter: '.',
+                        unit: '',
+                        suffixUnit: '',
+                      }}
+                      style={styles.input}
+                      placeholder="0,00"
+                      value={this.state.deslVer}
+                      placeholderTextColor="rgba(34, 159, 134, 0.32)"
+                      placeholderTextColor="rgba(34, 159, 134, 0.32)"
+                      onChangeText={(deslVertical) => {
+                        this.changeDeslVer(deslVertical);
+                      }}
+                      refInput={(input) => {
+                        this.field5 = input;
+                      }}
+                      returnKeyType={'next'}
+                      onSubmitEditing={() => {
+                        this.field6.focus();
+                      }}
+                      blurOnSubmit={false}></TextInputMask>
+                  </CardInput>
+                  <CardInput>
+                    <TextAnu>Vacas em lactação (%)</TextAnu>
+                    <TextInputMask
+                      type={'money'}
+                      options={{
+                        precision: 1,
+                        separator: ',',
+                        delimiter: '.',
+                        unit: '',
+                        suffixUnit: '',
+                      }}
+                      style={styles.input}
+                      placeholder="0,00"
+                      value={this.state.vacLact}
+                      placeholderTextColor="rgba(34, 159, 134, 0.32)"
+                      placeholderTextColor="#29BB9D"
+                      onChangeText={(vacaLacta) => {
+                        this.changeVacLact(vacaLacta);
+                      }}
+                      refInput={(input) => {
+                        this.field6 = input;
+                      }}></TextInputMask>
+                  </CardInput>
+                  <BtnSalvar
+                    hitSlop={{ top: 20, bottom: 20, left: 50, right: 50 }}
+                    onPress={() => this.buttonCheck()}>
+                    <TextEnviar>Confirmar</TextEnviar>
+                  </BtnSalvar>
+                </CardInfo>
+                <View style={{ height: 60 }} />
+              </ScrollView>
+            </Background>
+          )}
       </KeyboardAvoidingView>
     );
   }

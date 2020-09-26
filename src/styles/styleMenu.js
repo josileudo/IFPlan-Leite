@@ -1,8 +1,8 @@
 import styled from 'styled-components/native'
-import {Dimensions, PixelRatio} from 'react-native'
+import { Dimensions, PixelRatio } from 'react-native'
 import normalize from 'react-native-normalize'
 
-export const Background = styled.View `
+export const Background = styled.View`
 background-color: #29BB9D; 
 flex:1;
 height: 100%;
@@ -24,7 +24,7 @@ border-radius:12px;
 /* ===========Tudo para animalValue =============*/
 export const AreaValues = styled.View`
 background-color: #FFFF;
-height:${normalize(160)};
+height:${normalize(160)}px;
 width: 100%;
 margin-top:10px;
 border-radius:8px;
@@ -38,7 +38,7 @@ align-items:center;
 
 export const CardTextValues = styled.View`
 width:95%;
-height:${normalize(40)};
+height:${normalize(40)}px;
 margin-top:1%;
 flex-direction:row;
 border-bottom-width: 1px;
@@ -54,44 +54,44 @@ justify-content:center;
 `
 export const CardBtnEditar = styled.View`
 width: 100%;
-height: ${normalize(25)}; ;
+height: ${normalize(25)}px;
 align-items:flex-end;
 justify-content:center;
-margin-top: ${normalize(5)};
+margin-top: ${normalize(5)}px;
 `
 export const BtnEditar = styled.TouchableOpacity.attrs({
-  activeOpacity:0.7,
-  pressDelay:0.9,
+  activeOpacity: 0.7,
+  pressDelay: 0.9,
 })`
 border-radius:12px;
-width:${normalize(130)};
+width:${normalize(130)}px;
 align-items:center;
 height:95%;
-right: ${normalize(10)};
+right: ${normalize(10)}px;
 justify-content:center;
 `
 export const TextBtnEditar = styled.Text`
 color: #29BB9D;
-left: ${normalize(20)};
+left: ${normalize(20)}px;
 text-align:center;
 font-weight:bold;
-font-size: ${normalize(20)};
+font-size: ${normalize(20)}px;
 `
 
 export const TextVar = styled.Text`
 align-items:center;
-font-size:${normalize(16)};
+font-size:${normalize(16)}px;
 `
 export const ValuesVar = styled.Text`
 align-items:center;
 text-align:right;
-right:${normalize(5)};
-font-size:${normalize(16)};
+right:${normalize(5)}px;
+font-size:${normalize(16)}px;
 `
 
 export const EconomiaValues = styled.View`
 background-color: #FFFF;
-height:${normalize(205)};
+height:${normalize(205)}px;
 width: 100%;
 margin-top:10px;
 border-radius:8px;
@@ -99,38 +99,38 @@ border-radius:8px;
 export const ValueTitle = styled.Text`
 color: #000;
 text-align:left;
-left:${normalize(2)};
-font-size: ${normalize(20)};
+left:${normalize(2)}px;
+font-size: ${normalize(20)}px;
 background-color:#FFFF;
-top:${normalize(5)};
+top:${normalize(5)}px;
 padding: 5px;
 font-weight:bold;
 border-radius:12px;
 `
 export const ClimaValues = styled.View`
 background-color: #FFFF;
-height:${normalize(380)};
+height:${normalize(380)}px;
 width: 100%;
 margin-top:10px;
 border-radius:8px;
 `
 export const AnimalValues = styled.View`
 background-color: #FFFF;
-height:${normalize(380)};
+height:${normalize(380)}px;
 width: 100%;
 border-radius:8px;
 margin-top:10px;
 `
 export const BtnSimular = styled.TouchableOpacity.attrs({
-  activeOpacity:0.9,
-  pressDelay:0.8,
+  activeOpacity: 0.9,
+  pressDelay: 0.8,
 })`
-width: ${normalize(140)};
+width: ${normalize(140)}px;
 border-radius:12px;
 align-items:center;
 justify-content:center;
-height:${normalize(40)};
-top: ${normalize(25)};
+height:${normalize(40)}px;
+top: ${normalize(25)}px;
 background-color: #30D0AF;
 `
 export const TextTouchable = styled.Text`
@@ -139,6 +139,6 @@ padding:5px;
 text-align:center;
 color:#FFFF;
 font-weight: bold;
-font-size: ${normalize(25)};
+font-size: ${normalize(25)}px;
 border-radius: 8px;
 `

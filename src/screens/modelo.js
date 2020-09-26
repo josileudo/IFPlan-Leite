@@ -1,14 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import normalize from 'react-native-normalize'
-import {StackActions} from '@react-navigation/native';
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
+import AsyncStorage from '@react-native-community/async-storage';
+
 import {
-  Text,
   View,
   StyleSheet,
-  AsyncStorage,
-  BackHandler,
-  ActivityIndicator,
 } from 'react-native';
 import {
   Background,
@@ -18,14 +15,11 @@ import {
   CardValues,
   CardTextValues,
   ScrollView,
-  BtnEditar,
-  TextBtnEditar,
   CardTextVar,
   TextVar,
   ValuesVar,
   BackgroundValues,
   CardValuesVar,
-  CardBtnEditar,
 } from '../styles/styleModelo';
 
 export default class Menu extends Component {
@@ -42,7 +36,7 @@ export default class Menu extends Component {
 
   async parametros() {
     const areaData = await AsyncStorage.getItem('Agua');
-    this.setState({refreshing: true});
+    this.setState({ refreshing: true });
 
     if (areaData) {
       const value = JSON.parse(areaData);
@@ -52,7 +46,7 @@ export default class Menu extends Component {
         refreshing: false,
       });
     } else {
-      this.setState({refreshing: false});
+      this.setState({ refreshing: false });
     }
 
     const economiaData = await AsyncStorage.getItem('Economia');
@@ -64,7 +58,7 @@ export default class Menu extends Component {
         refreshing: false,
       });
     } else {
-      this.setState({refreshing: false});
+      this.setState({ refreshing: false });
     }
 
     const climaData = await AsyncStorage.getItem('Clima');
@@ -76,7 +70,7 @@ export default class Menu extends Component {
         refreshing: false,
       });
     } else {
-      this.setState({refreshing: false});
+      this.setState({ refreshing: false });
     }
 
     const animalData = await AsyncStorage.getItem('Animal');
@@ -88,7 +82,7 @@ export default class Menu extends Component {
         refreshing: false,
       });
     } else {
-      this.setState({refreshing: false});
+      this.setState({ refreshing: false });
     }
   }
 
@@ -97,9 +91,9 @@ export default class Menu extends Component {
   }
 
   onRefresh = () => {
-    this.setState({...this.state, refreshing: true});
+    this.setState({ ...this.state, refreshing: true });
     this.parametros().then(() => {
-      this.setState({refreshing: false});
+      this.setState({ refreshing: false });
     });
   };
 
@@ -112,32 +106,32 @@ export default class Menu extends Component {
   }
 
   currencyFormat(number, decimals = 3, dec_point = ',', thousands_sep = '.') {
-    var n = !isFinite(+number) ? 0 : +number, 
-        prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-        sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
-        dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
-        toFixedFix = function (n, prec) {
-            // Fix for IE parseFloat(0.55).toFixed(0) = 0;
-            var k = Math.pow(10, prec);
-            return Math.round(n * k) / k;
-        },
-        s = (prec ? toFixedFix(n, prec) : Math.round(n)).toString().split('.');
+    var n = !isFinite(+number) ? 0 : +number,
+      prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+      sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+      dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+      toFixedFix = function (n, prec) {
+        // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+        var k = Math.pow(10, prec);
+        return Math.round(n * k) / k;
+      },
+      s = (prec ? toFixedFix(n, prec) : Math.round(n)).toString().split('.');
     if (s[0].length > 3) {
-        s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+      s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
     }
     if ((s[1] || '').length < prec) {
-        s[1] = s[1] || '';
-        s[1] += new Array(prec - s[1].length + 1).join('0');
+      s[1] = s[1] || '';
+      s[1] += new Array(prec - s[1].length + 1).join('0');
     }
     return s.join(dec);
   }
 
   render() {
-    const {navigate} = this.props.navigation;
-    const {dataArea} = this.state;
-    const {dataEconomia} = this.state;
-    const {dataClima} = this.state;
-    const {dataAnimal} = this.state;
+    const { navigate } = this.props.navigation;
+    const { dataArea } = this.state;
+    const { dataEconomia } = this.state;
+    const { dataClima } = this.state;
+    const { dataAnimal } = this.state;
     const btnEditar = 'Editar Dados';
 
     //VARIÁVEIS
@@ -185,21 +179,21 @@ export default class Menu extends Component {
     const COETotal = COE * prodDiaria * 365;
 
     // Consumo (Kg MS/dia)
-    const consumo =  -4.69 + (0.0142 * pesoCorporal) + (0.356 * producaoLeite) 
-    +(1.72 * teorGordura);
+    const consumo = -4.69 + (0.0142 * pesoCorporal) + (0.356 * producaoLeite)
+      + (1.72 * teorGordura);
 
     // Consumo de NDT
-    const consumoNDT = 
-      ((((48.6-(0.0183* pesoCorporal)) + (0.435 * producaoLeite)
-      +(0.728 * teorGordura) + (3.46 * teorPB)) * 1.04)/100) * consumo;
+    const consumoNDT =
+      ((((48.6 - (0.0183 * pesoCorporal)) + (0.435 * producaoLeite)
+        + (0.728 * teorGordura) + (3.46 * teorPB)) * 1.04) / 100) * consumo;
 
-    
+
     const NDTdv = (0.00669 * pesoCorporal * (desloVertical / 1000)) * 0.43;
-     
+
 
     //NDT DH=
     const NDTdh = (0.00048 * pesoCorporal * (desloHorizontal / 1000)) * 0.43;
-   
+
     //NDT deslocamento
     const NDTdeslocamento = NDTdh + NDTdv
 
@@ -218,7 +212,7 @@ export default class Menu extends Component {
     const ITU =
       (0.8 * (temperaturaMaxima + temperaturaMinima)) / 2 +
       (umidadeRelativa / 100) *
-        ((temperaturaMaxima + temperaturaMinima) / 2 - 14.4) +
+      ((temperaturaMaxima + temperaturaMinima) / 2 - 14.4) +
       46.4;
     var itu = this.currencyFormat(ITU, 1);
 
@@ -235,7 +229,7 @@ export default class Menu extends Component {
     var prodForr = this.currencyFormat(prodForragem.toFixed(3));
 
     //forragem Disponivel
-    const forrDispnivel =((prodForragem * 10000) * (area / numeroPiquetes))* 0.2;
+    const forrDispnivel = ((prodForragem * 10000) * (area / numeroPiquetes)) * 0.2;
 
     //Suplementação (kg MS/dia)
     const suplementacao = producaoLeite / 2.5;
@@ -243,10 +237,10 @@ export default class Menu extends Component {
     // Capacida de suporte
     const capaSuporte = (forrDispnivel * 0.95) / (consTotal - suplementacao);
     var capaSup = this.currencyFormat(capaSuporte, 1);
-    console.log ('Forragem disponivel: ', forrDispnivel)
-    console.log ('Consumo tota: ', consTotal)
-    console.log ('Suplementacao: ', suplementacao)
-    console.log ('Capacidade de suporte = ', capaSuporte)
+    console.log('Forragem disponivel: ', forrDispnivel)
+    console.log('Consumo tota: ', consTotal)
+    console.log('Suplementacao: ', suplementacao)
+    console.log('Capacidade de suporte = ', capaSuporte)
     // DPL anual
     const DPLAnual = DPL * capaSuporte * 365;
 
@@ -269,7 +263,7 @@ export default class Menu extends Component {
 
     //produção de leite (L/ha/dia)
     var prodLeiteDia = prodLeiteAno / 365;
-    var prodLeiDia = this.currencyFormat(prodLeiteDia,0);
+    var prodLeiDia = this.currencyFormat(prodLeiteDia, 0);
 
     //MDO familiar
     const mdoFamiliar = rendaFamiliar / (prodDiaria * 30.4);
@@ -345,18 +339,18 @@ export default class Menu extends Component {
               {this.state.refreshing ? (
                 <ShimmerPlaceHolder style={styles.txtTitle} autoRun={true} />
               ) : (
-                <ValueTitle>Solo-Água-Planta-Animal</ValueTitle>
-              )}
+                  <ValueTitle>Solo-Água-Planta-Animal</ValueTitle>
+                )}
               <CardValues>
                 <CardTextValues>
                   <CardTextVar>
-                  {this.state.refreshing ? (
+                    {this.state.refreshing ? (
                       <ShimmerPlaceHolder
                         style={styles.txtValues}
                         autoRun={true}
                       />
                     ) : (
-                    <TextVar>Tensão da água no solo (bar)</TextVar>)}
+                        <TextVar>Tensão da água no solo (bar)</TextVar>)}
                   </CardTextVar>
                   <CardValuesVar>
                     {this.state.refreshing ? (
@@ -365,8 +359,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <ValuesVar>{!Number.isNaN(tenAguaSol) ? tenAguaSol : '0'}</ValuesVar>
-                    )}
+                        <ValuesVar>{!Number.isNaN(tenAguaSol) ? tenAguaSol : '0'}</ValuesVar>
+                      )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
@@ -377,8 +371,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <TextVar>Produção de forragem (kg MV/m2)</TextVar>
-                    )}
+                        <TextVar>Produção de forragem (kg MV/m2)</TextVar>
+                      )}
                   </CardTextVar>
                   <CardValuesVar>
                     {this.state.refreshing ? (
@@ -387,8 +381,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <ValuesVar>{prodForr || '0'}</ValuesVar>
-                    )}
+                        <ValuesVar>{prodForr || '0'}</ValuesVar>
+                      )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
@@ -399,8 +393,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <TextVar>Capacidade de suporte (animais)</TextVar>
-                    )}
+                        <TextVar>Capacidade de suporte (animais)</TextVar>
+                      )}
                   </CardTextVar>
                   <CardValuesVar>
                     {this.state.refreshing ? (
@@ -409,8 +403,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <ValuesVar>{capaSup|| '0'}</ValuesVar>
-                    )}
+                        <ValuesVar>{capaSup || '0'}</ValuesVar>
+                      )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
@@ -421,8 +415,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <TextVar>Taxa de lotação (vacas/ha)</TextVar>
-                    )}
+                        <TextVar>Taxa de lotação (vacas/ha)</TextVar>
+                      )}
                   </CardTextVar>
                   <CardValuesVar>
                     {this.state.refreshing ? (
@@ -431,8 +425,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <ValuesVar>{taxaLot || '0'}</ValuesVar>
-                    )}
+                        <ValuesVar>{taxaLot || '0'}</ValuesVar>
+                      )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
@@ -443,8 +437,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <TextVar>ITU</TextVar>
-                    )}
+                        <TextVar>ITU</TextVar>
+                      )}
                   </CardTextVar>
                   <CardValuesVar>
                     {this.state.refreshing ? (
@@ -453,8 +447,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <ValuesVar>{itu || '0'}</ValuesVar>
-                    )}
+                        <ValuesVar>{itu || '0'}</ValuesVar>
+                      )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
@@ -465,8 +459,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <TextVar>DPL (L/vaca/dia)</TextVar>
-                    )}
+                        <TextVar>DPL (L/vaca/dia)</TextVar>
+                      )}
                   </CardTextVar>
                   <CardValuesVar>
                     {this.state.refreshing ? (
@@ -475,8 +469,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <ValuesVar>{dpl || '0'}</ValuesVar>
-                    )}
+                        <ValuesVar>{dpl || '0'}</ValuesVar>
+                      )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
@@ -487,8 +481,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <TextVar>Pegada hídrica (L H2O/L leite)</TextVar>
-                    )}
+                        <TextVar>Pegada hídrica (L H2O/L leite)</TextVar>
+                      )}
                   </CardTextVar>
                   <CardValuesVar>
                     {this.state.refreshing ? (
@@ -497,8 +491,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <ValuesVar>{pegadaHid || '0'}</ValuesVar>
-                    )}
+                        <ValuesVar>{pegadaHid || '0'}</ValuesVar>
+                      )}
                   </CardValuesVar>
                 </CardTextValues>
               </CardValues>
@@ -507,8 +501,8 @@ export default class Menu extends Component {
               {this.state.refreshing ? (
                 <ShimmerPlaceHolder style={styles.txtTitle} autoRun={true} />
               ) : (
-                <ValueTitle>Sistema-Custos-Resultado econômico</ValueTitle>
-              )}
+                  <ValueTitle>Sistema-Custos-Resultado econômico</ValueTitle>
+                )}
               <CardValues>
                 <CardTextValues>
                   <CardTextVar>
@@ -518,8 +512,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <TextVar>Produção diária (L/dia)</TextVar>
-                    )}
+                        <TextVar>Produção diária (L/dia)</TextVar>
+                      )}
                   </CardTextVar>
                   <CardValuesVar>
                     {this.state.refreshing ? (
@@ -528,8 +522,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <ValuesVar>{prodDia || '0'}</ValuesVar>
-                    )}
+                        <ValuesVar>{prodDia || '0'}</ValuesVar>
+                      )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
@@ -540,8 +534,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <TextVar>Produção de leite (L/ha/dia)</TextVar>
-                    )}
+                        <TextVar>Produção de leite (L/ha/dia)</TextVar>
+                      )}
                   </CardTextVar>
                   <CardValuesVar>
                     {this.state.refreshing ? (
@@ -550,8 +544,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <ValuesVar>{prodLeiDia || '0'}</ValuesVar>
-                    )}
+                        <ValuesVar>{prodLeiDia || '0'}</ValuesVar>
+                      )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
@@ -562,8 +556,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <TextVar>Produção de leite (L/ha/ano) </TextVar>
-                    )}
+                        <TextVar>Produção de leite (L/ha/ano) </TextVar>
+                      )}
                   </CardTextVar>
                   <CardValuesVar>
                     {this.state.refreshing ? (
@@ -572,8 +566,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <ValuesVar> {prodLeiAno || '0'}</ValuesVar>
-                    )}
+                        <ValuesVar> {prodLeiAno || '0'}</ValuesVar>
+                      )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
@@ -584,8 +578,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <TextVar>Perda receita estresse (R$/ano)</TextVar>
-                    )}
+                        <TextVar>Perda receita estresse (R$/ano)</TextVar>
+                      )}
                   </CardTextVar>
                   <CardValuesVar>
                     {this.state.refreshing ? (
@@ -594,8 +588,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <ValuesVar>{perdaRecEstresse || '0'}</ValuesVar>
-                    )}
+                        <ValuesVar>{perdaRecEstresse || '0'}</ValuesVar>
+                      )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
@@ -606,8 +600,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <TextVar>COE (R$/L)</TextVar>
-                    )}
+                        <TextVar>COE (R$/L)</TextVar>
+                      )}
                   </CardTextVar>
                   <CardValuesVar>
                     {this.state.refreshing ? (
@@ -616,8 +610,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <ValuesVar>{coe || '0'}</ValuesVar>
-                    )}
+                        <ValuesVar>{coe || '0'}</ValuesVar>
+                      )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
@@ -628,8 +622,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <TextVar>COT (R$/L)</TextVar>
-                    )}
+                        <TextVar>COT (R$/L)</TextVar>
+                      )}
                   </CardTextVar>
                   <CardValuesVar>
                     {this.state.refreshing ? (
@@ -638,8 +632,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <ValuesVar>{cot || '0'}</ValuesVar>
-                    )}
+                        <ValuesVar>{cot || '0'}</ValuesVar>
+                      )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
@@ -650,8 +644,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <TextVar>ML (R$/L)</TextVar>
-                    )}
+                        <TextVar>ML (R$/L)</TextVar>
+                      )}
                   </CardTextVar>
                   <CardValuesVar>
                     {this.state.refreshing ? (
@@ -660,8 +654,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <ValuesVar>{ml || '0'}</ValuesVar>
-                    )}
+                        <ValuesVar>{ml || '0'}</ValuesVar>
+                      )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
@@ -672,8 +666,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <TextVar>Receita por área (R$/ha/ano)</TextVar>
-                    )}
+                        <TextVar>Receita por área (R$/ha/ano)</TextVar>
+                      )}
                   </CardTextVar>
                   <CardValuesVar>
                     {this.state.refreshing ? (
@@ -682,8 +676,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <ValuesVar>{receitaArea || '0'}</ValuesVar>
-                    )}
+                        <ValuesVar>{receitaArea || '0'}</ValuesVar>
+                      )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
@@ -694,8 +688,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <TextVar>TRCI (%a.a.) </TextVar>
-                    )}
+                        <TextVar>TRCI (%a.a.) </TextVar>
+                      )}
                   </CardTextVar>
                   <CardValuesVar>
                     {this.state.refreshing ? (
@@ -704,8 +698,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <ValuesVar>{trci || '0'}</ValuesVar>
-                    )}
+                        <ValuesVar>{trci || '0'}</ValuesVar>
+                      )}
                   </CardValuesVar>
                 </CardTextValues>
                 <CardTextValues>
@@ -716,8 +710,8 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <TextVar>Payback (anos)</TextVar>
-                    )}
+                        <TextVar>Payback (anos)</TextVar>
+                      )}
                   </CardTextVar>
                   <CardValuesVar>
                     {this.state.refreshing ? (
@@ -726,11 +720,11 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                      <ValuesVar>{payb || '0'}</ValuesVar>
-                    )}
+                        <ValuesVar>{payb || '0'}</ValuesVar>
+                      )}
                   </CardValuesVar>
                 </CardTextValues>
-                <View style={{height: 30}} />
+                <View style={{ height: 30 }} />
               </CardValues>
             </AnimalValues>
           </ScrollView>
@@ -754,7 +748,7 @@ const styles = StyleSheet.create({
   txtTitle: {
     borderRadius: normalize(8),
     height: normalize(20),
-    top:normalize (10),
+    top: normalize(10),
   },
   txtValues: {
     borderRadius: normalize(8),
