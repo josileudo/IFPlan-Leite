@@ -253,7 +253,7 @@ export default class Menu extends Component {
                     {this.state.refreshing ? (
                       <ShimmerPlaceHolder style={styles.txtValues} autoRun={true} />
                     ) : (
-                        <TextVar>Precipitação (mm)</TextVar>)}
+                        <TextVar>Precipitação (mm/dia)</TextVar>)}
                   </CardTextVar>
                   <CardValuesVar>{this.state.refreshing ? (
                     <ShimmerPlaceHolder style={styles.txtValues} autoRun={true} />
@@ -322,7 +322,7 @@ export default class Menu extends Component {
                     {this.state.refreshing ? (
                       <ShimmerPlaceHolder style={styles.txtValues} autoRun={true} />
                     ) : (
-                        <TextVar>Dose de N (dose)</TextVar>)}
+                        <TextVar>Status Nutricional (dose)</TextVar>)}
                   </CardTextVar>
                   <CardValuesVar>
                     {this.state.refreshing ? (

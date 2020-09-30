@@ -139,7 +139,7 @@ export default class Clima extends Component {
               <ScrollView alwaysBounceVertical={false}>
                 <CardInfo>
                   <CardInput>
-                    <TextAnu>Precipitação (mm)</TextAnu>
+                    <TextAnu>Precipitação (mm/dia)</TextAnu>
                     <TextInputMask
                       type={'money'}
                       value={this.state.prec}
@@ -271,7 +271,7 @@ export default class Clima extends Component {
                       blurOnSubmit={false}></TextInputMask>
                   </CardInput>
                   <CardInput>
-                    <TextAnu>Dose de N (dose)</TextAnu>
+                    <TextAnu>Status Nutricional (dose)</TextAnu>
                     <TextInputMask
                       type={'money'}
                       options={{

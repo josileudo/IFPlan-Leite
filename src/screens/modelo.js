@@ -310,7 +310,7 @@ export default class Menu extends Component {
 
     // Perda de receita com estresse
     var perdaReceitaEstresse = DPLAnual * precoLeite;
-    var perdaRecEstresse = this.currencyFormat(perdaReceitaEstresse.toFixed(3));
+    var perdaRecEstresse = this.currencyFormat(perdaReceitaEstresse, 2);
 
     // Taxa de lotação
     const taxaLotacao = capaSuporte / area;
