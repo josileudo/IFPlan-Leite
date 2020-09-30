@@ -127,7 +127,6 @@ export default class Menu extends Component {
     const { dataAnimal } = this.state;
     const btnEditar = 'Editar';
 
-
     return (
       <Background>
         <BackgroundValues>
