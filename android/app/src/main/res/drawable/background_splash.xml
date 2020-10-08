@@ -3,10 +3,9 @@
 <layer-list
   xmlns:android="http://schemas.android.com/apk/res/android">
   <item android:drawable="@color/primary"/>
-  <item
-    android:width="180dp"
-    android:height="180dp"
-    android:drawable="@drawable/icon_splash"
-    android:gravity="center"
-  />
+  <item>
+    <bitmap 
+    android:src="@drawable/icon_splash"
+    android:gravity="center"/>
+  </item>
 </layer-list>
