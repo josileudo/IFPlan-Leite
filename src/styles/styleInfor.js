@@ -91,15 +91,15 @@ export const BtnSalvar = styled.TouchableOpacity.attrs({
     activeOpacity: 0.6,
     pressDelay: 0.8,
 })`
-align-items:center;
 top: ${normalize(20)}px;
 left:${normalize(100)}px;
+width: ${normalize(120)}px;
+height: ${normalize(40)}px;
 margin-bottom: ${normalize(20)}px;
-height: ${normalize(30)}px;
-background-color:#30D0AF;
 border-radius: 5px;
-width: ${normalize(100)}px;
+align-items:center;
 justify-content: center;
+background-color:#30D0AF;
 box-shadow: 6px 8px rgba(0, 0, 0, 0.25);
 `
 
