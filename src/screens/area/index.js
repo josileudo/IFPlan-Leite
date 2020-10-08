@@ -147,7 +147,18 @@ export default class Area extends Component {
                   </CardInput>
                   <BtnSalvar
                     hitSlop={{ top: 20, bottom: 20, left: 50, right: 50 }}
-                    onPress={() => this.buttonCheck()}>
+                    onPress={() => this.buttonCheck()}
+                    style = {{
+                      shadowColor: "#000",
+                      shadowOffset: {
+                        width: 2,
+                        height: 2,
+                      },
+                      shadowOpacity: 0.25,
+                      shadowRadius: 3.84,
+                      elevation: 5
+                    }}>
+
                     <TextEnviar>
                       Confirmar
                   </TextEnviar>

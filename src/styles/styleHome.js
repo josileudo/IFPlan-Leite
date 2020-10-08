@@ -51,7 +51,6 @@ export const TouchableOpacity = styled.TouchableOpacity.attrs({
 })`
 width: ${normalize(200)}px;
 border-radius:12px;
-box-shadow: 2px 4px rgba(0, 0, 0, 0.25);
 align-items:center;
 justify-content:center;
 height:${normalize(50)}px;
@@ -77,6 +76,3 @@ bottom: ${normalize(50)}px;
 align-items:center;
 justify-content:center;
 `
-
-
-

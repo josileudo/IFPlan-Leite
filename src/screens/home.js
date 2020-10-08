@@ -38,7 +38,7 @@ export default function Home ({navigation}){
                 },
                 shadowOpacity: 0.25,
                 shadowRadius: 3.84,
-              elevation: 5
+                elevation: 5
               }}>
             <TextTouchable>
               Iniciar

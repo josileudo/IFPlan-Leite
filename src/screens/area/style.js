@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     borderRadius: normalize(10),
     fontSize: normalize (24),
     fontWeight: 'bold',
+    elevation: 5,
     padding: 5,
   }
 })

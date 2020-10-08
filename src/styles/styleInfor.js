@@ -89,21 +89,23 @@ background-color:#29BB9D;
 `
 export const BtnSalvar = styled.TouchableOpacity.attrs({
     activeOpacity: 0.6,
+    pressDelay: 0.8,
 })`
+align-items:center;
 top: ${normalize(20)}px;
 left:${normalize(100)}px;
 margin-bottom: ${normalize(20)}px;
 height: ${normalize(30)}px;
-background-color:#FFFF;
+background-color:#30D0AF;
 border-radius: 5px;
 width: ${normalize(100)}px;
 justify-content: center;
-box-shadow: 2px 4px rgba(0, 0, 0, 0.25);
+box-shadow: 6px 8px rgba(0, 0, 0, 0.25);
 `
 
 export const TextEnviar = styled.Text`
 font-size: ${normalize(20)}px;
 text-align: center;
 font-weight: bold;
-color:#29BB9D;
+color:white;
 `
