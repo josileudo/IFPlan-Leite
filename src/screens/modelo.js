@@ -255,7 +255,7 @@ export default class Menu extends Component {
       0.00000000767199 * Math.pow(prodDiaria, 2) +
       -0.24042 * producaoLeite +
       0.004937 * Math.pow(producaoLeite, 2);
-    var coe = this.currencyFormat(COE.toFixed(3));
+    var coe = this.currencyFormat(COE.toFixed(2));
 
     //Produção de leite (L/ha/ano)
     var prodLeiteAno = (prodDiaria * 365) / area;

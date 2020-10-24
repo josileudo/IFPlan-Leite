@@ -127,14 +127,14 @@ export default class Area extends Component {
                     <TextInputMask
                       type={'money'}
                       options={{
-                        precision: 1,
+                        precision: 0,
                         separator: ',',
                         delimiter: '.',
                         unit: '',
                         suffixUnit: '',
                       }}
                       style={styles.input}
-                      placeholder="0,00"
+                      placeholder="0"
                       value={this.state.numPiq}
                       placeholderTextColor="rgba(34, 159, 134, 0.32)"
                       onChangeText={(numPiquetes) => {
