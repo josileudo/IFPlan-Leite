@@ -34,7 +34,7 @@ export default class Menu extends Component {
     super(props);
     this.state = {
       dataClima: {},
-      dataArea: {},
+      dataArea: { numPiq: 0 },
       dataAnimal: {},
       dataEconomia: {},
       refreshing: true,
@@ -168,7 +168,7 @@ export default class Menu extends Component {
                     {this.state.refreshing ? (
                       <ShimmerPlaceHolder style={styles.txtValues} autoRun={true} />
                     ) : (
-                        <ValuesVar>{dataArea.numPiq || '0'}</ValuesVar>)}
+                        <ValuesVar>{dataArea.numPiq.toFixed(0) || '0'}</ValuesVar>)}
                   </CardValuesVar>
                 </CardTextValues>
               </CardValues>
@@ -321,7 +321,7 @@ export default class Menu extends Component {
                     {this.state.refreshing ? (
                       <ShimmerPlaceHolder style={styles.txtValues} autoRun={true} />
                     ) : (
-                        <TextVar>Status Nutricional</TextVar>)}
+                        <TextVar>Status Nutricional (unid)</TextVar>)}
                   </CardTextVar>
                   <CardValuesVar>
                     {this.state.refreshing ? (

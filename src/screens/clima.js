@@ -271,7 +271,7 @@ export default class Clima extends Component {
                       blurOnSubmit={false}></TextInputMask>
                   </CardInput>
                   <CardInput>
-                    <TextAnu>Status Nutricional</TextAnu>
+                    <TextAnu>Status Nutricional (unid)</TextAnu>
                     <TextInputMask
                       type={'money'}
                       options={{
