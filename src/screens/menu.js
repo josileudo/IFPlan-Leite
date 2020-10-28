@@ -321,7 +321,7 @@ export default class Menu extends Component {
                     {this.state.refreshing ? (
                       <ShimmerPlaceHolder style={styles.txtValues} autoRun={true} />
                     ) : (
-                        <TextVar>Status Nutricional (unid)</TextVar>)}
+                        <TextVar>Status Nutricional</TextVar>)}
                   </CardTextVar>
                   <CardValuesVar>
                     {this.state.refreshing ? (
