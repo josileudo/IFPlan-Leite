@@ -123,7 +123,6 @@ export default class Menu extends Component {
     const { dataArea } = this.state;
     const { dataEconomia } = this.state;
     const { dataClima } = this.state;
-    console.log(typeof dataArea.area)
     const { dataAnimal } = this.state;
     const btnEditar = 'Editar';
 
@@ -168,7 +167,7 @@ export default class Menu extends Component {
                     {this.state.refreshing ? (
                       <ShimmerPlaceHolder style={styles.txtValues} autoRun={true} />
                     ) : (
-                        <ValuesVar>{dataArea.numPiq.toFixed(0) || '0'}</ValuesVar>)}
+                        <ValuesVar>{dataArea.numPiq || '0'}</ValuesVar>)}
                   </CardValuesVar>
                 </CardTextValues>
               </CardValues>

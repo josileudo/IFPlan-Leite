@@ -336,11 +336,7 @@ export default class Menu extends Component {
         <BackgroundValues>
           <ScrollView alwaysBounceVertical={false}>
             <ClimaValues>
-              {this.state.refreshing ? (
-                <ShimmerPlaceHolder style={styles.txtTitle} autoRun={true} />
-              ) : (
-                  <ValueTitle>Solo-Água-Planta-Animal</ValueTitle>
-                )}
+              <ValueTitle>Solo-Água-Planta-Animal</ValueTitle>
               <CardValues>
                 <CardTextValues>
                   <CardTextVar>
@@ -498,11 +494,7 @@ export default class Menu extends Component {
               </CardValues>
             </ClimaValues>
             <AnimalValues>
-              {this.state.refreshing ? (
-                <ShimmerPlaceHolder style={styles.txtTitle} autoRun={true} />
-              ) : (
-                  <ValueTitle>Sistema-Custos-Resultado econômico</ValueTitle>
-                )}
+              <ValueTitle>Sistema-Custos-Resultado econômico</ValueTitle>
               <CardValues>
                 <CardTextValues>
                   <CardTextVar>
@@ -751,7 +743,7 @@ const styles = StyleSheet.create({
     top: normalize(10),
   },
   txtValues: {
-    borderRadius: normalize(8),
+    borderRadius: normalize(4),
     height: normalize(15),
   },
 });
