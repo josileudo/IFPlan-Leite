@@ -256,7 +256,7 @@ export default class Menu extends Component {
       -0.24042 * producaoLeite +
       0.004937 * Math.pow(producaoLeite, 2);
     console.log('=============', COE);
-    var coe = Number(this.currencyFormat(COE.toFixed(2)));
+    var coe = this.currencyFormat(COE, 2);
     //Produção de leite (L/ha/ano)
     var prodLeiteAno = (prodDiaria * 365) / area;
     var prodLeiAno = this.currencyFormat(prodLeiteAno, 0);
@@ -602,7 +602,7 @@ export default class Menu extends Component {
                         autoRun={true}
                       />
                     ) : (
-                        <ValuesVar>{coe.toFixed(2) || '0'}</ValuesVar>
+                        <ValuesVar>{coe || '0'}</ValuesVar>
                       )}
                   </CardValuesVar>
                 </CardTextValues>

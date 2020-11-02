@@ -135,10 +135,7 @@ export default class Menu extends Component {
             removeClippedSubviews={true}>
 
             <AreaValues style={{ elevation: 5 }}>
-              {this.state.refreshing ? (
-                <ShimmerPlaceHolder style={styles.txtTitle} autoRun={true} />
-              ) : (
-                  <ValueTitle>Área</ValueTitle>)}
+                <ValueTitle>Área</ValueTitle>
               <CardValues>
 
                 <CardTextValues>
@@ -182,10 +179,7 @@ export default class Menu extends Component {
               </CardBtnEditar>
             </AreaValues>
             <EconomiaValues>
-              {this.state.refreshing ? (
-                <ShimmerPlaceHolder style={styles.txtTitle} autoRun={true} />
-              ) : (
-                  <ValueTitle>Economia</ValueTitle>)}
+                <ValueTitle>Economia</ValueTitle>
               <CardValues>
                 <CardTextValues>
                   <CardTextVar>
@@ -241,10 +235,7 @@ export default class Menu extends Component {
               </CardBtnEditar>
             </EconomiaValues>
             <ClimaValues>
-              {this.state.refreshing ? (
-                <ShimmerPlaceHolder style={styles.txtTitle} autoRun={true} />
-              ) : (
-                  <ValueTitle>Clima e Solo</ValueTitle>)}
+              <ValueTitle>Clima e Solo</ValueTitle>
               <CardValues>
                 <CardTextValues>
                   <CardTextVar>
@@ -355,10 +346,7 @@ export default class Menu extends Component {
               </CardBtnEditar>
             </ClimaValues>
             <AnimalValues>
-              {this.state.refreshing ? (
-                <ShimmerPlaceHolder style={styles.txtTitle} autoRun={true} />
-              ) : (
-                  <ValueTitle>Animal</ValueTitle>)}
+              <ValueTitle>Animal</ValueTitle>
               <CardValues>
                 <CardTextValues>
                   <CardTextVar>
