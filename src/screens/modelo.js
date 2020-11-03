@@ -34,7 +34,7 @@ export default class Menu extends Component {
     };
   }
 
-  async parametros() {
+  async parameters() {
     const areaData = await AsyncStorage.getItem('Agua');
     this.setState({ refreshing: true });
 
@@ -87,12 +87,12 @@ export default class Menu extends Component {
   }
 
   async componentDidMount() {
-    this.parametros();
+    this.parameters();
   }
 
   onRefresh = () => {
     this.setState({ ...this.state, refreshing: true });
-    this.parametros().then(() => {
+    this.parameters().then(() => {
       this.setState({ refreshing: false });
     });
   };
@@ -163,17 +163,15 @@ export default class Menu extends Component {
     const taxaDepreciacao = this.convertValues(dataEconomia.taxDep) / 100;
 
     //CÁLCULOS
-    //ETo
-    const ETo =
-      ((24.211 * temperaturaMaxima - 635.46) / 30.4 +
-        (53.984 * velocidadeVento + 10.898) / 30.4) /
-      2;
+    //ETo (mm)
+    const ETo = (((24.211 * temperaturaMaxima - 635.46) / 30.4) +
+        ((53.984 * velocidadeVento + 10.898) / 30.4)) / 2;
 
-    //irrigação
+    //irrigação (mm)
     const irrigacao = ETo - precipitacao;
 
-    // Água aplicada
-    const aguaAplicada = precipitacao + irrigacao * 1.2;
+    // Água aplicada (mm)
+    const aguaAplicada = precipitacao + (irrigacao * 1.2);
 
     // COE Total
     const COETotal = COE * prodDiaria * 365;
@@ -187,9 +185,7 @@ export default class Menu extends Component {
       ((((48.6 - (0.0183 * pesoCorporal)) + (0.435 * producaoLeite)
         + (0.728 * teorGordura) + (3.46 * teorPB)) * 1.04) / 100) * consumo;
 
-
     const NDTdv = (0.00669 * pesoCorporal * (desloVertical / 1000)) * 0.43;
-
 
     //NDT DH=
     const NDTdh = (0.00048 * pesoCorporal * (desloHorizontal / 1000)) * 0.43;
@@ -198,15 +194,14 @@ export default class Menu extends Component {
     const NDTdeslocamento = NDTdh + NDTdv
 
     // Consumo total (Kg MS/dia)
-    const consTotal = consumo + (NDTdeslocamento / consumoNDT) * consumo;
+    const consTotal = consumo + ((NDTdeslocamento / consumoNDT) * consumo);
 
-    // Tensão da água no solo
-    const tenAguaSolo = 0.0368068 + -1.06252 / aguaAplicada;
-    const tenAguaSol = this.currencyFormat(tenAguaSolo.toFixed(3))
-    console.log('Tensão na água e no solo: ', tenAguaSol);
+    // Tensão da água no solo (bar)
+    const tenAguaSolo = 0.0368068 + (-1.06252 / aguaAplicada);
+    const tenAguaSol = this.currencyFormat(tenAguaSolo, 3)
 
-    // Depreciação
-    const depreciacao = investimento * (taxaDepreciacao / 365);
+    // Depreciação  (R$/L)
+    const depreciacao = (investimento * (taxaDepreciacao / 365));
 
     //ITU
     const ITU =
@@ -217,16 +212,15 @@ export default class Menu extends Component {
     var itu = this.currencyFormat(ITU, 1);
 
     // DPL
-    const DPL = -1.075 - 1.736 * producaoLeite + 0.02474 * producaoLeite * ITU;
+    const DPL = -1.075 - (1.736 * producaoLeite) + (0.02474 * producaoLeite * ITU);
     var dpl = this.currencyFormat(DPL, 1);
 
     //produção de forragem
     const prodForragem =
-      (1.36722 +
-        -0.284546 * tenAguaSolo +
-        -2.13514 * Math.pow(tenAguaSolo, 2)) *
+      (1.36722 + (-0.284546 * tenAguaSolo) +
+        (-2.13514 * Math.pow(tenAguaSolo, 2))) *
       doseN;
-    var prodForr = this.currencyFormat(prodForragem.toFixed(3));
+    var prodForr = this.currencyFormat(prodForragem, 3);
 
     //forragem Disponivel
     const forrDispnivel = ((prodForragem * 10000) * (area / numeroPiquetes)) * 0.2;
@@ -234,27 +228,23 @@ export default class Menu extends Component {
     //Suplementação (kg MS/dia)
     const suplementacao = producaoLeite / 2.5;
 
-    // Capacida de suporte
+    // Capacidade de suporte (animais)
     const capaSuporte = (forrDispnivel * 0.95) / (consTotal - suplementacao);
     var capaSup = this.currencyFormat(capaSuporte, 1);
-    console.log('Forragem disponivel: ', forrDispnivel)
-    console.log('Consumo tota: ', consTotal)
-    console.log('Suplementacao: ', suplementacao)
-    console.log('Capacidade de suporte = ', capaSuporte)
+  
     // DPL anual
-    const DPLAnual = DPL * capaSuporte * 365;
+    const DPLAnual = (DPL * capaSuporte) * 365;
 
     //produção diária
-    var prodDiaria = producaoLeite * (capaSuporte * (vacasLactação / 100));
+    var prodDiaria = ((producaoLeite) * (capaSuporte * (vacasLactação / 100)));
     var prodDia = this.currencyFormat(prodDiaria, 0);
 
-    // COE
+    // COE R$/L
     var COE =
-      4.52816 +
-      -0.000142 * prodDiaria +
-      0.00000000767199 * Math.pow(prodDiaria, 2) +
-      -0.24042 * producaoLeite +
-      0.004937 * Math.pow(producaoLeite, 2);
+      4.52816 + (-0.000142 * prodDiaria) +
+      (0.00000000767199 * Math.pow(prodDiaria, 2)) +
+      (-0.24042 * producaoLeite) +
+      (0.004937 * Math.pow(producaoLeite, 2));
     console.log('=============', COE);
     var coe = this.currencyFormat(COE, 2);
     //Produção de leite (L/ha/ano)
@@ -323,13 +313,6 @@ export default class Menu extends Component {
     //Receita por área
     var recArea = (receitaTotalMes * 12) / area;
     var receitaArea = this.currencyFormat(recArea, 2);
-
-    console.log(typeof tenAguaSol);
-    console.log('NDTdh, ', NDTdh)
-    console.log('NDTv', NDTdv)
-    console.log('NDTdeslocamento ', NDTdeslocamento)
-    console.log('Consumo, ', consumo)
-    console.log('consumo NDT', consumoNDT)
 
     return (
       <Background>
