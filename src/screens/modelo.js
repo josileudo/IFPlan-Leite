@@ -260,7 +260,7 @@ export default class Menu extends Component {
 
     //pegada hídrica
     const pegadaHidrica =
-      (aguaAplicada * 10000 * area + aguaUsos / 30.4) / prodDiaria;
+      (((aguaAplicada * 10000) * area) +(aguaUsos / 30.4)) / prodDiaria;
     var pegadaHid = this.currencyFormat(pegadaHidrica, 0);
 
     //Receita total (R$/ano)
@@ -281,16 +281,16 @@ export default class Menu extends Component {
 
     //preço do leite
     const precoLeite =
-      0.631922 * Math.pow(prodDiaria, 0.102383) +
+      (0.631922 * Math.pow(prodDiaria, 0.102383)) +
       (-0.0132 * Math.pow(teorGordura, 2) + 0.1384 * teorGordura - 0.3089);
 
     //Receita total (R$/mês)
-    const receitaTotalMes = prodDiaria * precoLeite * 30.4;
+    const receitaTotalMes = (prodDiaria * precoLeite) * 30.4;
 
-    //ML
+    //ML(R$/L)
     var ML = precoLeite - COT;
     var ml = this.currencyFormat(ML, 2);
-    console.log('preco do leite', precoLeite);
+
     //ML Anual
     const MLAnual = ML * prodDiaria * 365;
 
@@ -307,7 +307,7 @@ export default class Menu extends Component {
     var taxaLot = this.currencyFormat(taxaLotacao, 1);
 
     // TRCI
-    var TRCI = ((ML * 365) / investimento) * 100;
+    var TRCI = (ML * 365) / investimento * 100;
     var trci = this.currencyFormat(TRCI, 1);
 
     //Receita por área
